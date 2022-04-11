@@ -9,23 +9,23 @@ import Login from './components/Login/Login';
 import { checkUserAuth } from './redux/actions/userAC';
 
 const App = () => {
-  const dispatch = useDispatch();
+	const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (localStorage.getItem('token')) {
-      dispatch(checkUserAuth());
-    }
-  }, []);
+	useEffect(() => {
+		if (localStorage.getItem('token')) {
+			dispatch(checkUserAuth());
+		}
+	}, [dispatch]);
 
-  return (
-    <>
-      <Navbar />
-      <Routes>
-        <Route path="/auth/login" element={<Login />} />
-        <Route path="/auth/registration" element={<Registration />} />
-      </Routes>
-    </>
-  );
+	return (
+		<>
+			<Navbar />
+			<Routes>
+				<Route path="/auth/login" element={<Login />} />
+				<Route path="/auth/registration" element={<Registration />} />
+			</Routes>
+		</>
+	);
 };
 
 export default App;
