@@ -1,0 +1,34 @@
+.myMainContainer {
+	color: #FFFFFF;
+	border: 1px solid rgb(216, 216, 216);
+	height: 1000px;
+	margin-top: 50px;
+	margin-bottom: 75px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+
+.myTopContainer {
+	border: 1px solid rgb(104, 201, 0);
+	padding: 0;
+	display: flex;
+	justify-content: space-between;
+}
+
+.myTopLeftContainer {
+	border: 1px solid rgb(0, 126, 229);
+	display: flex;
+	flex-direction: column;
+}
+
+.myTopRightContainer {
+	border: 1px solid rgb(202, 0, 87);
+	display: flex;
+	flex-direction: column;
+}
+
+.myBottomContainer {
+	border: 1px solid rgb(201, 0, 0);
+}
