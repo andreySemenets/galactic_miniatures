@@ -7,6 +7,7 @@ import Navbar from './components/Navbar/Navbar';
 import Registration from './components/Registration/Registration';
 import Login from './components/Login/Login';
 import { checkUserAuth } from './redux/actions/userAC';
+import PrimaryAppBar from './components/PrimaryAppBar/PrimaryAppBar';
 
 const App = () => {
 	const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const App = () => {
 
 	return (
 		<>
+      <PrimaryAppBar />
 			<Navbar />
 			<Routes>
 				<Route path="/auth/login" element={<Login />} />
