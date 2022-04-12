@@ -10,7 +10,6 @@ import { regUser } from '../../redux/actions/userAC';
 
 const Copyright = (props) => {
 	return (
-		// eslint-disable-next-line react/jsx-props-no-spreading
 		<Typography variant="body2" color="text.secondary" align="center" {...props}>
 			{'Copyright © '}
 			<Link color="inherit" href="#">
@@ -34,7 +33,7 @@ const Registration = () => {
 		if (user.email) {
 			navigate('/');
 		}
-	}, [user.email]);
+	}, [user.email, navigate]);
 
 	const handleChange = (e) => {
 		setRegInput((prev) => ({ ...prev, [e.target.name]: e.target.value }));

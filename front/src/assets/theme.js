@@ -4,7 +4,7 @@ import {
 } from '@mui/material/colors';
 
 const primaryColor = '#141517';
-const secondaryColor = orange[500];
+const secondaryColor = '#0054FF';
 const dangerColor = red[900];
 const appBarBckgrColor = '#1E1F24';
 const appappBarColor = '#FFFFFF';
@@ -39,6 +39,13 @@ const theme = createTheme({
       styleOverrides: {
         input: {
           minWidth: 500,
+        }
+      }
+    },
+    MuiButton: {
+      styleOverrides: {
+        containedPrimary: {
+          background: secondaryColor,
         }
       }
     },
