@@ -8,6 +8,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import React from 'react'
 import styles from './style.module.css'
 import { Box } from '@mui/system';
+import CatalogCardItem from '../CatalogCardItem/CatalogCardItem';
 
 export default function ModelPage() {
 
@@ -19,7 +20,12 @@ export default function ModelPage() {
 
 	return (
 		<Container className={styles.myMainContainer} maxWidth="xl">
-			<Container className={styles.myTopContainer} maxWidth="xl" sx={{ marginBottom: "125px" }}>
+			<Box sx={{
+				width: "100%",
+				marginBottom: "125px",
+				display: 'flex',
+				justifyContent: 'space-between'
+			}}>
 				<Container>
 					<Box sx={{
 						width: '100%',
@@ -136,26 +142,11 @@ export default function ModelPage() {
 								You can buy a Digital version of this model. The priceis fixed, the ability to select options is not available.
 							</Typography>
 						</CardContent>
-						<Box sx={{
-							display: 'flex',
-							justifyContent: 'center',
-						}}>
-							<Button
-								riant="contained"
-								sx={{
-									maxWidth: "100%",
-									width: "534px",
-									height: "63px",
-									fontWeight: "700",
-									fontSize: "16",
-									color: "blue",
-									backgroundColor: "#FFFFFF",
-									marginBottom: "32px",
-								}}
-							>
-								Buy digital for 69.90 USD
-							</Button>
+
+						<Box sx={{ display: 'flex', justifyContent: 'center' }}>
+							<Button className={styles.modelPageBuyButton}> Buy digital for 69.90 USD </Button>
 						</Box>
+
 					</Card>
 
 
@@ -208,7 +199,11 @@ export default function ModelPage() {
 						</Select>
 					</FormControl>
 
-					<Typography> Quantity </Typography>
+					<Typography
+						sx={{
+							marginBottom: "15px"
+						}}
+					> Quantity </Typography>
 
 					<Box
 						component="div"
@@ -230,19 +225,13 @@ export default function ModelPage() {
 					</Box>
 
 					<Stack spacing={2} direction="row" container justifyContent="center">
-						<Button
-							size="large"
-							variant="contained"
-							sx={{
-								flexGrow: 1,
-								backgroundColor: "blue",
-							}}>ADD TO CART</Button>
-						<Button variant="outlined" sx={{ color: "blue" }} children={<FavoriteBorderSharpIcon sx={{ color: "blue" }} />}></Button>
+						<Button className={styles.modelPageAddToCartButton} size="large" variant="contained">ADD TO CART</Button>
+						<Button className={styles.modelPageAddToFavorite} children={<FavoriteBorderSharpIcon />}></Button>
 					</Stack>
 
 
 				</Box>
-			</Container>
+			</Box>
 			<Container maxWidth="xl">
 				<Typography
 					component="span"
@@ -253,30 +242,13 @@ export default function ModelPage() {
 					width: '100%',
 					display: 'flex',
 					justifyContent: 'space-between',
-					marginTop: "30px"
+					marginTop: "30px",
+					flexWrap: 'wrap',
 				}}>
-
-					<Box sx={{
-						width: 297,
-						height: 257,
-						backgroundColor: '#FFFFFF'
-					}}> </Box>
-					<Box sx={{
-						width: 297,
-						height: 257,
-						backgroundColor: '#FFFFFF'
-					}}> </Box>
-					<Box sx={{
-						width: 297,
-						height: 257,
-						backgroundColor: '#FFFFFF'
-					}}> </Box>
-					<Box sx={{
-						width: 297,
-						height: 257,
-						backgroundColor: '#FFFFFF'
-					}}> </Box>
-
+					<CatalogCardItem />
+					<CatalogCardItem />
+					<CatalogCardItem />
+					<CatalogCardItem />
 				</Box>
 			</Container>
 		</Container >
