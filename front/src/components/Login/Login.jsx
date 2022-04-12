@@ -33,7 +33,7 @@ const Login = () => {
 		if (user.email) {
 			navigate('/');
 		}
-	}, [user.email]);
+	}, [user.email, navigate]);
 
 	const handleChange = (e) => {
 		setLoginInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -54,10 +54,10 @@ const Login = () => {
 				sm={4}
 				md={7}
 				sx={{
-					backgroundImage: 'url(https://source.unsplash.com/random)',
+					backgroundImage: 'url(/lowpoly1.png)',
 					backgroundRepeat: 'no-repeat',
-					backgroundColor: (t) => (t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900]),
-					backgroundSize: 'cover',
+					backgroundColor: '#0054FF',
+					backgroundSize: 'contain',
 					backgroundPosition: 'center',
 				}}
 			/>
@@ -69,7 +69,6 @@ const Login = () => {
 						display: 'flex',
 						flexDirection: 'column',
 						alignItems: 'center',
-						// backgroundColor: 'red',
 					}}
 				>
 					<Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
