@@ -3,11 +3,11 @@ import {
 	purple, orange, red, yellow, green,
 } from '@mui/material/colors';
 
-const primaryColor = purple[600];
+const primaryColor = '#141517';
 const secondaryColor = orange[500];
 const dangerColor = red[900];
-const appBarBckgrColor = yellow.A200;
-const appappBarColor = green[800];
+const appBarBckgrColor = '#1E1F24';
+const appappBarColor = '#FFFFFF';
 
 const theme = createTheme({
 	palette: {
@@ -35,6 +35,20 @@ const theme = createTheme({
 				},
 			},
 		},
+    MuiInputBase: {
+      styleOverrides: {
+        input: {
+          minWidth: 500,
+        }
+      }
+    },
+    // MuiPaper: {
+    //   styleOverrides: {
+    //     elevation6: {
+    //       background: primaryColor,
+    //     }
+    //   }
+    // }
 	},
 });
 

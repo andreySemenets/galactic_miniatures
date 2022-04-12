@@ -12,6 +12,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
+  const subBar = ['Warhammer', 'Fantasy', 'Sci-Fi', 'Terrain', 'Space Marines', 'Astrates', 'Tech-Guys', 'Giga-Robots' ]
 
   const logout = () => {
     $api.post('/auth/logout').then((res) => {
@@ -25,30 +26,13 @@ const Navbar = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            News
-          </Typography>
-          {user.email
-            ? (
-              <>
-                <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: 'green' }}>
-                  Welcome
-                  {' '}
-                  {user.email}
-                </Typography>
-                <Button color="inherit" onClick={logout}>Log Out</Button>
-              </>
+          {subBar.map((el) => {
+            return (
+              <Typography key={el} variant="h6" component="div" sx={{ flexGrow: 1, fontSize: 14 }}>
+                {el}
+              </Typography>
             )
-            : <Button color="inherit" onClick={() => navigate('/auth/login')}>Login</Button>}
+          })}
         </Toolbar>
       </AppBar>
     </Box>

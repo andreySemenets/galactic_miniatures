@@ -9,7 +9,7 @@ module.exports.registerUser = async (req, res, next) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return next(ApiError.BadRequest('Error on filling email or password', errors.array()));
+      return next(ApiError.BadRequest('Wrong email or password', errors.array()));
     }
 
     const { name, email, password } = req.body;
