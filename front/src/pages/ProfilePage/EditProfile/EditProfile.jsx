@@ -1,5 +1,6 @@
 import React from 'react';
-import './UserProfile.css'
+import '../UserProfile.css'
+import './EditProfile.css'
 import {Link} from "react-router-dom";
 
 const EditProfile = () => {
@@ -27,7 +28,32 @@ const EditProfile = () => {
                             <div className='actionsItem'>Edit profile</div>
                         </div>
                         <div className="actionsItems">
-                            Форма Редактирования данных узера
+                            <form className='editItems'>
+                                <div className="labelInput">
+                                    <label htmlFor="firstName">First name</label>
+                                    <input className='editInput' type="text" id='firstName'/>
+                                </div>
+
+                                <div className="labelInput">
+                                    <label htmlFor="lastName">Last name</label>
+                                    <input className='editInput' type="text" id='lastName'/>
+
+                                </div>
+
+                                <div className="labelInput">
+                                    <label htmlFor="inputEmail">Your email</label>
+                                    <input className='editInput' type="email" id='inputEmail'/>
+
+                                </div>
+
+                                <div className="labelInput">
+                                    <label htmlFor="inputTel">Phone number</label>
+                                    <input className='editInput' type="tel" id='inputTel'/>
+                                </div>
+
+                                <button  className='buttonFlag saveProfile'>Save</button>
+
+                            </form>
                         </div>
                     </div>
                 </div>
