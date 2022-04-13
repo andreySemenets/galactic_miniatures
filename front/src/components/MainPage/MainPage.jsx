@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import styles from './MainPage.module.css'
 import CollectionGrid from '../CollectionGrid/CollectionGrid';
+import CatalogCardItem from '../CatalogCardItem/CatalogCardItem';
 
 const MainPage = () => {
   return (
@@ -55,7 +56,18 @@ const MainPage = () => {
       </Box>
       <Box className="2">
         <Box sx={{ m: '2rem 0 2rem', fontSize: 22, fontWeight: 'bold'  }}>Catalog</Box>
-        <Box></Box>
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center'}}>
+          <CatalogCardItem />
+          <CatalogCardItem />
+          <CatalogCardItem />
+          <CatalogCardItem />
+        </Box>
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center'}}>
+          <CatalogCardItem />
+          <CatalogCardItem />
+          <CatalogCardItem />
+          <CatalogCardItem />
+        </Box>
       </Box>
       </Box>
     </Box>

@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Button, Card, CardActions, CardMedia, Typography } from '@mui/material';
 import style from './style.module.css'
 
-function CatalogCardItem() {
+function CatalogCardItem({ title }) {
 	return (
 		<Box className={style.catalogCardItemContainer}>
 			<Card className={style.catalogCardItem}>
@@ -17,7 +17,7 @@ function CatalogCardItem() {
 					<Button size="small" className={style.catalogCardItemButton}>Space marines</Button>
 				</CardActions>
 			</Card >
-			<Typography> Low poly isometric building and house dioramas </Typography>
+			<Typography>{title}  {/*Low poly isometric building and house dioramas*/} </Typography>
 		</Box>
 	);
 };
