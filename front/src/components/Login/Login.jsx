@@ -2,7 +2,7 @@ import * as React from 'react';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import {
 	Avatar, Button, CssBaseline, TextField, Link, Paper, Box, Grid, Typography,
-} from '@mui/material/';
+} from '@mui/material/';  
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -54,7 +54,7 @@ const Login = () => {
 				sm={4}
 				md={7}
 				sx={{
-					backgroundImage: 'url(/lowpoly1.png)',
+					backgroundImage: 'url(/images/lowpoly1.png)',
 					backgroundRepeat: 'no-repeat',
 					backgroundColor: '#0054FF',
 					backgroundSize: 'contain',
@@ -74,7 +74,7 @@ const Login = () => {
 					<Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
 						<LockOutlinedIcon />
 					</Avatar>
-					<Typography component="h1" variant="h5">
+					<Typography component="h1" variant="h5" sx={{color: 'white'}}>
 						Log In
 					</Typography>
 					<Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>

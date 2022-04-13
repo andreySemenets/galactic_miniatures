@@ -1,13 +1,11 @@
 import { createTheme } from '@mui/material';
-import {
-	purple, orange, red, yellow, green,
-} from '@mui/material/colors';
+import { red } from '@mui/material/colors';
 
 const primaryColor = '#141517';
 const secondaryColor = '#0054FF';
 const dangerColor = red[900];
-const appBarBckgrColor = '#1E1F24';
-const appappBarColor = '#FFFFFF';
+const appBarBgColor = '#1E1F24';
+const appBarColor = '#FFFFFF';
 
 const theme = createTheme({
 	palette: {
@@ -25,9 +23,8 @@ const theme = createTheme({
 		MuiAppBar: {
 			styleOverrides: {
 				colorPrimary: {
-					background: appBarBckgrColor,
-					color: appappBarColor,
-
+					background: appBarBgColor,
+					color: appBarColor,
 				},
 				colorSecondary: {
 					background: dangerColor,
@@ -35,13 +32,6 @@ const theme = createTheme({
 				},
 			},
 		},
-    MuiInputBase: {
-      styleOverrides: {
-        input: {
-          minWidth: 500,
-        }
-      }
-    },
     MuiButton: {
       styleOverrides: {
         containedPrimary: {
@@ -49,10 +39,17 @@ const theme = createTheme({
         }
       }
     },
-    // MuiPaper: {
+    MuiPaper: {
+      styleOverrides: {
+        elevation6: {
+          background: primaryColor,
+        }
+      }
+    },
+    // MuiInputBase: {
     //   styleOverrides: {
-    //     elevation6: {
-    //       background: primaryColor,
+    //     input: {
+    //       borderColor: 'white'
     //     }
     //   }
     // }
