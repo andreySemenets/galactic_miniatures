@@ -98,7 +98,7 @@ export default function PrimaryAppBar() {
         });
 
       case 'My account':
-        return navigate('#')
+        return navigate('/profile')
 
       default:
         return null;
