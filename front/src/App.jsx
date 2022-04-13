@@ -12,7 +12,7 @@ import ModelPage from './components/ModelPage/ModelPage';
 import UserProfile from "./pages/ProfilePage/UserProfile";
 import CreatorProfile from "./pages/ProfilePage/CreatorProfile";
 import MakerProfile from "./pages/ProfilePage/MakerProfile";
-import EditProfile from "./pages/ProfilePage/EditProfile";
+import EditProfile from "./pages/ProfilePage/EditProfile/EditProfile";
 import MainPage from './components/MainPage/MainPage';
 import EditListing from './components/EditListing/EditListing';
 

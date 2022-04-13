@@ -10,7 +10,7 @@ const UserProfile = () => {
                 <div className="profileContent">
                     <div className="profileInfo">
                         <div className="avatar">
-                            <p>Аватар</p>
+                            <p>User</p>
                         </div>
                         <div className='profileName'>User name</div>
                         <div className='profileEmail'>email</div>
