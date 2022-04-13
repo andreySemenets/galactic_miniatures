@@ -21,11 +21,12 @@ import $api from '../../http';
 import { SET_USER } from '../../redux/actions/action.types';
 
 const Search = styled('div')(({ theme }) => ({
+  minWidth: 500,
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  backgroundColor: alpha(theme.palette.common.white, 0.1),
   '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
+    backgroundColor: alpha(theme.palette.common.black, 0.90),
   },
   marginRight: theme.spacing(2),
   marginLeft: 0,
@@ -157,8 +158,8 @@ export default function PrimaryAppBar() {
     >
       <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-          <ShoppingCartOutlinedIcon />
+          <Badge badgeContent={1} color="error">
+            <ShoppingCartOutlinedIcon />
           </Badge>
         </IconButton>
         <p>Cart</p>
@@ -169,7 +170,7 @@ export default function PrimaryAppBar() {
           aria-label="show 17 new notifications"
           color="inherit"
         >
-          <Badge badgeContent={17} color="error">
+          <Badge badgeContent={99} color="error">
             <FavoriteBorderOutlinedIcon />
           </Badge>
         </IconButton>

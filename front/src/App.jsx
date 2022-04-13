@@ -8,12 +8,12 @@ import Login from './components/Login/Login';
 import { checkUserAuth } from './redux/actions/userAC';
 import PrimaryAppBar from './components/PrimaryAppBar/PrimaryAppBar';
 import ModelPage from './components/ModelPage/ModelPage';
+
 import UserProfile from "./pages/ProfilePage/UserProfile";
 import CreatorProfile from "./pages/ProfilePage/CreatorProfile";
 import MakerProfile from "./pages/ProfilePage/MakerProfile";
 import EditProfile from "./pages/ProfilePage/EditProfile";
-
-
+import MainPage from './components/MainPage/MainPage';
 
 const App = () => {
 	const dispatch = useDispatch();
@@ -29,6 +29,7 @@ const App = () => {
       <PrimaryAppBar />
 			<Navbar />
 			<Routes>
+        <Route path='/' element={<MainPage />} />
 				<Route path="/auth/login" element={<Login />} />
 				<Route path="/auth/registration" element={<Registration />} />
 				<Route path="/profile" element={<UserProfile />} />

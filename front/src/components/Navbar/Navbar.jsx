@@ -1,5 +1,6 @@
 import React from 'react';
-import { AppBar, Box, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, Toolbar } from '@mui/material';
+import DropdownNav from '../DropdownNav/DropdownNav';
 
 const Navbar = () => {
   const subBar = ['Warhammer', 'Fantasy', 'Sci-Fi', 'Terrain', 'Space Marines', 'Astrates', 'Tech-Guys', 'Giga-Robots' ]
@@ -7,13 +8,15 @@ const Navbar = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar sx={{ paddingLeft: '30px'}}>
           {subBar.map((el) => {
             return (
-              <Typography key={el} variant="h6" component="div" sx={{ flexGrow: 1, fontSize: 14 }}>
-                {el}
-              </Typography>
-            )
+              <DropdownNav
+                key={el}
+                category={el}
+                variant="h6"
+              />
+              )
           })}
         </Toolbar>
       </AppBar>
