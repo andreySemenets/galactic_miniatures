@@ -39,13 +39,13 @@ const theme = createTheme({
         }
       }
     },
-    MuiPaper: {
-      styleOverrides: {
-        elevation6: {
-          background: primaryColor,
-        }
-      }
-    },
+    // MuiPaper: {
+    //   styleOverrides: {
+    //     elevation6: {
+    //       background: primaryColor,
+    //     }
+    //   }
+    // },
     // MuiInputBase: {
     //   styleOverrides: {
     //     input: {

@@ -2,7 +2,7 @@ import * as React from 'react';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import {
 	Avatar, Button, CssBaseline, TextField, Link, Paper, Box, Grid, Typography,
-} from '@mui/material/';  
+} from '@mui/material/';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -74,7 +74,7 @@ const Login = () => {
 					<Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
 						<LockOutlinedIcon />
 					</Avatar>
-					<Typography component="h1" variant="h5" sx={{color: 'white'}}>
+					<Typography component="h1" variant="h5">
 						Log In
 					</Typography>
 					<Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
