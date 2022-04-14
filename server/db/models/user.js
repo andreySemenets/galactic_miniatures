@@ -22,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING,
+    avatarUrl: DataTypes.STRING,
     isAdmin: DataTypes.BOOLEAN,
     isMaker: DataTypes.BOOLEAN,
     isCreator: DataTypes.BOOLEAN,
