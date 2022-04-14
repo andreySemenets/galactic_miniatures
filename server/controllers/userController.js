@@ -12,9 +12,11 @@ module.exports.registerUser = async (req, res, next) => {
       return next(ApiError.BadRequest('Wrong email or password', errors.array()));
     }
 
-    const { name, email, password } = req.body;
-    const userData = await register(name, email, password, next);
-
+    const {
+      firstName, lastName, email, password,
+    } = req.body;
+    const userData = await register(firstName, lastName, email, password, next);
+    console.log(userData);
     res
       .cookie('refreshToken', userData.refreshToken, { maxAge: 1000 * 60 * 60 * 24 * 30, httpOnly: true })
       .json(userData);
