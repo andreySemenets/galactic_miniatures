@@ -127,14 +127,14 @@ export default function PrimaryAppBar() {
       onClose={handleMenuClose}
     >
       {user.email
-        ? <>
+        ? <div>
             <MenuItem onClick={handleMenuClose}>My account</MenuItem>
             <MenuItem onClick={handleMenuClose}>Log Out</MenuItem>
-          </>
-        : <>
+          </div>
+        : <div>
             <MenuItem onClick={handleMenuClose}>Log In</MenuItem>
             <MenuItem onClick={handleMenuClose}>Sign Up</MenuItem>
-          </>
+          </div>
         }
     </Menu>
   );

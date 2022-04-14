@@ -1,27 +1,27 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Users', {
+    await queryInterface.createTable('PhysicalCopies', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      name: {
+      itemId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Items',
+          key: 'id',
+        },
+      },
+      color: {
         type: Sequelize.STRING,
       },
-      email: {
-        type: Sequelize.STRING,
+      scale: {
+        type: Sequelize.INTEGER,
       },
-      password: {
-        type: Sequelize.STRING,
-      },
-      isActivated: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
-      },
-      activationLink: {
-        type: Sequelize.STRING,
+      price: {
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,
@@ -34,6 +34,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Users');
+    await queryInterface.dropTable('PhysicalCopies');
   },
 };
