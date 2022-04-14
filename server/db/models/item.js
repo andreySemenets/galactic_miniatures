@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
     subCategoryId: DataTypes.INTEGER,
     collectionId: DataTypes.INTEGER,
     itemTitle: DataTypes.STRING,
-    digitalPrice: DataTypes.INTEGER,
+    digitalPrice: DataTypes.FLOAT,
     isApproved: DataTypes.BOOLEAN,
     description: DataTypes.TEXT,
   }, {
