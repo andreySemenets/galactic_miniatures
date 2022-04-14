@@ -15,6 +15,7 @@ import MakerProfile from "./pages/ProfilePage/MakerProfile";
 import EditProfile from "./pages/ProfilePage/EditProfile/EditProfile";
 import MainPage from './components/MainPage/MainPage';
 import EditListing from './components/EditListing/EditListing';
+import Reg from './components/Reg/Reg';
 
 const App = () => {
 	const dispatch = useDispatch();
@@ -32,7 +33,8 @@ const App = () => {
 			<Routes>
 				<Route path='/' element={<MainPage />} />
 				<Route path="/auth/login" element={<Login />} />
-				<Route path="/auth/registration" element={<Registration />} />
+				{/* <Route path="/auth/registration" element={<Registration />} /> */}
+        <Route path="/auth/registration" element={<Reg />} />
 				<Route path="/profile" element={<UserProfile />} />
 				<Route path="/profile/creator" element={<CreatorProfile />} />
 				<Route path="/profile/maker" element={<MakerProfile />} />

@@ -7,7 +7,6 @@ const {
 	generateTokens, saveToken, removeToken, validateRefreshToken, findToken,
 } = require('./tokenService');
 
-<<<<<<< HEAD
 module.exports.register = async (firstName, lastName, email, password, next) => {
   try {
     const candidate = await User.findOne({ where: { email } });
@@ -24,24 +23,6 @@ module.exports.register = async (firstName, lastName, email, password, next) => 
       console.log(userDto);
       const tokens = generateTokens({ ...userDto });
       await saveToken(userDto.id, tokens.refreshToken);
-=======
-module.exports.register = async (name, email, password, next) => {
-	try {
-		const candidate = await User.findOne({ where: { email } });
-
-		if (candidate) {
-			throw ApiError.BadRequest(`User with email ${email} already exists`);
-		} else {
-			const hashPassword = await bcrypt.hash(password, 10);
-			const user = await User.create({
-				name, email, password: hashPassword,
-			});
-
-			const userDto = new UserDto(user);
-
-			const tokens = generateTokens({ ...userDto });
-			await saveToken(userDto.id, tokens.refreshToken);
->>>>>>> master
 
 			return { ...tokens, user: userDto };
 		}
