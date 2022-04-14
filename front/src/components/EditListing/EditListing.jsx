@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
 	Box,
 	Container,
@@ -7,7 +7,6 @@ import {
 	Button,
 	Select,
 	MenuItem,
-	FormControl
 } from '@mui/material';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
@@ -16,9 +15,24 @@ import style from './style.module.css';
 
 function EditListing() {
 
+	const [cat1, setCat1] = useState('');
+	const handleChangeCat1 = (event) => {
+		setCat1(event.target.value);
+	};
+
+	const [cat2, setCat2] = useState('');
+	const handleChangeCat2 = (event) => {
+		setCat2(event.target.value);
+	};
+
+	const [cat3, setCat3] = useState('');
+	const handleChangeCat3 = (event) => {
+		setCat3(event.target.value);
+	};
+
 	return (
 		<Container className={style.editListingMainContainer}>
-			<FormControl className={style.editListingForm}>
+			<form className={style.editListingForm}>
 				<Typography className={style.editListingMainTitle}>Edit Listing</Typography>
 
 				<Box className={style.editListingContentContainer}>
@@ -59,7 +73,7 @@ function EditListing() {
 							placeholder="Please upload file pack without supports"
 							variant="outlined"
 							size="small"
-							sx={{ width: "330px", height: "inherit" }} ></TextField>
+							sx={{ width: "330px", height: "inherit" }} />
 						<Button
 							variant="contained"
 							component="label"
@@ -73,13 +87,14 @@ function EditListing() {
 						</Button>
 					</Box>
 
-					{/* DELETE FILE */}
+
+
+
 					<Box className={style.editListingInputAndButton}>
 						<TextField
 							variant="outlined"
 							size="small"
-							sx={{ width: "330px", height: "inherit" }} >
-						</TextField>
+							sx={{ width: "330px", height: "inherit" }} />
 						<Button
 							variant="contained"
 							component="label"
@@ -90,19 +105,17 @@ function EditListing() {
 					</Box>
 
 					<Typography className={style.editListingCommonTitle}>Price for digital files</Typography>
-
-					<TextField
-						size="small"
-						className={style.editListingCommonInput} />
+					<TextField size="small" className={style.editListingCommonInput} />
 
 					<Typography className={style.editListingSecondaryTitle}>Listing Details</Typography>
 
 					<Typography className={style.editListingCommonTitle}>Title</Typography>
 					<TextField size="small" className={style.editListingCommonInput} />
 
-					<Typography className={style.editListingCommonTitle}>Category 1</Typography>
 
-					<Select size="small" className={style.editListingScaleSelect}>
+
+					<Typography className={style.editListingCommonTitle}>Category 1</Typography>
+					<Select size="small" className={style.editListingScaleSelect} value={cat1} onChange={handleChangeCat1}>
 						<MenuItem value={'Warhammer'}>Warhammer</MenuItem>
 						<MenuItem value={'Fantasy'}>Fantasy</MenuItem>
 						<MenuItem value={'Sci-fi'}>Sci-fi</MenuItem>
@@ -114,16 +127,15 @@ function EditListing() {
 					</Select>
 
 					<Typography className={style.editListingCommonTitle}>Category 2</Typography>
-					<Select size="small" className={style.editListingScaleSelect}>
+					<Select size="small" name="select2" className={style.editListingScaleSelect} value={cat2} onChange={handleChangeCat2}>
 						<MenuItem value={'Vehicles'}>Vehicles</MenuItem>
 						<MenuItem value={'Characters'}>Characters</MenuItem>
 						<MenuItem value={'Locations'}>Locations</MenuItem>
 						<MenuItem value={'Weapons'}>Weapons</MenuItem>
 					</Select>
 
-
 					<Typography className={style.editListingCommonTitle}>Description</Typography>
-					<TextField multiline="true" rows={5} className={style.editListingDescription} />
+					<TextField multiline rows={5} className={style.editListingDescription} />
 
 					<Typography className={style.editListingCommonTitle}>Tags</Typography>
 
@@ -131,8 +143,8 @@ function EditListing() {
 						<TextField
 							variant="outlined"
 							size="small"
-							sx={{ width: "330px", height: "inherit" }} >
-						</TextField>
+							sx={{ width: "330px", height: "inherit" }} />
+
 						<Button
 							variant="contained"
 							component="label"
@@ -146,7 +158,7 @@ function EditListing() {
 					<Button variant="contained" disabled className={style.editListingVariationsBtn}>Edit variations</Button>
 
 					<Typography className={style.editListingCommonTitle}>Scale</Typography>
-					<Select size="small" className={style.editListingScaleSelect}>
+					<Select size="small" className={style.editListingScaleSelect} value={cat3} onChange={handleChangeCat3}>
 						<MenuItem value={15}>15mm - 2.99$</MenuItem>
 						<MenuItem value={28}>28mm - 3.99$</MenuItem>
 						<MenuItem value={32}>32mm - 4.99$</MenuItem>
@@ -158,7 +170,7 @@ function EditListing() {
 					</Box>
 
 				</Box>
-			</FormControl>
+			</form>
 		</Container >
 	)
 }
