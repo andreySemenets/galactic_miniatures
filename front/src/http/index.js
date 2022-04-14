@@ -12,7 +12,6 @@ $api.interceptors.request.use((config) => {
 	return config;
 });
 
-<<<<<<< HEAD
 $api.interceptors.response.use((config) => {
   return config;
 },async (error) => {
@@ -29,7 +28,5 @@ $api.interceptors.response.use((config) => {
   }
   throw error;
 })
-=======
->>>>>>> master
 
 export default $api;
