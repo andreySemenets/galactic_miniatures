@@ -1,0 +1,37 @@
+.editInput {
+    width: 326px;
+    height: 48px;
+    border: 1px solid #2C2C34;
+    border-radius: 8px;
+    background: #1E1F24;
+}
+
+.labelInput {
+    margin-top: 30px;
+    /*width: 356px;*/
+    display: flex;
+    flex-direction: column;
+}
+
+.editItems {
+    display: grid;
+    grid-template-columns: 360px 360px;
+}
+
+.labelInput label {
+    margin-bottom: 8px;
+}
+
+.labelInput input {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #959EAD;
+    padding-left: 14px;
+}
+
+.saveProfile {
+    width: 128px;
+    margin-top: 30px;
+}

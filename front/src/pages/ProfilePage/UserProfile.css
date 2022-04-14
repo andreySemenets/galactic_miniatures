@@ -135,8 +135,10 @@
 }
 
 .actionsNavigations {
+    width: 876px;
     margin-top: 40px;
     display: flex;
+
 }
 
 .actionsItem {
@@ -152,4 +154,9 @@
 
 .actionsItem:hover {
     opacity: 0.3;
+}
+
+.addListing {
+    justify-content: space-between;
+    align-items: center;
 }

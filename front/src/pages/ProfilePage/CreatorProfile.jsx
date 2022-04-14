@@ -23,8 +23,9 @@ const CreatorProfile = () => {
                     </div>
 
                     <div className="profileActions">
-                        <div className="actionsNavigations">
-                            <div className='actionsItem' >My Listing</div>
+                        <div className="actionsNavigations addListing">
+                            <div className='actionsItem'>My Listing</div>
+                            <Link to='/profile/listing'><button className='buttonFlag'>+ Add Listing</button></Link>
                         </div>
                         <div className="actionsItems">
                             Render Listing

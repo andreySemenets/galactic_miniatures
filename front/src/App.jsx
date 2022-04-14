@@ -12,8 +12,9 @@ import ModelPage from './components/ModelPage/ModelPage';
 import UserProfile from "./pages/ProfilePage/UserProfile";
 import CreatorProfile from "./pages/ProfilePage/CreatorProfile";
 import MakerProfile from "./pages/ProfilePage/MakerProfile";
-import EditProfile from "./pages/ProfilePage/EditProfile";
+import EditProfile from "./pages/ProfilePage/EditProfile/EditProfile";
 import MainPage from './components/MainPage/MainPage';
+import EditListing from './components/EditListing/EditListing';
 
 const App = () => {
 	const dispatch = useDispatch();
@@ -26,10 +27,10 @@ const App = () => {
 
 	return (
 		<>
-      <PrimaryAppBar />
+			<PrimaryAppBar />
 			<Navbar />
 			<Routes>
-        <Route path='/' element={<MainPage />} />
+				<Route path='/' element={<MainPage />} />
 				<Route path="/auth/login" element={<Login />} />
 				<Route path="/auth/registration" element={<Registration />} />
 				<Route path="/profile" element={<UserProfile />} />
@@ -38,6 +39,7 @@ const App = () => {
 				<Route path="/profile/edit" element={<EditProfile />} />
 				{/* TODO: ПОТОМ ПЕРЕДЕЛАТЬ НА ПАРАМС ЗАПРОС!!! */}
 				<Route path="/models" element={<ModelPage />} />
+				<Route path="/models/edit" element={<EditListing />} />
 			</Routes>
 		</>
 	);
