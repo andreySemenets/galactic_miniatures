@@ -2,8 +2,14 @@ import React from 'react';
 import '../UserProfile.css'
 import './EditProfile.css'
 import {Link} from "react-router-dom";
+import {useSelector} from "react-redux";
+
 
 const EditProfile = () => {
+    const userData = useSelector(store => store.user)
+
+    console.log('UserDATA 10str:', userData)
+
     return (
         <>
             <div className="profileContainer">
@@ -13,8 +19,8 @@ const EditProfile = () => {
                         <div className="avatar">
                             <p>User</p>
                         </div>
-                        <div className='profileName'>User name</div>
-                        <div className='profileEmail'>email</div>
+                        <div className='profileName'>{userData.name}</div>
+                        <div className='profileEmail'>{userData.email}</div>
                         <div className="profileButton">
                             <Link to='/profile/edit'><button className='buttonEdit'>Edit profile</button></Link>
                             <Link  to="/profile/maker"><button className='buttonFlag'>Maker profile</button></Link>
@@ -42,7 +48,7 @@ const EditProfile = () => {
 
                                 <div className="labelInput">
                                     <label htmlFor="inputEmail">Your email</label>
-                                    <input className='editInput' type="email" id='inputEmail'/>
+                                    <input className='editInput' type="email" id='inputEmail' value={userData.email}/>
 
                                 </div>
 
