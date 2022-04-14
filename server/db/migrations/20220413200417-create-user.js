@@ -17,6 +17,9 @@ module.exports = {
       password: {
         type: Sequelize.STRING,
       },
+      avatarUrl: {
+        type: Sequelize.STRING,
+      },
       isAdmin: {
         type: Sequelize.BOOLEAN,
         default: false,
