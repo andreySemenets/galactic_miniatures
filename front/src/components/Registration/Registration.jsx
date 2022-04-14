@@ -68,12 +68,24 @@ const Registration = () => {
 							<TextField
 								required
 								fullWidth
-								id="name"
-								label="Full Name"
-								name="name"
-								autoComplete="name"
+								id="firstName"
+								label="First Name"
+								name="firstName"
+								autoComplete="First Name"
 								onChange={handleChange}
-								value={regInput.name ?? ''}
+								value={regInput.firstName ?? ''}
+							/>
+						</Grid>
+						<Grid item xs={12}>
+							<TextField
+								required
+								fullWidth
+								id="lastName"
+								label="Last Name"
+								name="lastName"
+								autoComplete="lastName"
+								onChange={handleChange}
+								value={regInput.lastName ?? ''}
 							/>
 						</Grid>
 						<Grid item xs={12}>

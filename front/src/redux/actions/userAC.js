@@ -56,6 +56,6 @@ export const checkUserAuth = () => async (dispatch) => {
     localStorage.setItem('token', res.data.accessToken);
     dispatch(setUser(res.data.user));
   } catch (err) {
-    console.log(err);
+    console.log('userAC refresh catch err',err);
   }
 };

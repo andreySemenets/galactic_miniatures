@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     itemId: DataTypes.INTEGER,
     color: DataTypes.STRING,
     scale: DataTypes.INTEGER,
-    price: DataTypes.INTEGER,
+    price: DataTypes.FLOAT,
   }, {
     sequelize,
     modelName: 'PhysicalCopy',
