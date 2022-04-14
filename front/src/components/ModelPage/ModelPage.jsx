@@ -224,7 +224,7 @@ export default function ModelPage() {
 
 					</Box>
 
-					<Stack spacing={2} direction="row" container justifyContent="center">
+					<Stack spacing={2} direction="row" container="true" justifyContent="center">
 						<Button className={styles.modelPageAddToCartButton} size="large" variant="contained">ADD TO CART</Button>
 						<Button className={styles.modelPageAddToFavorite} children={<FavoriteBorderSharpIcon />}></Button>
 					</Stack>
