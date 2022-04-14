@@ -12,14 +12,20 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.hasMany(models.Token, { foreignKey: 'userId' });
+      this.hasMany(models.Item, { foreignKey: 'userId' });
+      this.hasMany(models.WishList, { foreignKey: 'userId' });
+      this.hasMany(models.Download, { foreignKey: 'userId' });
+      this.hasMany(models.ShoppingCart, { foreignKey: 'userId' });
     }
   }
   User.init({
     name: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING,
+    isAdmin: DataTypes.BOOLEAN,
+    isMaker: DataTypes.BOOLEAN,
+    isCreator: DataTypes.BOOLEAN,
     isActivated: DataTypes.BOOLEAN,
-    activationLink: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'User',
