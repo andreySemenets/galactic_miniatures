@@ -10,7 +10,6 @@ const errorMiddleware = require('./middlewares/errorMiddleware');
 const app = express();
 const { PORT } = process.env;
 
-
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(cookieParser());
