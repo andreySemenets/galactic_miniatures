@@ -7,43 +7,86 @@ import {
 	Button,
 	Select,
 	MenuItem,
-	Dialog,
+	Stack,
 } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import AddIcon from '@mui/icons-material/Add';
 import style from './style.module.css';
 import TagComponent from '../TagComponent/TagComponent';
+import axios from 'axios';
 
 function EditListing() {
 
+	// INPUTS & FORMDATA
 	const [inputs, setInputs] = useState({});
-	const [formData, setFormData] = useState([]);
+	const [form, setForm] = useState({});
+	console.log('form >>>', form);
+
+
+	// TAGS
 	const [tags, setTags] = useState([]);
+	// UPLOAD PHOTOS
+	const [photos, setPhotos] = useState([]);
+
+	// UPLOAD ARCHIVE
+	const [zipInput, setZipInput] = useState(null);
+	const [zip, setZip] = useState({});
+	// console.log('photos>>>', photos[0].photoFile);
+
+	const photosHandler = (event) => {
+		setPhotos((prev) => ([...prev, { photoFile: event.target.files[0] }]))
+	};
+
+	const zipHandler = (event) => {
+		setZip(() => (event.target.files[0] ?? {}))
+		setZipInput(event.target.files[0].name ?? '')
+	};
+
+	const InputFile = styled('input')({
+		display: 'none',
+	});
 
 	const tagsHandler = () => {
 		setTags((prev) => ([...prev, { id: Date.now(), tagTitle: inputs.tags }]));
-	}
+	};
 
 	const updateHandler = (event) => {
+
 		event.preventDefault();
 
-		const formData = {
-			id: Date.now(),
-			title: inputs.title,
-			price: inputs.priceForDigital,
-			category1: inputs.category1,
-			category2: inputs.category2,
-			description: inputs.description,
-			tags: tags.map((tag) => tag.tagTitle),
-			scale: inputs.scale
-		}
+		const formData = new FormData()
 
-		setFormData((prev) => ([...prev, formData]))
+		formData.append('title', inputs.title);
+		formData.append('price', `${inputs.priceForDigital}`);
+		formData.append('category1', inputs.category1);
+		formData.append('category2', inputs.category2);
+		formData.append('description', inputs.description);
+		formData.append('scale', inputs.scale);
+		tags.forEach(tag => formData.append('tags', tag.tagTitle))
+		formData.append('zip', zip);
+		formData.append('photos', photos[0].photoFile);
+		// photos.forEach(photo => formData.append('photos', photo))
+
+		axios.post('http://localhost:4000/items/new', formData, {
+			withCredentials: true,
+			headers: {
+				"Content-Type": "multipart/form-data",
+			},
+		})
+			.then((res) => {
+				console.log('RESPONSE FROM SERVER >>>', res);
+			})
+
+		setForm(formData);
 		setInputs({});
 		setTags([]);
+		setPhotos([]);
+		setZip({});
+		setZipInput({});
 	};
-	console.log('formDATA >>>', formData);
+
 
 	const inputsHandler = (event) => {
 		setInputs((prev) => ({ ...prev, [event.target.name]: event.target.value }));
@@ -51,25 +94,19 @@ function EditListing() {
 
 	return (
 		<Container className={style.editListingMainContainer}>
+
 			<Box component="form" noValidate className={style.editListingForm}
-				onSubmit={updateHandler}>
+				onSubmit={updateHandler} encType="multipart/form-data">
 				<Typography className={style.editListingMainTitle}>Edit Listing</Typography>
 
 				<Box className={style.editListingContentContainer}>
 
+					{/* UPLOAD PHOTO */}
 					<Typography className={style.editListingSecondaryTitle}>Photos</Typography>
 
-					{/* UPLOAD PHOTO */}
-					<Box className={style.editListingUploadFotoContainer}>
+					{/* UPLOADED MINIATURES BOX */}
+					<Stack direction="row" alignItems="center" spacing={2}>
 						<Box className={style.editListingUploadFotoMiniature}>
-
-							{/* 
-							<Input accept="image/*" id="contained-button-file" multiple type="file" />
-							<Button variant="contained" component="span">
-								Upload
-							</Button> */}
-
-							{/* ХАРДКОД ДЛЯ НАГЛЯДНОСТИ */}
 							<img
 								style={{ width: "150px", height: "105px" }}
 								src="https://images.unsplash.com/photo-1567306301408-9b74779a11af?w=164&h=164&fit=crop&auto=format"
@@ -78,41 +115,56 @@ function EditListing() {
 							/>
 						</Box>
 
-						<Box className={style.editListingUploadFotoBox}></Box>
+						{/* UPLOAD PHOTO BUTTON */}
+						<Box className={style.editListingUploadFotoBox}>
 
-					</Box>
+							<label htmlFor="contained-button-file">
+								<InputFile accept="image/*" id="contained-button-file" multiple type="file"
+									name="photo" onChange={photosHandler} />
+								<Button variant="contained" component="span">Upload</Button>
+							</label>
 
-					<Typography className={style.editListingSecondaryTitle}>Files</Typography>
+						</Box>
+					</Stack>
 
 					{/* UPLOAD ZIP */}
+					<Typography className={style.editListingSecondaryTitle}>Files</Typography>
+
 					<Box className={style.editListingInputAndButton}>
+
 						<TextField
 							placeholder="Please upload file pack without supports"
 							disabled
 							size="small"
 							sx={{ width: "330px", height: "inherit" }} />
-						<Button
-							variant="contained"
-							component="label"
-							sx={{ height: "inherit" }}>
-							<FileDownloadIcon />
-							Select File
-							<input
-								type="file"
-								hidden
-							/>
-						</Button>
+
+						{/* <label htmlFor="contained-button-file">
+							<InputFile accept="image/*" id="contained-button-file" multiple type="file"
+								name="file" onChange={zipHandler} />
+							<Button variant="contained" component="span">
+								<FileDownloadIcon />
+								Select File</Button>
+						</label> */}
+
+						<label htmlFor="contained-button-file">
+							<input multiple type="file" name="file"
+								onChange={zipHandler} onClick={(e) => console.log(e.target)} />
+							{/* <Button variant="contained" component="span" sx={{ height: "inherit" }} >
+								<FileDownloadIcon />
+								Select File
+							</Button> */}
+						</label>
+
 					</Box>
 
 					<Box className={style.editListingInputAndButton}>
-						<TextField
-							disabled
-							size="small"
-							sx={{ width: "330px", height: "inherit" }} />
-						<Button
-							variant="contained"
-							component="label"
-							sx={{ height: "inherit" }}>
+						<TextField disabled size="small"
+							sx={{ width: "330px", height: "inherit" }} value={zipInput ?? ''} />
+						<Button variant="contained" component="label" sx={{ height: "inherit" }}
+							onClick={() => {
+								setZipInput(null);
+								setZip({})
+							}}>
 							<DeleteOutlineOutlinedIcon />
 							Delete File
 						</Button>
