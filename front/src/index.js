@@ -12,6 +12,7 @@ import store from './redux/store';
 
 const rootContainer = document.getElementById('root');
 const root = createRoot(rootContainer);
+
 root.render(
 	<React.StrictMode>
 		<Provider store={store}>
