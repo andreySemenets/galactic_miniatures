@@ -6,6 +6,7 @@ const {
   registerUser, loginUser, logoutUser, refreshUser, getUsers,
 } = require('../controllers/userController');
 const { authMiddleware } = require('../middlewares/authMiddleware');
+const { User } = require('../db/models');
 
 const authRouter = new Router();
 
@@ -21,4 +22,19 @@ authRouter.post('/logout', logoutUser);
 authRouter.get('/refresh', refreshUser);
 authRouter.get('/users', authMiddleware, getUsers);
 
+authRouter.post('/editprofile', async (req, res) => {
+    const { id, firstName, lastName, email, phone} = req.body
+
+    console.log(id, firstName, lastName, email, phone)
+    const user = await User.findOne({where: {id}})
+    console.log('user EDIT BACK', user)
+    user.set({firstName,lastName, email, phone })
+    await user.save()
+    res.json(user)
+        //GET /auth/refresh 401
+    // Должен возвращать нового узера И наверное обновлять токен! Т.К вылетает 4000 ошибка после изменения данных
+})
+
+
 module.exports = authRouter;
+

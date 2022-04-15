@@ -59,3 +59,12 @@ export const checkUserAuth = () => async (dispatch) => {
     console.log('userAC refresh catch err',err);
   }
 };
+
+// used in Edit Profile
+export const submitEditUser = (userProfile) => async (dispatch) => {
+  try {
+    const res = await axios.post(`${API_URL}/auth/editprofile`, userProfile,{ withCredentials: true });
+  } catch (err) {
+    console.log('User Edit Profile catch ERR',err);
+  }
+}

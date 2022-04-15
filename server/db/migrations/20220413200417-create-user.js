@@ -28,19 +28,23 @@ module.exports = {
       },
       isAdmin: {
         type: Sequelize.BOOLEAN,
-        default: false,
+        allowNull: false,
+        defaultValue: false,
       },
       isMaker: {
         type: Sequelize.BOOLEAN,
-        default: false,
+        allowNull: false,
+        defaultValue: false,
       },
       isCreator: {
         type: Sequelize.BOOLEAN,
-        default: false,
+        allowNull: false,
+        defaultValue: false,
       },
       isActivated: {
         type: Sequelize.BOOLEAN,
-        default: false,
+        allowNull: false,
+        defaultValue: false,
       },
       createdAt: {
         allowNull: false,

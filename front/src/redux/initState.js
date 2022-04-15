@@ -3,6 +3,7 @@ const initState = {
   errorOnReg: null,
   errorOnLogin: null,
   items: [],
+  editProfileInputs: {}
 };
 
 export default initState;
