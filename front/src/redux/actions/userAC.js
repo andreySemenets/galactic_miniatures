@@ -61,16 +61,9 @@ export const checkUserAuth = () => async (dispatch) => {
 };
 
 // used in Edit Profile
-
-export const editingTypingProfile = (e) => {
-  return {type: 'EDIT_USER', payload:{[e.target.name]: e.target.value}}
-}
-
-export const submitEditUser = (userData) => async (dispatch) => {
+export const submitEditUser = (userProfile) => async (dispatch) => {
   try {
-    console.log('submitEditUser')
-    const res = await axios.post(`${API_URL}/auth/editprofile`, userData,{ withCredentials: true });
-
+    const res = await axios.post(`${API_URL}/auth/editprofile`, userProfile,{ withCredentials: true });
   } catch (err) {
     console.log('User Edit Profile catch ERR',err);
   }
