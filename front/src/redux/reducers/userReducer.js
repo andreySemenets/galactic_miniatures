@@ -7,6 +7,8 @@ const userReducer = (state = initState, action) => {
   switch (type) {
     case SET_USER:
       return payload;
+    case 'EDIT_USER':
+      return {...state, ...payload};
     default:
       return state;
   }

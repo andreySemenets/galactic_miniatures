@@ -20,24 +20,31 @@ module.exports = {
       password: {
         type: Sequelize.STRING,
       },
+      phone: {
+        type: Sequelize.STRING,
+      },
       avatarUrl: {
         type: Sequelize.STRING,
       },
       isAdmin: {
         type: Sequelize.BOOLEAN,
-        default: false,
+        allowNull: false,
+        defaultValue: false,
       },
       isMaker: {
         type: Sequelize.BOOLEAN,
-        default: false,
+        allowNull: false,
+        defaultValue: false,
       },
       isCreator: {
         type: Sequelize.BOOLEAN,
-        default: false,
+        allowNull: false,
+        defaultValue: false,
       },
       isActivated: {
         type: Sequelize.BOOLEAN,
-        default: false,
+        allowNull: false,
+        defaultValue: false,
       },
       createdAt: {
         allowNull: false,
