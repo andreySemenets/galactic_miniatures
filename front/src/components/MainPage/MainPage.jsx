@@ -46,9 +46,8 @@ const MainPage = () => {
       display: 'flex',
       flexDirection: 'column',
       alignContent: 'center',
-      // bgcolor: 'red',
-      width: '90%',
-      height: '1000px'
+      width: '85%',
+      // height: '1000px'
     }}>
       <Box className="1" sx={{ mt: '2rem' }}>
         <Box sx={{ m: '2rem 0 2rem', fontSize: 22, fontWeight: 'bold'  }}>Our collections</Box>

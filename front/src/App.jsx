@@ -15,6 +15,7 @@ import EditProfile from "./pages/ProfilePage/EditProfile/EditProfile";
 import MainPage from './components/MainPage/MainPage';
 import EditListing from './components/EditListing/EditListing';
 import Reg from './components/Reg/Reg';
+import Search from './components/Search/Search';
 
 const App = () => {
 	const dispatch = useDispatch();
@@ -40,6 +41,8 @@ const App = () => {
 				{/* TODO: ПОТОМ ПЕРЕДЕЛАТЬ НА ПАРАМС ЗАПРОС!!! */}
 				<Route path="/models" element={<ModelPage />} />
 				<Route path="/models/edit" element={<EditListing />} />
+				<Route path="/search" element={<Search />} />
+
 			</Routes>
 		</>
 	);

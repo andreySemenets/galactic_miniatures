@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const dbCheck = require('./helpers/dbCheck');
 const authRouter = require('./routers/authRouter');
+const itemsRouter = require('./routers/itemsRouter');
 const errorMiddleware = require('./middlewares/errorMiddleware');
 
 const app = express();
@@ -20,6 +21,7 @@ app.use(cors({
 
 // routers
 app.use('/auth', authRouter);
+app.use('/items', itemsRouter);
 
 app.use(errorMiddleware);
 

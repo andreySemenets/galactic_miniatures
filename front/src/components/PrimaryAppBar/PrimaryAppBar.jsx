@@ -21,7 +21,6 @@ import $api from '../../http';
 import { SET_USER } from '../../redux/actions/action.types';
 
 const Search = styled('div')(({ theme }) => ({
-  minWidth: 500,
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.1),
@@ -56,7 +55,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('md')]: {
-      width: '20ch',
+      width: '40ch',
     },
   },
 }));
