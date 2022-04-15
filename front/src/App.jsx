@@ -3,7 +3,6 @@ import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import { useDispatch } from 'react-redux';
 import Navbar from './components/Navbar/Navbar';
-import Registration from './components/Registration/Registration';
 import Login from './components/Login/Login';
 import { checkUserAuth } from './redux/actions/userAC';
 import PrimaryAppBar from './components/PrimaryAppBar/PrimaryAppBar';
@@ -16,6 +15,7 @@ import EditProfile from "./pages/ProfilePage/EditProfile/EditProfile";
 import MainPage from './components/MainPage/MainPage';
 import EditListing from './components/EditListing/EditListing';
 import Reg from './components/Reg/Reg';
+import Search from './components/Search/Search';
 
 const App = () => {
 	const dispatch = useDispatch();
@@ -33,7 +33,6 @@ const App = () => {
 			<Routes>
 				<Route path='/' element={<MainPage />} />
 				<Route path="/auth/login" element={<Login />} />
-				{/* <Route path="/auth/registration" element={<Registration />} /> */}
         <Route path="/auth/registration" element={<Reg />} />
 				<Route path="/profile" element={<UserProfile />} />
 				<Route path="/profile/creator" element={<CreatorProfile />} />
@@ -42,6 +41,8 @@ const App = () => {
 				{/* TODO: ПОТОМ ПЕРЕДЕЛАТЬ НА ПАРАМС ЗАПРОС!!! */}
 				<Route path="/models" element={<ModelPage />} />
 				<Route path="/models/edit" element={<EditListing />} />
+				<Route path="/search" element={<Search />} />
+
 			</Routes>
 		</>
 	);
