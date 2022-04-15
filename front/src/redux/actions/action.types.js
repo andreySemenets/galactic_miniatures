@@ -2,6 +2,7 @@
 
 // action - userReducer
 export const SET_USER = 'SET_USER';
+export const EDIT_USER = 'EDIT_USER'
 
 // action - errorOnRegReducer
 export const SET_ERROR_ON_REG = 'SET_ERROR_ON_REG';
