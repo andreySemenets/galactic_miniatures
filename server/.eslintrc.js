@@ -13,8 +13,8 @@ module.exports = {
 	rules: {
 		'consistent-return': 0,
 		'no-tabs': 'off',
-		'indent': 'off',
 		'no-plusplus': 'off',
 		'no-console': 1,
+		indent: ['error', 'tab'],
 	},
 };
