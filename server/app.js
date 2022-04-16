@@ -7,12 +7,17 @@ const dbCheck = require('./helpers/dbCheck');
 const authRouter = require('./routers/authRouter');
 const itemsRouter = require('./routers/itemsRouter');
 const errorMiddleware = require('./middlewares/errorMiddleware');
+const fileUpload = require('express-fileupload')
+const path = require('path')
 
 const app = express();
 const { PORT } = process.env;
 
 app.use(morgan('dev'));
 app.use(express.json());
+app.use(express.static(path.resolve(__dirname, 'static')
+))
+app.use(fileUpload({}))
 app.use(cookieParser());
 app.use(cors({
   credentials: true,
