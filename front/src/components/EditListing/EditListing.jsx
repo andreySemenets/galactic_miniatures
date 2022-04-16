@@ -24,7 +24,6 @@ function EditListing() {
 	const [form, setForm] = useState({});
 	console.log('form >>>', form);
 
-
 	// TAGS
 	const [tags, setTags] = useState([]);
 	// UPLOAD PHOTOS
@@ -148,7 +147,7 @@ function EditListing() {
 
 						<label htmlFor="contained-button-file">
 							<input multiple type="file" name="file"
-								onChange={zipHandler} onClick={(e) => console.log(e.target)} />
+								onChange={zipHandler} />
 							{/* <Button variant="contained" component="span" sx={{ height: "inherit" }} >
 								<FileDownloadIcon />
 								Select File
