@@ -92,12 +92,6 @@
 	border: 3px solid #0054FF;
 }
 
-.editListingUploadFotoContainer {
-	width: 100%;
-	display: flex;
-	flex-wrap: wrap;
-}
-
 .editListingSubmitFormBtnGroup {
 	display: flex;
 	margin-top: 4.2em;
