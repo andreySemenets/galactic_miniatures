@@ -1,0 +1,40 @@
+.cartContainer {
+  max-width: 1248px;
+  background-color: rgb(149, 159, 159);
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+.cartTitle {
+  margin-top: 50px;
+}
+
+.cartStepper {
+  background-color: #1E1F24;
+  height: 56px;
+  display: flex;
+  align-items: center;
+}
+
+.cartItemsAndOrder {
+    max-width: 1248px;
+    display: flex;
+    flex-grow: inherit;
+}
+
+.cartItems {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    max-width: 868px;
+}
+
+.cartOrderSummary {
+    display: flex;
+    flex-direction: column;
+    max-width: 350px;
+    max-height: 401px;
+    background-color: red;
+    border-radius: 8px;
+}
