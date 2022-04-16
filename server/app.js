@@ -9,8 +9,6 @@ const dbCheck = require('./helpers/dbCheck');
 const authRouter = require('./routers/authRouter');
 const itemRouter = require('./routers/itemRouter');
 const errorMiddleware = require('./middlewares/errorMiddleware');
-const fileUpload = require('express-fileupload')
-const path = require('path')
 
 const app = express();
 const { PORT } = process.env;

@@ -138,7 +138,7 @@ function EditListing() {
 							sx={{ width: "330px", height: "inherit" }} />
 
 						{/* <label htmlFor="contained-button-file">
-							<InputFile accept="image/*" id="contained-button-file" multiple type="file"
+							<InputFile accept="/*" id="contained-button-file" multiple type="file"
 								name="file" onChange={zipHandler} />
 							<Button variant="contained" component="span">
 								<FileDownloadIcon />
@@ -146,12 +146,12 @@ function EditListing() {
 						</label> */}
 
 						<label htmlFor="contained-button-file">
-							<input multiple type="file" name="file"
-								onChange={zipHandler} />
-							{/* <Button variant="contained" component="span" sx={{ height: "inherit" }} >
+							<Button variant="contained" component="span" sx={{ height: "inherit" }} >
+								<input multiple type="file" name="file"
+									onChange={zipHandler} />
 								<FileDownloadIcon />
 								Select File
-							</Button> */}
+							</Button>
 						</label>
 
 					</Box>
