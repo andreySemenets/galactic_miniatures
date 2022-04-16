@@ -39,6 +39,7 @@ function EditListing() {
 	};
 
 	const zipHandler = (event) => {
+		console.log('zipHandler ++++>', event);
 		setZip(() => (event.target.files[0] ?? {}))
 		setZipInput(event.target.files[0].name ?? '')
 	};
@@ -65,7 +66,7 @@ function EditListing() {
 		formData.append('scale', inputs.scale);
 		tags.forEach(tag => formData.append('tags', tag.tagTitle))
 		formData.append('zip', zip);
-		formData.append('photos', photos[0].photoFile);
+		formData.append('photos', photos[0]?.photoFile);
 		// photos.forEach(photo => formData.append('photos', photo))
 
 		axios.post('http://localhost:4000/items/new', formData, {
@@ -118,7 +119,7 @@ function EditListing() {
 						<Box className={style.editListingUploadFotoBox}>
 
 							<label htmlFor="contained-button-file">
-								<InputFile accept="image/*" id="contained-button-file" multiple type="file"
+								<InputFile accept="image/*,.zip" id="contained-button-file" multiple type="file"
 									name="photo" onChange={photosHandler} />
 								<Button variant="contained" component="span">Upload</Button>
 							</label>
@@ -137,22 +138,22 @@ function EditListing() {
 							size="small"
 							sx={{ width: "330px", height: "inherit" }} />
 
-						{/* <label htmlFor="contained-button-file">
-							<InputFile accept="/*" id="contained-button-file" multiple type="file"
+						<label htmlFor="contained-button-file">
+							<InputFile accept="image/*,.zip" id="contained-button-file" multiple type="file"
 								name="file" onChange={zipHandler} />
 							<Button variant="contained" component="span">
 								<FileDownloadIcon />
 								Select File</Button>
-						</label> */}
+						</label>
 
-						<label htmlFor="contained-button-file">
+						{/* <label htmlFor="contained-button-file">
 							<Button variant="contained" component="span" sx={{ height: "inherit" }} >
 								<input multiple type="file" name="file"
 									onChange={zipHandler} />
 								<FileDownloadIcon />
 								Select File
 							</Button>
-						</label>
+						</label> */}
 
 					</Box>
 
