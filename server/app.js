@@ -16,9 +16,9 @@ const { PORT } = process.env;
 app.use(morgan('dev'));
 app.use(express.json());
 
-app.use(express.static(path.resolve(__dirname, 'static')))
+app.use(express.static(path.resolve(__dirname, 'static')));
 app.use(express.static(path.join(process.cwd(), 'public')));
-app.use(fileUpload({}))
+app.use(fileUpload({}));
 
 app.use(cookieParser());
 app.use(cors({
