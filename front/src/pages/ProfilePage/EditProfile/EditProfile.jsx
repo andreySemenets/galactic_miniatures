@@ -11,7 +11,6 @@ const EditProfile = () => {
     const dispatch = useDispatch()
     const [userProfile, setUserProfile] = useState(userData)
 
-
     const submitEditProfile = async (e) => {
         e.preventDefault()
         dispatch(submitEditUser(userProfile))
@@ -29,9 +28,7 @@ const EditProfile = () => {
                 <div className='profileTitle'>My Profile</div>
                 <div className="profileContent">
                     <div className="profileInfo">
-                        <div className="avatar">
-                            <p>User</p>
-                        </div>
+                            <img className='avatar' src={'http://localhost:4000/' + userData.avatarUrl + '.jpg'}/>
                         <div className='profileName'>{userData.firstName} {userData.lastName}</div>
                         <div className='profileEmail'>{userData.email}</div>
                         <div className="profileButton">
@@ -47,41 +44,50 @@ const EditProfile = () => {
                             <div className='actionsItem'>Edit profile</div>
                         </div>
                         <div className="actionsItems">
-                            <form className='editItems' onSubmit={submitEditProfile}>
-                                <div className="labelInput">
-                                    <label htmlFor="firstName">First name</label>
-                                    <input className='editInput' type="text" id='firstName' name='firstName'
-                                           // onChange={(e) => dispatch(editingTypingProfile(e))}
-                                           onChange={changeInputsValue}
-                                           value={userProfile.firstName}/>
-                                </div>
+                            <form onSubmit={submitEditProfile}>
+                                <div className="editItems">
+                                    <div className="labelInput">
+                                        <label htmlFor="firstName">First name</label>
+                                        <input className='editInput' type="text" id='firstName' name='firstName'
+                                            // onChange={(e) => dispatch(editingTypingProfile(e))}
+                                               onChange={changeInputsValue}
+                                               value={userProfile.firstName}/>
+                                    </div>
 
-                                <div className="labelInput">
-                                    <label htmlFor="lastName">Last name</label>
-                                    <input className='editInput' type="text" id='lastName' name='lastName'
-                                           // onChange={(e) => dispatch(editingTypingProfile(e))}
-                                           onChange={changeInputsValue}
-                                           value={userProfile.lastName}/>
-                                </div>
+                                    <div className="labelInput">
+                                        <label htmlFor="lastName">Last name</label>
+                                        <input className='editInput' type="text" id='lastName' name='lastName'
+                                            // onChange={(e) => dispatch(editingTypingProfile(e))}
+                                               onChange={changeInputsValue}
+                                               value={userProfile.lastName}/>
+                                    </div>
 
-                                <div className="labelInput">
-                                    <label htmlFor="inputEmail">Your email</label>
-                                    <input className='editInput' type="email" id='inputEmail' name='email'
-                                           // onChange={(e) => dispatch(editingTypingProfile(e))}
-                                           onChange={changeInputsValue}
-                                           value={userProfile.email}/>
-                                </div>
+                                    <div className="labelInput">
+                                        <label htmlFor="inputEmail">Your email</label>
+                                        <input className='editInput' type="email" id='inputEmail' name='email'
+                                            // onChange={(e) => dispatch(editingTypingProfile(e))}
+                                               onChange={changeInputsValue}
+                                               value={userProfile.email}/>
+                                    </div>
 
-                                <div className="labelInput">
-                                    <label htmlFor="inputTel">Phone number</label>
-                                    <input className='editInput' type="tel" id='inputTel' name='phone'
-                                           // onChange={(e) => dispatch(editingTypingProfile(e))}
-                                           onChange={changeInputsValue}
-                                           value={userProfile.phone}/>
-                                </div>
+                                    <div className="labelInput">
+                                        <label htmlFor="inputTel">Phone number</label>
+                                        <input className='editInput' type="tel" id='inputTel' name='phone'
+                                            // onChange={(e) => dispatch(editingTypingProfile(e))}
+                                               onChange={changeInputsValue}
+                                               value={userProfile.phone}/>
+                                    </div>
 
+                                    <div className="labelInput">
+                                        <label htmlFor="inputAvatar">Аватар</label>
+                                        <input  type="file" id='inputAvatar' name='avatar'
+                                            // onChange={(e) => dispatch(editingTypingProfile(e))}
+                                            // onChange={changeInputsValue}
+                                            // value={userProfile.phone}
+                                        />
+                                    </div>
+                                </div>
                                 <button  className='buttonFlag saveProfile'>Save</button>
-
                             </form>
                         </div>
                     </div>
