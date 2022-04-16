@@ -16,6 +16,7 @@ import MainPage from './components/MainPage/MainPage';
 import EditListing from './components/EditListing/EditListing';
 import Reg from './components/Reg/Reg';
 import Search from './components/Search/Search';
+import ShoppingCartPage from './pages/ShoppingCartPage/ShoppingCartPage';
 
 const App = () => {
 	const dispatch = useDispatch();
@@ -42,7 +43,7 @@ const App = () => {
 				<Route path="/models" element={<ModelPage />} />
 				<Route path="/models/edit" element={<EditListing />} />
 				<Route path="/search" element={<Search />} />
-
+				<Route path="/user/id/shoppingcart" element={<ShoppingCartPage />} />
 			</Routes>
 		</>
 	);
