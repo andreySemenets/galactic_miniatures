@@ -1,34 +1,56 @@
 /* eslint-disable prefer-template */
 const uuid = require('uuid');
 const path = require('path');
-const { Item, Tag, File, Photo, Category, SubCategory } = require('../db/models');
+const {
+	Tag,
+	File,
+	Item,
+	Photo,
+	Category,
+	SubCategory,
+	ItemsAndTag,
+} = require('../db/models');
 
 module.exports.addItem = async (req, res, next) => {
 	console.log('<<<<<<<addItem REQ BODY>>>>>>>', req.body);
-	try {
-		// const { zip, photos } = req.files;
-		// const photoName = uuid.v4() + '.jpg';
-		// const zipName = uuid.v4() + '.zip';
 
-		// photos.mv(path.resolve(__dirname, '..', 'static', photoName));
-		// zip.mv(path.resolve(__dirname, '..', 'static', zipName));
+	try {
+		const { zip, photos } = req.files;
+		console.log('"!!!req.files!!!"', req.files);
+		console.log('"!!!!!!!photos!!!!!!!"', photos);
+		console.log('"!!!!!!!zip!!!!!!!"', zip);
+		const photoName = uuid.v4() + '.jpg';
+		const zipName = uuid.v4() + '.zip';
+
+		photos.mv(path.resolve(__dirname, '..', 'static', photoName));
+		zip.mv(path.resolve(__dirname, '..', 'static', zipName));
 
 		const category = await Category.findOne({
 			where: { categoryTitle: req.body.category1 }, raw: true,
 		});
-		// console.log('Category ++++++>>>>', categoryId.id);
+
 		const subCategory = await SubCategory.findOne({
 			where: { subCategoryTitle: req.body.category2 }, raw: true,
 		});
-		// console.log('Category2 ++++++>>>>', subCategoryId.id);
+
+		const newItem = await Item.create({
+			userId: 4, 													// ХАРДКОД
+			categoryId: category.id,
+			subCategoryId: subCategory.id,
+			collectionId: 3, 										// ХАРДКОД
+			itemTitle: req.body.title,
+			digitalPrice: req.body.scale,
+			isApproved: false,
+			description: req.body.description,
+		});
 
 		// ===================================================================
-		const tagIdArr = []; // собираем айдишники всех прилетающих тегов
-		let postId; // ждем айдишник нового поста
 
-		const { tags } = req.body;
-		// ОПЕРАЦИИ ПО ТЕГАМ
-		tags.forEach(async (tag) => {
+		const tagIdArr = [];
+
+		const tagsArr = req.body.tags;
+
+		tagsArr.forEach(async (tag) => {
 			const existingTag = await Tag.findOne({ where: { tagName: tag } });
 			if (existingTag) {
 				tagIdArr.push(existingTag.id);
@@ -38,28 +60,19 @@ module.exports.addItem = async (req, res, next) => {
 			}
 		});
 
-		// ОПЕРАЦИИ ПО СВЯЗУЮЩЕЙ ТАБЛИЦЕ
-		tagIdArr.forEach(async (el) => {
-			await Entry_tag.create({ entryId: postId, tagId: el });
-		});
+		// УБРАТЬ ЭТОТ КОСТЫЛЬ ПЕРЕПИСАВ НА THEN'ы
+		setTimeout(() => {
+			tagIdArr.forEach(async (el) => {
+				await ItemsAndTag.create({ itemId: newItem.id, tagId: el });
+			});
+		}, 2000);
+
 		// ===================================================================
 
-		const newItem = await Item.create({
-			userId: 4,
-			categoryId: category.id,
-			subCategoryId: subCategory.id,
-			collectionId: 3,
-			itemTitle: req.body.title,
-			digitalPrice: req.body.scale,
-			isApproved: false,
-			description: req.body.description,
-		});
+		await Photo.create({ itemId: newItem.dataValues.id, photoUrl: photoName });
+		await File.create({ itemId: newItem.dataValues.id, fileUrl: zipName });
 
-		// const newPhoto = await Photo.create({ itemId: newItem.dataValues.id, photoUrl: photoName });
-		// const zipArchive = await File.create({ itemId: newItem.dataValues.id, fileUrl: zipName });
-		// // console.log('PHOOOOTOOOOOSSSSS>>>', newPhoto);
-		// return res.json();
-		return res.end();
+		return res.json(newItem);
 	} catch (error) {
 		console.error('{{{{{{addItem<<<<error>>>>}}}}}}', error);
 		next(error);
