@@ -23,7 +23,7 @@ app.use(fileUpload({}));
 app.use(cookieParser());
 app.use(cors({
 	credentials: true,
-	origin: ['http://localhost:3000'],
+	origin: ['http://localhost:3000', process.env.CLIENT_URL],
 }));
 
 // routers
