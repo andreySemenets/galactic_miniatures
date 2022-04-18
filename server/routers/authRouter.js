@@ -3,7 +3,7 @@
 const { Router } = require('express');
 const { body } = require('express-validator');
 const {
-  registerUser, loginUser, logoutUser, refreshUser, getUsers,
+  registerUser, loginUser, logoutUser, refreshUser, getUsers, activateUser,
 } = require('../controllers/userController');
 const { authMiddleware } = require('../middlewares/authMiddleware');
 const { User } = require('../db/models');
@@ -20,7 +20,7 @@ authRouter.post('/registration',
 
 authRouter.post('/login', loginUser);
 authRouter.post('/logout', logoutUser);
-
+authRouter.get('/activate/:link', activateUser);
 authRouter.get('/refresh', refreshUser);
 authRouter.get('/users', authMiddleware, getUsers);
 

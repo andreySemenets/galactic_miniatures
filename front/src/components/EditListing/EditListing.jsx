@@ -22,17 +22,17 @@ function EditListing() {
 	// INPUTS & FORMDATA
 	const [inputs, setInputs] = useState({});
 	const [form, setForm] = useState({});
-	console.log('form >>>', form);
 
 	// TAGS
 	const [tags, setTags] = useState([]);
 	// UPLOAD PHOTOS
 	const [photos, setPhotos] = useState([]);
+	console.log('photos>>>', photos);
 
 	// UPLOAD ARCHIVE
 	const [zipInput, setZipInput] = useState(null);
 	const [zip, setZip] = useState({});
-	// console.log('photos>>>', photos[0].photoFile);
+	console.log('zip>>>', zip);
 
 	const photosHandler = (event) => {
 		setPhotos((prev) => ([...prev, { photoFile: event.target.files[0] }]))
@@ -65,8 +65,7 @@ function EditListing() {
 		formData.append('scale', inputs.scale);
 		tags.forEach(tag => formData.append('tags', tag.tagTitle))
 		formData.append('zip', zip);
-		formData.append('photos', photos[0].photoFile);
-		// photos.forEach(photo => formData.append('photos', photo))
+		formData.append('photos', photos[0]?.photoFile);
 
 		axios.post('http://localhost:4000/items/new', formData, {
 			withCredentials: true,
@@ -118,7 +117,7 @@ function EditListing() {
 						<Box className={style.editListingUploadFotoBox}>
 
 							<label htmlFor="contained-button-file">
-								<InputFile accept="image/*" id="contained-button-file" multiple type="file"
+								<InputFile accept="image/*,.zip" id="contained-button-file" multiple type="file"
 									name="photo" onChange={photosHandler} />
 								<Button variant="contained" component="span">Upload</Button>
 							</label>
@@ -138,7 +137,7 @@ function EditListing() {
 							sx={{ width: "330px", height: "inherit" }} />
 
 						{/* <label htmlFor="contained-button-file">
-							<InputFile accept="image/*" id="contained-button-file" multiple type="file"
+							<InputFile accept="image/*,.zip" id="contained-button-file" multiple type="file"
 								name="file" onChange={zipHandler} />
 							<Button variant="contained" component="span">
 								<FileDownloadIcon />
@@ -147,7 +146,7 @@ function EditListing() {
 
 						<label htmlFor="contained-button-file">
 							<input multiple type="file" name="file"
-								onChange={zipHandler} />
+								onChange={zipHandler} accept="image/*,.zip" />
 							{/* <Button variant="contained" component="span" sx={{ height: "inherit" }} >
 								<FileDownloadIcon />
 								Select File
