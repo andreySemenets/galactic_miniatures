@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CatalogCardItem from '../../components/CatalogCardItem/CatalogCardItem';
+import SearchItem from '../../components/SearchItem/SearchItem';
 import { getSortedCategories, setCategoryFrSesStorage } from '../../redux/actions/sortAC';
 import './SortByCategoryPage.css'
 
@@ -22,7 +23,7 @@ const SortByCategoryPage = () => {
         <div className='sortedByCategories'>
             {sortedByCategories[0] &&
                 sortedByCategories.map((item) => (
-                    <CatalogCardItem key={item.id} item={item} />
+                    <SearchItem key={item.id} item={item} />
                 ))}
         </div>
     );
