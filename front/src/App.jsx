@@ -17,6 +17,7 @@ import EditListing from './components/EditListing/EditListing';
 import Reg from './components/Reg/Reg';
 import Search from './components/Search/Search';
 import ShoppingCartPage from './pages/ShoppingCartPage/ShoppingCartPage';
+import SortByCategoryPage from './pages/SortByCategoryPage/SortByCategoryPage';
 
 const App = () => {
 	const dispatch = useDispatch();
@@ -44,6 +45,7 @@ const App = () => {
 				<Route path="/models/edit" element={<EditListing />} />
 				<Route path="/search" element={<Search />} />
 				<Route path="/user/id/shoppingcart" element={<ShoppingCartPage />} />
+                <Route path='/sort' element={<SortByCategoryPage />} />
 			</Routes>
 		</>
 	);

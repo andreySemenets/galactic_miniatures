@@ -3,6 +3,8 @@ import errorOnLoginReducer from './errorOnLoginReducer';
 import errorOnRegReducer from './errorOnRegReducer';
 import userReducer from './userReducer';
 import itemsReducer from './itemsReducer';
+import sortByCategoriesReducer from './sortByCategoriesReducer';
+
 // import {EditProfileInputsReducer} from "./editProfileInputsReducer";
 
 const rootReducer = combineReducers({
@@ -10,6 +12,7 @@ const rootReducer = combineReducers({
   errorOnReg: errorOnRegReducer,
   errorOnLogin: errorOnLoginReducer,
   items: itemsReducer,
+  sortedByCategories: sortByCategoriesReducer,
   // editProfileInputs: EditProfileInputsReducer
 });
 

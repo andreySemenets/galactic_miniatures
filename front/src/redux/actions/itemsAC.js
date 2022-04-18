@@ -11,7 +11,7 @@ export const setFoundItems = (value) => ({ type: SET_FOUND_ITEMS, payload: value
 // used in component ???MainPage
 export const getItems = () => async (dispatch) => {
   try {
-    const res = await axios.get(`${API_URL}/items`)
+    const res = await axios.get(`${API_URL}/search`)
     console.log(res.data);
     dispatch(setItems(res.data.allItems))
   } catch (error) {

@@ -9,11 +9,13 @@ import './ShoppingCartItem.css'
 const ShoppingCartItem = () => {
     return (
         <div className="cartItem">
-            <div className="cartItemPhoto"><img src="https://source.unsplash.com/random" alt="" /></div>
-            <div className="cartItemInfo">
-                <div className="cartItemInfoTitle">Low poly</div>
-                <div className="cartItemInfoDescription">Polygons 549</div>
-                <div className="cartItemInfoPrice">$50</div>
+            <div className='photoAndInfo'>
+                <div className="cartItemPhoto"><img src="https://source.unsplash.com/random" alt="" /></div>
+                <div className="cartItemInfo">
+                    <div className="class1 cartItemInfoTitle">Lowsdfsfsfdsfsf</div>
+                    <div className="class1 cartItemInfoDescription">Polygons 549</div>
+                    <div className="class1 cartItemInfoPrice">$50</div>
+                </div>
             </div>
             <div className="cartItemBtns">
                 <div className="cartItemQuantityBtns">

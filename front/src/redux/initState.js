@@ -3,7 +3,8 @@ const initState = {
   errorOnReg: null,
   errorOnLogin: null,
   items: [],
-  editProfileInputs: {}
+  editProfileInputs: {},
+  sortedByCategories: [],
 };
 
 export default initState;
