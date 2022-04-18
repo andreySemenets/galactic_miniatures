@@ -3,35 +3,35 @@
 module.exports = {
 	async up(queryInterface, Sequelize) {
 		await queryInterface.bulkInsert('Categories', [{
-			categoryTitle: 'Warhammer',
+			categoryTitle: 'warhammer',
 			createdAt: new Date(),
 			updatedAt: new Date(),
 		}, {
-			categoryTitle: 'Fantasy',
+			categoryTitle: 'fantasy',
 			createdAt: new Date(),
 			updatedAt: new Date(),
 		}, {
-			categoryTitle: 'Sci-fi',
+			categoryTitle: 'sci-fi',
 			createdAt: new Date(),
 			updatedAt: new Date(),
 		}, {
-			categoryTitle: 'Terrain',
+			categoryTitle: 'terrain',
 			createdAt: new Date(),
 			updatedAt: new Date(),
 		}, {
-			categoryTitle: 'Space Marines',
+			categoryTitle: 'space marines',
 			createdAt: new Date(),
 			updatedAt: new Date(),
 		}, {
-			categoryTitle: 'Astrates',
+			categoryTitle: 'astrates',
 			createdAt: new Date(),
 			updatedAt: new Date(),
 		}, {
-			categoryTitle: 'Tech Guys',
+			categoryTitle: 'tech guys',
 			createdAt: new Date(),
 			updatedAt: new Date(),
 		}, {
-			categoryTitle: 'Giga Robots',
+			categoryTitle: 'giga robots',
 			createdAt: new Date(),
 			updatedAt: new Date(),
 		},

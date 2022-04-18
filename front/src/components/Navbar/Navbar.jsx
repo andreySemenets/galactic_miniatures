@@ -3,7 +3,7 @@ import { AppBar, Box, Toolbar } from '@mui/material';
 import DropdownNav from '../DropdownNav/DropdownNav';
 
 const Navbar = () => {
-  const subBar = ['Warhammer', 'Fantasy', 'Sci-Fi', 'Terrain', 'Space Marines', 'Astrates', 'Tech-Guys', 'Giga-Robots' ]
+  const subBar = ['Warhammer', 'Fantasy', 'Sci-Fi', 'Terrain', 'Space Marines', 'Astrates', 'Tech Guys', 'Giga Robots' ]
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -14,7 +14,7 @@ const Navbar = () => {
               <DropdownNav
                 key={el}
                 category={el}
-                variant="h6"
+                // variant="h6"
               />
               )
           })}

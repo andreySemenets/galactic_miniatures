@@ -8,6 +8,8 @@ const path = require('path');
 const dbCheck = require('./helpers/dbCheck');
 const authRouter = require('./routers/authRouter');
 const itemRouter = require('./routers/itemRouter');
+const itemsRouter = require('./routers/itemsRouter');
+const sortByCategoryRouter = require('./routers/sortByCategoryRouter');
 const errorMiddleware = require('./middlewares/errorMiddleware');
 
 const app = express();
@@ -15,6 +17,7 @@ const { PORT } = process.env;
 
 app.use(morgan('dev'));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.resolve(__dirname, 'static')));
 app.use(express.static(path.join(process.cwd(), 'public')));
@@ -29,6 +32,8 @@ app.use(cors({
 // routers
 app.use('/auth', authRouter);
 app.use('/items', itemRouter);
+app.use('/search', itemsRouter);
+app.use('/sort', sortByCategoryRouter);
 
 app.use(errorMiddleware);
 

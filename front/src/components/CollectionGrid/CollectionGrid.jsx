@@ -3,6 +3,7 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
 
 import styles from './CollectionGrid.module.css'
 
@@ -18,16 +19,32 @@ export default function CollectionGrid() {
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
         <Grid item xs={5}>
-          <Item className={styles.collectionCard}>Collection <br /> name</Item>
+          <Item className={styles.collectionCard}
+          >Collection <br /> name <br />
+          <Button size="small" className={styles.collectionButton}>view</Button>
+          </Item>
+
         </Grid>
         <Grid item xs={7}>
-          <Item className={styles.collectionCard}>Collection <br /> name</Item>
+          <Item className={styles.collectionCard}
+          >Collection <br /> name <br />
+          <Button size="small" className={styles.collectionButton}>view</Button>
+          </Item>
+
         </Grid>
         <Grid item xs={7}>
-          <Item className={styles.collectionCard}>Collection <br /> name</Item>
+          <Item className={styles.collectionCard}
+          >Collection <br /> name <br />
+          <Button size="small" className={styles.collectionButton}>view</Button>
+          </Item>
+
         </Grid>
         <Grid item xs={5}>
-          <Item className={styles.collectionCard}>Collection <br /> name</Item>
+          <Item className={styles.collectionCard}
+          >Collection <br /> name <br />
+          <Button size="small" className={styles.collectionButton}>view</Button>
+          </Item>
+
         </Grid>
       </Grid>
     </Box>

@@ -6,7 +6,7 @@ import { setFoundItems } from '../actions/itemsAC';
 
 const searchItemsReq = async (itemTitle) => {
   try {
-    const res = await axios.post(`${API_URL}/items/search`, {itemTitle})
+    const res = await axios.post(`${API_URL}/search/item`, {itemTitle})
     return res.data.foundItems;
   } catch (error) {
     console.log(error);

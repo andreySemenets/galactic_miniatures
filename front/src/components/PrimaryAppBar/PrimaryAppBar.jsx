@@ -55,7 +55,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('md')]: {
-      width: '40ch',
+      width: '35ch',
     },
   },
 }));
@@ -217,7 +217,7 @@ export default function PrimaryAppBar() {
           <Box sx={{
                     display: { xs: 'none', md: 'flex', },
                     justifyContent: 'space-around',
-                    mr: 8, width: 250
+                    mr: '8px', width: '20%'
                   }}>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="error">
