@@ -50,12 +50,6 @@ export default function DropdownNav({ category }) {
                     'aria-labelledby': 'basic-button',
                 }}
             >
-                {/* <MenuItem
-                    onClick={handleClose}
-                    sx={{ fontSize: '22px', fontWeight: 'bold' }}
-                >
-                    {category}
-                </MenuItem> */}
                 <MenuItem onClick={handleClose}>Vehicles</MenuItem>
                 <MenuItem onClick={handleClose}>Characters</MenuItem>
                 <MenuItem onClick={handleClose}>Locations</MenuItem>
