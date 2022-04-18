@@ -17,8 +17,9 @@ module.exports.register = async (firstName, lastName, email, password, next) => 
 			throw ApiError.BadRequest(`User with email ${email} already exists`);
 		} else {
 			const hashPassword = await bcrypt.hash(password, 10);
+			const activationLink = uuid.v4();
 			const user = await User.create({
-				firstName, lastName, email, password: hashPassword, phone: 'укажите номер'
+				firstName, lastName, email, password: hashPassword, phone: 'укажите номер', activationLink,
 			});
 
 			await mailService.sendActivationMail(
