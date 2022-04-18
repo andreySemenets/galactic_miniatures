@@ -13,13 +13,13 @@ module.exports.register = async (firstName, lastName, email, password, next) => 
 	try {
 		const candidate = await User.findOne({ where: { email } });
 
-    if (candidate) {
-      throw ApiError.BadRequest(`User with email ${email} already exists`);
-    } else {
-      const hashPassword = await bcrypt.hash(password, 10);
-      const user = await User.create({
-        firstName, lastName, email, password: hashPassword, phone: 'укажите номер'
-      });
+		if (candidate) {
+			throw ApiError.BadRequest(`User with email ${email} already exists`);
+		} else {
+			const hashPassword = await bcrypt.hash(password, 10);
+			const user = await User.create({
+				firstName, lastName, email, password: hashPassword, phone: 'укажите номер'
+			});
 
 			await mailService.sendActivationMail(
 				email,
