@@ -78,3 +78,26 @@ module.exports.addItem = async (req, res, next) => {
 		next(error);
 	}
 };
+
+module.exports.getOneItem = async (req, res, next) => {
+	try {
+		const item = await Item.findOne({
+			where: {
+				id: req.params.id,
+			},
+			include: [
+				{
+					model: Photo,
+					attributes: ['photoUrl'],
+					required: true,
+				},
+			],
+			raw: true,
+		});
+		res.json(item);
+		// console.log('+++++++++++>>>>>>>', item.dataValues);
+	} catch (error) {
+		console.error('{{{{{{getOneItem<<<<error>>>>}}}}}}', error);
+		next(error);
+	}
+};

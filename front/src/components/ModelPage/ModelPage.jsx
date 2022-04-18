@@ -5,17 +5,67 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './style.module.css'
 import { Box } from '@mui/system';
 import CatalogCardItem from '../CatalogCardItem/CatalogCardItem';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 export default function ModelPage() {
 
-	const [age, setAge] = React.useState('');
+	const [cart, setCart] = useState([]); // состояние корзины
+	const [model, setModel] = useState({}); // данные модели для страницы
+	const [quantity, setQuantity] = useState({ value: Number(1) }); // счетчик количества
+	const [inputs, setInputs] = useState({}); // инпуты
+	const [totalCost, setTotalCost] = useState({ value: Number(0) });
 
-	const handleChange = (event) => {
-		setAge(event.target.value);
+	console.log('FORM DATA:', cart);
+
+	const { id } = useParams();
+	useEffect(() => {
+		axios.get(`http://localhost:4000/items/${id}`)
+			.then((response) => {
+				setModel(response.data);
+			});
+	}, [id]);
+
+	// Расчет суммы заказа
+	useEffect(() => {
+		setTotalCost({ value: Number(model.digitalPrice) })
+	}, [model.digitalPrice]);
+
+	// Расчет суммы заказа в зависимости от количества
+	useEffect(() => {
+		setTotalCost({ value: parseFloat((model.digitalPrice + inputs.scale)).toFixed(2) * Number(quantity.value) })
+	}, [quantity.value]);
+
+	const colorSelectHandler = (event) => {
+		setInputs((prev) => ({ ...prev, [event.target.name]: event.target.value }));
+	};
+
+	const scaleSelectHandler = (event) => {
+		setInputs((prev) => ({ ...prev, [event.target.name]: event.target.value }));
+		setTotalCost({ value: (model.digitalPrice + event.target.value) });
+		setQuantity({ value: Number(1) });
+	};
+
+	const addToCartHandler = (event) => {
+		event.preventDefault();
+
+		const formData = {
+			id,
+			title: model.itemTitle,
+			color: inputs.color,
+			scale: inputs.scale,
+			quantity: quantity.value,
+			total: totalCost.value,
+		};
+
+		setCart(prev => [...prev, formData]);
+		setInputs({});
+		setQuantity({ value: Number(1) });
+		setTotalCost({ value: Number(model.digitalPrice) });
 	};
 
 	return (
@@ -36,10 +86,10 @@ export default function ModelPage() {
 					}}>
 						<CardMedia
 							component="img"
-							alt="random-pic"
+							alt={`${model.itemTitle}-pic`}
 							width="614"
 							height="392"
-							image="https://img1.akspic.ru/previews/8/3/8/3/6/163838/163838-apelsin-abstraktnoe_iskusstvo-krasochnost-seryj_cvet-krasnyj_cvet-550x310.jpg"
+							image={'http://localhost:4000/' + model?.['Photos.photoUrl'] + '.jpg'}
 						/>
 
 					</Box>
@@ -85,38 +135,37 @@ export default function ModelPage() {
 						}}
 					>Description</Typography>
 
-
-					<Typography>
-						Low poly isometric building and house Low poly isometric building and houseLow poly isometric building and house
-						Low poly isometric building and house Low poly isometric building and houseLow poly isometric building and house
-						Low poly isometric building and house Low poly isometric building and houseLow poly isometric building and house
-					</Typography>
+					<Typography>{model.description}</Typography>
 				</Container>
 
 
 				<Box
+					component="form"
+					onSubmit={addToCartHandler}
 					sx={{
 						width: '100%',
 						display: 'flex',
 						flexDirection: 'column',
 						justifyContent: 'space-between',
 					}} >
+
 					<Typography
-						component="span"
+						component="h2"
 						sx={{
 							fontSize: '24',
 							fontWeight: 'bold',
 							wordSpacing: '4px',
 							marginBottom: '16px'
 						}}
-					>Low poly isometric building and house dioramas</Typography>
+					>{model.itemTitle}</Typography>
+
 					<Typography
 						variant="h4"
 						component="span"
 						sx={{
 							marginBottom: '40px'
 						}}
-					>50,00 USD</Typography>
+					>{totalCost.value} USD</Typography>
 
 
 					<Card sx={{
@@ -144,58 +193,41 @@ export default function ModelPage() {
 						</CardContent>
 
 						<Box sx={{ display: 'flex', justifyContent: 'center' }}>
-							<Button className={styles.modelPageBuyButton}> Buy digital for 69.90 USD </Button>
+							<Button className={styles.modelPageBuyButton}> Buy digital for {model.digitalPrice} USD </Button>
 						</Box>
 
 					</Card>
 
-
-					<Typography sx={{ marginBottom: "15px" }}> Polygons </Typography>
+					<Typography sx={{ marginBottom: "15px" }}> Color </Typography>
 					<FormControl sx={{ color: "#1F2937", marginBottom: "40px" }} size="small">
-
 						<Select
+							name="color"
+							onChange={colorSelectHandler} value={inputs.color ?? ''}
 							sx={{
 								border: '2px solid #1F2937',
+								color: '#FFFFFF'
 							}}
-							id="polygons-select"
-							value={age}
-							onChange={handleChange}
 						>
-							<MenuItem value={10}>Ten</MenuItem>
-							<MenuItem value={20}>Twenty</MenuItem>
-							<MenuItem value={30}>Thirty</MenuItem>
+							<MenuItem value={'Yellow'}>Yellow</MenuItem>
+							<MenuItem value={'Green'}>Green</MenuItem>
+							<MenuItem value={'Gray'}>Gray</MenuItem>
 						</Select>
 					</FormControl>
 
-					<Typography sx={{ marginBottom: "15px" }}> Option 2 </Typography>
-					<FormControl sx={{ color: "#1F2937", marginBottom: "40px" }} size="small">
-						<Select
-							sx={{
-								border: '2px solid #1F2937',
-							}}
-							id="option2-select"
-							value={age}
-							onChange={handleChange}
-						>
-							<MenuItem value={10}>Ten</MenuItem>
-							<MenuItem value={20}>Twenty</MenuItem>
-							<MenuItem value={30}>Thirty</MenuItem>
-						</Select>
-					</FormControl>
-
-					<Typography sx={{ marginBottom: "15px" }}> Option 3 </Typography>
+					<Typography sx={{ marginBottom: "15px" }}> Scale </Typography>
 					<FormControl sx={{ marginBottom: "40px" }} size="small">
 						<Select
+							name="scale"
+							onChange={scaleSelectHandler} value={inputs.scale ?? ''}
 							sx={{
 								border: '2px solid #1F2937',
+								color: '#FFFFFF'
 							}}
-							id="option3-select"
-							value={age}
-							onChange={handleChange}
+							id="scale-select"
 						>
-							<MenuItem value={10}>Ten</MenuItem>
-							<MenuItem value={20}>Twenty</MenuItem>
-							<MenuItem value={30}>Thirty</MenuItem>
+							<MenuItem value={2.99}>15mm - 2.99$</MenuItem>
+							<MenuItem value={3.99}>28mm - 3.99$</MenuItem>
+							<MenuItem value={4.99}>32mm - 4.99$</MenuItem>
 						</Select>
 					</FormControl>
 
@@ -218,19 +250,19 @@ export default function ModelPage() {
 							marginBottom: "40px"
 						}}
 					>
-						<IconButton color="inherit" ><RemoveIcon /></IconButton>
-						<Typography> 1 </Typography>
-						<IconButton color="inherit" ><AddIcon /></IconButton>
-
+						<IconButton color="inherit" disabled={quantity.value === 1}
+							onClick={() => { setQuantity({ value: quantity.value - Number(1) }) }} ><RemoveIcon /></IconButton>
+						<Typography> {quantity.value} </Typography>
+						<IconButton color="inherit"
+							onClick={() => { setQuantity({ value: quantity.value + Number(1) }) }}><AddIcon /></IconButton>
 					</Box>
 
 					<Stack spacing={2} direction="row" container="true" justifyContent="center">
-						<Button className={styles.modelPageAddToCartButton} size="large" variant="contained">ADD TO CART</Button>
+						<Button type="submit" className={styles.modelPageAddToCartButton} size="large" variant="contained">ADD TO CART</Button>
 						<Button className={styles.modelPageAddToFavorite} children={<FavoriteBorderSharpIcon />}></Button>
 					</Stack>
-
-
 				</Box>
+
 			</Box>
 			<Container maxWidth="xl">
 				<Typography

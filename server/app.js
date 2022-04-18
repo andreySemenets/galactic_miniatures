@@ -9,6 +9,7 @@ const dbCheck = require('./helpers/dbCheck');
 const authRouter = require('./routers/authRouter');
 const itemRouter = require('./routers/itemRouter');
 const itemsRouter = require('./routers/itemsRouter');
+// const cartRouter = require('./routers/cartRouter');
 const sortByCategoryRouter = require('./routers/sortByCategoryRouter');
 const errorMiddleware = require('./middlewares/errorMiddleware');
 
@@ -32,6 +33,7 @@ app.use(cors({
 // routers
 app.use('/auth', authRouter);
 app.use('/items', itemRouter);
+// app.use('/cart', cartRouter);
 app.use('/search', itemsRouter);
 app.use('/sort', sortByCategoryRouter);
 
