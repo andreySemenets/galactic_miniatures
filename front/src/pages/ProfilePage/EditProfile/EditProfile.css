@@ -34,4 +34,16 @@
 .saveProfile {
     width: 128px;
     margin-top: 30px;
+    justify-content: center;
+}
+
+.avatarButtonImg {
+   size: inherit;
+    margin-right: 5px;
+}
+
+.buttonFlag {
+    display: flex;
+    overflow: hidden;
+    align-items: center;
 }

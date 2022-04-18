@@ -16,7 +16,7 @@ module.exports.register = async (firstName, lastName, email, password, next) => 
     } else {
       const hashPassword = await bcrypt.hash(password, 10);
       const user = await User.create({
-        firstName, lastName, email, password: hashPassword,
+        firstName, lastName, email, password: hashPassword, phone: 'укажите номер'
       });
 
       const userDto = new UserDto(user);

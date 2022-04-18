@@ -14,7 +14,7 @@ const EditProfile = () => {
     const submitEditProfile = async (e) => {
         e.preventDefault()
         dispatch(submitEditUser(userProfile))
-        // setUserProfile(userData)
+        // setUserProfile(userData)  что за ерунда
         dispatch(setUser(userProfile))
     }
 
@@ -26,15 +26,27 @@ const EditProfile = () => {
         <>
             <div className="profileContainer">
                 <div className='profileTitle'>My Profile</div>
+
                 <div className="profileContent">
                     <div className="profileInfo">
-                            <img className='avatar' src={'http://localhost:4000/' + userData.avatarUrl + '.jpg'}/>
+                        {userData.avatarUrl ? (<img className='avatar' src={'http://localhost:4000/' + userData.avatarUrl + '.jpg'}/>) :
+                            (<div className="avatar">{userData.firstName[0] + userData.lastName[0]}</div>)}
                         <div className='profileName'>{userData.firstName} {userData.lastName}</div>
                         <div className='profileEmail'>{userData.email}</div>
                         <div className="profileButton">
                             <Link to='/profile/edit'><button className='buttonEdit'>Edit profile</button></Link>
-                            <Link  to="/profile/maker"><button className='buttonFlag'>Maker profile</button></Link>
-                            <Link  to="/profile/creator"><button  className='buttonFlag'>Creator profile</button></Link>
+                            {userData.isMaker ? (<Link className='linkButton' to="/profile/maker"><button className='buttonFlag'>
+                                <img className='avatarButtonImg' src={'http://localhost:4000/' + 'buttonMaker' + '.png'} alt="ava"/>
+                                Maker profile
+                            </button></Link>) : null}
+                            {userData.isCreator ? (<Link className='linkButton' to="/profile/creator"><button  className='buttonFlag'>
+                                <img className='avatarButtonImg' src={'http://localhost:4000/' + 'buttonCreator' + '.png'} alt="ava"/>
+                                Creator profile
+                            </button></Link>) : null}
+                            <Link className='linkButton' to="/profile"><button  className='buttonFlag'>
+                                <img className='avatarButtonImg' src={'http://localhost:4000/' + 'buttonUser' + '.png'} alt="ava"/>
+                                <p>User profile</p>
+                            </button></Link>
                             <button className='buttonLogout'>Log out</button>
                         </div>
                     </div>
@@ -44,7 +56,8 @@ const EditProfile = () => {
                             <div className='actionsItem'>Edit profile</div>
                         </div>
                         <div className="actionsItems">
-                            <form onSubmit={submitEditProfile}>
+                            <form encType="multipart/form-data"
+                                onSubmit={submitEditProfile}>
                                 <div className="editItems">
                                     <div className="labelInput">
                                         <label htmlFor="firstName">First name</label>
@@ -78,17 +91,21 @@ const EditProfile = () => {
                                                value={userProfile.phone}/>
                                     </div>
 
-                                    <div className="labelInput">
-                                        <label htmlFor="inputAvatar">Аватар</label>
-                                        <input  type="file" id='inputAvatar' name='avatar'
-                                            // onChange={(e) => dispatch(editingTypingProfile(e))}
-                                            // onChange={changeInputsValue}
-                                            // value={userProfile.phone}
-                                        />
-                                    </div>
                                 </div>
-                                <button  className='buttonFlag saveProfile'>Save</button>
+                                <button  className='buttonFlag saveProfile'>
+                                    <p>Save</p>
+                                </button>
                             </form>
+
+                            <div className="labelInput">
+                                <label htmlFor="inputAvatar">Аватар</label>
+                                <input  type="file" id='inputAvatar' name='avatar' accept="image/*"
+                                    // onChange={(e) => dispatch(editingTypingProfile(e))}
+                                    // onChange={changeInputsValue}
+                                    // value={userProfile.phone}
+                                />
+                            </div>
+
                         </div>
                     </div>
                 </div>
