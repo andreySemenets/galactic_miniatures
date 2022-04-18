@@ -9,29 +9,28 @@ import {
 } from '@mui/material';
 import style from './style.module.css';
 
-function SearchItem({ item }) {
-    console.log(item?.['Photos.photoUrl'])
-    return (
+function CatalogCardMainPage() {
 
+    return (
         <Box className={style.catalogCardItemContainer}>
             <Card className={style.catalogCardItem}>
                 <CardMedia
                     component="img"
                     alt="random-pic"
-                    image={'http://localhost:4000/'+ item?.['Photos.photoUrl']}
+                    image="https://i.pinimg.com/originals/39/cb/76/39cb76a50c47b2ae50f7ef130c0fd5ba.jpg"
                 ></CardMedia>
                 <CardActions className={style.catalogCardItemButtonGroup}>
                     <Button
                         size="small"
                         className={style.catalogCardItemButton}
                     >
-                        {item?.digitalPrice}
+                        50USD
                     </Button>
                     <Button
                         size="small"
                         className={style.catalogCardItemButton}
                     >
-                        {item?.itemTitle}
+                        Space Marine
                     </Button>
                 </CardActions>
             </Card>
@@ -42,4 +41,4 @@ function SearchItem({ item }) {
     );
 }
 
-export default SearchItem;
+export default CatalogCardMainPage;

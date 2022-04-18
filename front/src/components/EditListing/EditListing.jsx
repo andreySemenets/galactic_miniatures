@@ -9,7 +9,6 @@ import {
     Select,
     MenuItem,
     Stack,
-    FormGroup,
 } from '@mui/material';
 import { ThemeProvider } from '@mui/material';
 import { createTheme } from '@mui/material';
@@ -83,7 +82,13 @@ function EditListing() {
     const zipHandler = (event) => {
         console.log(event.target.files);
         const zipArr = Array.from(event.target.files)
-        setZip((prev) => Array.from([ ...prev, ...zipArr]) );
+        setZip((prev) => {
+            if (prev.length) {
+               return Array.from([ ...prev, ...zipArr]);
+            } else {
+                return Array.from([...zipArr])
+            }
+        } );
         setZipInput(event.target.files[0].name ?? '');
         // console.log(zip, zipInput);
     };
@@ -106,14 +111,13 @@ function EditListing() {
         const formData = new FormData();
 
         formData.append('title', inputs.title);
-        formData.append('price', inputs.priceForDigital);
-        formData.append('category1', inputs.category1);
+        formData.append('digitalPrice', inputs.priceForDigital);
+        formData.append('category1', (inputs.category1)?.toLowerCase());
         formData.append('category2', inputs.category2);
         formData.append('description', inputs.description);
         formData.append('scale', inputs.scale);
+        formData.append('color', inputs.color);
         tags.forEach((tag) => formData.append('tags', tag.tagTitle));
-        // formData.append('zip', zip);
-        // formData.append('photos', photos.map(el => el));
         _.forEach(zip, oneZip => formData.append('zip', oneZip))
         _.forEach(photos, photo => formData.append('photos', photo))
 
@@ -132,6 +136,7 @@ function EditListing() {
         setInputs({});
         setTags([]);
         setPhotos([]);
+        setPreview([]);
         setZip({});
         setZipInput({});
     };
@@ -241,7 +246,7 @@ function EditListing() {
                             <TextField
                                 disabled
                                 size="small"
-                                sx={{ width: '330px', height: 'inherit' }}
+                                sx={{ width: '330px', height: 'inherit', bgcolor: 'white', borderRadius: '8px' }}
                                 onChange={zipHandler}
                                 value={zipInput ?? ''}
                             /> &nbsp;
@@ -264,6 +269,7 @@ function EditListing() {
                         </Typography>
                         <TextField
                             size="small"
+                            // type="number"
                             className={style.editListingCommonInput}
                             name="priceForDigital"
                             onChange={inputsHandler}
@@ -387,6 +393,21 @@ function EditListing() {
                         </Button>
 
                         <Typography className={style.editListingCommonTitle}>
+                            Color
+                        </Typography>
+                        <Select
+                            size="small"
+                            className={style.editListingScaleSelect}
+                            name="color"
+                            onChange={inputsHandler}
+                            value={inputs.color ?? ''}
+                        >
+                            <MenuItem value={'White'}>White</MenuItem>
+                            <MenuItem value={'Black'}>Black</MenuItem>
+                            <MenuItem value={'Red'}>Red</MenuItem>
+                        </Select>
+
+                        <Typography className={style.editListingCommonTitle}>
                             Scale
                         </Typography>
                         <Select
@@ -396,9 +417,9 @@ function EditListing() {
                             onChange={inputsHandler}
                             value={inputs.scale ?? ''}
                         >
-                            <MenuItem value={15}>15mm - 2.99$</MenuItem>
-                            <MenuItem value={28}>28mm - 3.99$</MenuItem>
-                            <MenuItem value={32}>32mm - 4.99$</MenuItem>
+                            <MenuItem value={'15mm - 2.99$'}>15mm - 2.99$</MenuItem>
+                            <MenuItem value={'28mm - 3.99$'}>28mm - 3.99$</MenuItem>
+                            <MenuItem value={'32mm - 4.99$'}>32mm - 4.99$</MenuItem>
                         </Select>
 
                         <Box className={style.editListingSubmitFormBtnGroup}>

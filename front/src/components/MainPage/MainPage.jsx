@@ -5,8 +5,12 @@ import Button from '@mui/material/Button';
 import styles from './MainPage.module.css'
 import CollectionGrid from '../CollectionGrid/CollectionGrid';
 import CatalogCardItem from '../CatalogCardItem/CatalogCardItem';
+import CatalogCardMainPage from '../CatalogCardMainPage/CatalogCardMainPage';
 
 const MainPage = () => {
+    React.useEffect(() => {
+        
+    }, [])
   return (
     <>
     <Box
@@ -56,16 +60,16 @@ const MainPage = () => {
       <Box className="2">
         <Box sx={{ m: '2rem 0 2rem', fontSize: 22, fontWeight: 'bold'  }}>Catalog</Box>
         <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center'}}>
-          <CatalogCardItem />
-          <CatalogCardItem />
-          <CatalogCardItem />
-          <CatalogCardItem />
+          <CatalogCardMainPage />
+          <CatalogCardMainPage />
+          <CatalogCardMainPage />
+          <CatalogCardMainPage />
         </Box>
         <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center'}}>
-          <CatalogCardItem />
-          <CatalogCardItem />
-          <CatalogCardItem />
-          <CatalogCardItem />
+          <CatalogCardMainPage />
+          <CatalogCardMainPage />
+          <CatalogCardMainPage />
+          <CatalogCardMainPage />
         </Box>
       </Box>
       </Box>
