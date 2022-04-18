@@ -9,7 +9,9 @@ const steps = ['Cart', 'Customer Information', 'Payment'];
 const ShoppingCartPage = () => {
     return (
         <div className="cartContainer">
-            <h2 className="cartTitle">Shopping Cart</h2>
+            <div className='shoppingTitle'>
+                <span className="cartTitle">Shopping Cart</span>
+            </div>
             <div className="cartStepper">
                 <div className="stepOne">1</div>
                 <div className="stepCart">Cart</div>

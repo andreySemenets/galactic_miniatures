@@ -16,3 +16,7 @@ export const SET_ITEMS = 'SET_ITEMS';
 // action - searchItemsSaga
 export const SEARCH_ITEMS = 'SEARCH_ITEMS';
 export const SET_FOUND_ITEMS = 'SET_FOUND_ITEMS';
+
+// action - sortByCategoriesReducer
+export const SORT_BY_CATEGORIES = 'SORT_BY_CATEGORIES';
+export const SET_CATEG_FR_SSTRG = 'SET_CATEG_FR_SSTRG';
