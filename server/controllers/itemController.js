@@ -19,11 +19,36 @@ module.exports.addItem = async (req, res, next) => {
 		console.log('"!!!req.files!!!"', req.files);
 		console.log('"!!!!!!!photos!!!!!!!"', photos);
 		console.log('"!!!!!!!zip!!!!!!!"', zip);
-		const photoName = uuid.v4() + '.jpg';
-		const zipName = uuid.v4() + '.zip';
+		// const photoName = uuid.v4() + '.jpg';
+		// const zipName = uuid.v4() + '.zip';
+		// photos.mv(path.resolve(__dirname, '..', 'static', photoName));
+		// zip.mv(path.resolve(__dirname, '..', 'static', zipName));
 
-		photos.mv(path.resolve(__dirname, '..', 'static', photoName));
-		zip.mv(path.resolve(__dirname, '..', 'static', zipName));
+		const photoNames = [];
+		if (Array.isArray(photos)) {
+			photos.forEach((photo) => {
+				const photoName = uuid.v4() + '.jpg';
+				photo.mv(path.resolve(__dirname, '..', 'static', photoName));
+				photoNames.push(photoName);
+			});
+		} else {
+			const photoName = uuid.v4() + '.jpg';
+			photos.mv(path.resolve(__dirname, '..', 'static', photoName));
+			photoNames.push(photoName);
+		}
+
+		const zipNames = [];
+		if (Array.isArray(zip)) {
+			zip.forEach((oneZip) => {
+				const zipName = uuid.v4() + '.jpg';
+				oneZip.mv(path.resolve(__dirname, '..', 'static', uuid.v4() + '.zip'));
+				zipNames.push(zipName);
+			});
+		} else {
+			const zipName = uuid.v4() + '.jpg';
+			zip.mv(path.resolve(__dirname, '..', 'static', uuid.v4() + '.zip'));
+			zipNames.push(zipName);
+		}
 
 		const category = await Category.findOne({
 			where: { categoryTitle: req.body.category1 }, raw: true,
@@ -51,7 +76,7 @@ module.exports.addItem = async (req, res, next) => {
 		const tagsArr = req.body.tags;
 
 		tagsArr.forEach(async (tag) => {
-			const existingTag = await Tag.findOne({ where: { tagName: tag } });
+			const existingTag = await Tag.findOne({ where: { tagName: tag }, raw: true });
 			if (existingTag) {
 				tagIdArr.push(existingTag.id);
 			} else {
@@ -69,8 +94,16 @@ module.exports.addItem = async (req, res, next) => {
 
 		// ===================================================================
 
-		await Photo.create({ itemId: newItem.dataValues.id, photoUrl: photoName });
-		await File.create({ itemId: newItem.dataValues.id, fileUrl: zipName });
+		photoNames.forEach(async (photoName) => {
+			await Photo.create({ itemId: newItem.dataValues.id, photoUrl: photoName });
+		});
+
+		zipNames.forEach(async (zipName) => {
+			await File.create({ itemId: newItem.dataValues.id, photoUrl: zipName });
+		});
+
+		// await Photo.create({ itemId: newItem.dataValues.id, photoUrl: photoName });
+		// await File.create({ itemId: newItem.dataValues.id, fileUrl: zipName });
 
 		return res.json(newItem);
 	} catch (error) {
