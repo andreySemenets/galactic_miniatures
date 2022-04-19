@@ -10,6 +10,7 @@ const authRouter = require('./routers/authRouter');
 const itemRouter = require('./routers/itemRouter');
 const itemsRouter = require('./routers/itemsRouter');
 const sortByCategoryRouter = require('./routers/sortByCategoryRouter');
+const catalogRouter = require('./routers/catalogRouter');
 const errorMiddleware = require('./middlewares/errorMiddleware');
 
 const app = express();
@@ -34,6 +35,7 @@ app.use('/auth', authRouter);
 app.use('/items', itemRouter);
 app.use('/search', itemsRouter);
 app.use('/sort', sortByCategoryRouter);
+app.use('/catalog', catalogRouter);
 
 app.use(errorMiddleware);
 

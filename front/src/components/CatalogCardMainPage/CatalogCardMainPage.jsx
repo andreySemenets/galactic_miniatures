@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import style from './style.module.css';
 
-function CatalogCardMainPage() {
+function CatalogCardMainPage( { item }) {
 
     return (
         <Box className={style.catalogCardItemContainer}>
@@ -17,25 +17,25 @@ function CatalogCardMainPage() {
                 <CardMedia
                     component="img"
                     alt="random-pic"
-                    image="https://i.pinimg.com/originals/39/cb/76/39cb76a50c47b2ae50f7ef130c0fd5ba.jpg"
+                    image={'http://localhost:4000/'+ item?.['Photos.photoUrl']}
                 ></CardMedia>
                 <CardActions className={style.catalogCardItemButtonGroup}>
                     <Button
                         size="small"
                         className={style.catalogCardItemButton}
                     >
-                        50USD
+                        {item?.digitalPrice} USD
                     </Button>
                     <Button
                         size="small"
                         className={style.catalogCardItemButton}
                     >
-                        Space Marine
+                        {item?.itemTitle}
                     </Button>
                 </CardActions>
             </Card>
             <Typography>
-                {/* {item.} */}
+                {/* {item?.['Category.categoryTitle']} */}
             </Typography>
         </Box>
     );

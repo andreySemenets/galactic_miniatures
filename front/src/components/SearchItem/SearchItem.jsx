@@ -10,7 +10,7 @@ import {
 import style from './style.module.css';
 
 function SearchItem({ item }) {
-    console.log(item?.['Photos.photoUrl'])
+
     return (
 
         <Box className={style.catalogCardItemContainer}>

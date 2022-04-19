@@ -20,3 +20,6 @@ export const SET_FOUND_ITEMS = 'SET_FOUND_ITEMS';
 // action - sortByCategoriesReducer
 export const SORT_BY_CATEGORIES = 'SORT_BY_CATEGORIES';
 export const SET_CATEG_FR_SSTRG = 'SET_CATEG_FR_SSTRG';
+
+// action - catalogReducer
+export const SET_CATALOG_ITEMS = 'SET_CATALOG_ITEMS'
