@@ -13,8 +13,8 @@ module.exports = (sequelize, DataTypes) => {
 	PhysicalCopy.init({
 		itemId: DataTypes.INTEGER,
 		color: DataTypes.STRING,
-		scale: DataTypes.INTEGER,
-		price: DataTypes.FLOAT,
+		scale: DataTypes.STRING,
+		price: DataTypes.STRING,
 	}, {
 		sequelize,
 		modelName: 'PhysicalCopy',

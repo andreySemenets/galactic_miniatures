@@ -7,6 +7,7 @@ const initState = {
 	sortedByCategories: [],
 	cart: [],
 	model: {},
+	catalogItems: [],
 };
 
 export default initState;

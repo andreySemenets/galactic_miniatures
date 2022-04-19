@@ -8,69 +8,73 @@ const steps = ['Cart', 'Customer Information', 'Payment'];
 
 const ShoppingCartPage = () => {
     return (
-        <div className="cartContainer">
-            <div className='shoppingTitle'>
-                <span className="cartTitle">Shopping Cart</span>
-            </div>
-            <div className="cartStepper">
-                <div className="stepOne">1</div>
-                <div className="stepCart">Cart</div>
-                <div className="stepArrow">
-                    <ArrowRightAltIcon className="cartArrow" />
+        <>
+            <div className="shoppingCardContainer">
+                <div className="shoppingCardTitle">Shopping Cart</div>
+                <div className="cartActions">
+                    <div className="cartActionsItem">
+                        <div className="circleActionsItem activeCircle">1</div>
+                    </div>
+                    <div className="cartActionsItem activeActionsItem">Card</div>
+                    <div className="cartActionsItem">
+                        <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12.1997 4.59865L8.0354 0.960119C7.83577 0.785693 7.81534 0.482461 7.98976 0.282832C8.16419 0.0832033 8.46742 0.0627726 8.66705 0.237199L13.787 4.71082C13.7884 4.71197 13.7897 4.71312 13.791 4.71428C13.8935 4.80231 13.9585 4.9329 13.9585 5.07865C13.9585 5.25719 13.861 5.41295 13.7164 5.49565L8.66756 9.91967C8.46818 10.0944 8.16492 10.0744 7.99021 9.875C7.8155 9.67561 7.8355 9.37235 8.03488 9.19765L12.1878 5.55865L0.841075 5.55865C0.575978 5.55865 0.361074 5.34375 0.361074 5.07865C0.361074 4.81356 0.575978 4.59865 0.841075 4.59865L12.1997 4.59865Z" fill="#919EAB"/>
+                        </svg>
+                    </div>
+                    <div className="cartActionsItem">
+                        <div className="circleActionsItem">2</div>
+                    </div>
+                    <div className="cartActionsItem">Customer Information</div>
+                    <div className="cartActionsItem">
+                        <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12.1997 4.59865L8.0354 0.960119C7.83577 0.785693 7.81534 0.482461 7.98976 0.282832C8.16419 0.0832033 8.46742 0.0627726 8.66705 0.237199L13.787 4.71082C13.7884 4.71197 13.7897 4.71312 13.791 4.71428C13.8935 4.80231 13.9585 4.9329 13.9585 5.07865C13.9585 5.25719 13.861 5.41295 13.7164 5.49565L8.66756 9.91967C8.46818 10.0944 8.16492 10.0744 7.99021 9.875C7.8155 9.67561 7.8355 9.37235 8.03488 9.19765L12.1878 5.55865L0.841075 5.55865C0.575978 5.55865 0.361074 5.34375 0.361074 5.07865C0.361074 4.81356 0.575978 4.59865 0.841075 4.59865L12.1997 4.59865Z" fill="#919EAB"/>
+                        </svg>
+                    </div>
+                    <div className="cartActionsItem">
+                        <div className="circleActionsItem">3</div>
+                    </div>
+                    <div className="cartActionsItem ">Payment</div>
                 </div>
-                <div className="stepTwo">2</div>
-                <div className="stepCustmerInfo">Customer Information</div>
-                <div className="stepArrow">
-                    <ArrowRightAltIcon className="cartArrow" />
-                </div>
-                <div className="stepThree">3</div>
-                <div className="stepPayment">Payment</div>
-            </div>
-            <div className="cartItemsAndOrder">
-                <div className="cartItems">
-                    <ShoppingCartItem />
-                    <ShoppingCartItem />
-                    <ShoppingCartItem />
-                </div>
-                <div className="cartOrderSummary">
-                    <h4 className="cartOrderSummaryTitle">Order Summary</h4>
-                    <div className="cartOrderSummaryInfo">
-                        <div className="cartOrderSummaryModelsPrice">
-                            <span>Models Price</span>
-                            <span>
-                                <b>$75</b>
-                            </span>
-                        </div>
-                        <div>
-                            <span>Options Price</span>
-                            <span>
-                                <b>$75</b>
-                            </span>
-                        </div>
-                        <div>
-                            <span>Order Total</span>
-                            <span>
-                                <b>$75</b>
-                            </span>
+
+                <div className="shoppingCartContent">
+                    <div className="shoppingList">
+                        <ShoppingCartItem/>
+                        <ShoppingCartItem/>
+                        <ShoppingCartItem/>
+                    </div>
+
+                    <div className="orderSummary">
+                        <div className="orderSummaryContent">
+                            <div className="orderSummaryHeader">
+                                Order Summary
+                            </div>
+                            <div className="orderPrice">
+                                <p>Models Price</p>
+                                <p className='boltPrice'>$75.00</p>
+                            </div>
+                            <div className="orderPrice">
+                                <p>Options Price</p>
+                                <p className='boltPrice'>$75.00</p>
+                            </div>
+                            <div className="orderPrice bolt">
+                                <p>Order Total</p>
+                                <p className='boltPrice'>$150.00</p>
+                            </div>
+
+                            <div className="noteOrder">
+                                <div className="nodeOrderTitle">
+                                    Write a note
+                                </div>
+                                <textarea className='noteOrderArea' name="noteOrder" id="" cols="30" rows="10" placeholder='Text here'>
+                                </textarea>
+                            </div>
+                            
+                            <button className='proceed'>Proceed to Checkout</button>
                         </div>
                     </div>
-                    <div>
-                        <h6>Write a note</h6>
-                        <textarea
-                            name="cartNote"
-                            id="cartNote"
-                            cols="20"
-                            rows="5"
-                        />
-                    </div>
-                    <div>
-                        <button className="toCheckoutBtn">
-                            Proceed To Checkout
-                        </button>
-                    </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 

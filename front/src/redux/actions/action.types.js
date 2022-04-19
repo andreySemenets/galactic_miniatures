@@ -26,3 +26,5 @@ export const ADD_TO_CART = 'ADD_TO_CART';
 
 // action - model
 export const SET_MODEL = 'SET_MODEL';
+// action - catalogReducer
+export const SET_CATALOG_ITEMS = 'SET_CATALOG_ITEMS'

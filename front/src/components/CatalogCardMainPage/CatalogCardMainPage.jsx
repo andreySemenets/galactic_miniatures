@@ -9,10 +9,9 @@ import {
 } from '@mui/material';
 import style from './style.module.css';
 
-function SearchItem({ item }) {
+function CatalogCardMainPage( { item }) {
 
     return (
-
         <Box className={style.catalogCardItemContainer}>
             <Card className={style.catalogCardItem}>
                 <CardMedia
@@ -25,7 +24,7 @@ function SearchItem({ item }) {
                         size="small"
                         className={style.catalogCardItemButton}
                     >
-                        {item?.digitalPrice}
+                        {item?.digitalPrice} USD
                     </Button>
                     <Button
                         size="small"
@@ -36,10 +35,10 @@ function SearchItem({ item }) {
                 </CardActions>
             </Card>
             <Typography>
-                {/* {item.} */}
+                {/* {item?.['Category.categoryTitle']} */}
             </Typography>
         </Box>
     );
 }
 
-export default SearchItem;
+export default CatalogCardMainPage;

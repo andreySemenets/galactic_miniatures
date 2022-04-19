@@ -6,6 +6,7 @@ import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 
 import styles from './CollectionGrid.module.css'
+import { useSelector } from 'react-redux'
 
 const Item = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(2),
@@ -15,13 +16,15 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function CollectionGrid() {
+    const catalogItems = useSelector((store) => store.catalogItems);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
-        <Grid item xs={5}>
-          <Item className={styles.collectionCard}
-          >Collection <br /> name <br />
-          <Button size="small" className={styles.collectionButton}>view</Button>
+        <Grid  item xs={5}>
+          <Item id={catalogItems[0]?.id} className={styles.collectionCard}
+          >{catalogItems[0]?.['Collection.collectionName']}
+          <Button onClick={(e) => console.log(e.target.parentNode.id)} size="small" className={styles.collectionButton}>view</Button>
           </Item>
 
         </Grid>
