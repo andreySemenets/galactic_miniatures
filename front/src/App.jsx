@@ -35,17 +35,16 @@ const App = () => {
 			<Routes>
 				<Route path='/' element={<MainPage />} />
 				<Route path="/auth/login" element={<Login />} />
-        <Route path="/auth/registration" element={<Reg />} />
+				<Route path="/auth/registration" element={<Reg />} />
 				<Route path="/profile" element={<UserProfile />} />
 				<Route path="/profile/creator" element={<CreatorProfile />} />
 				<Route path="/profile/maker" element={<MakerProfile />} />
 				<Route path="/profile/edit" element={<EditProfile />} />
-				{/* TODO: ПОТОМ ПЕРЕДЕЛАТЬ НА ПАРАМС ЗАПРОС!!! */}
-				<Route path="/models" element={<ModelPage />} />
+				<Route path="/models/:id" element={<ModelPage />} />
 				<Route path="/models/edit" element={<EditListing />} />
 				<Route path="/search" element={<Search />} />
 				<Route path="/user/id/shoppingcart" element={<ShoppingCartPage />} />
-                <Route path='/sort' element={<SortByCategoryPage />} />
+				<Route path='/sort' element={<SortByCategoryPage />} />
 			</Routes>
 		</>
 	);

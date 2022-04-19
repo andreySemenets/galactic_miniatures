@@ -169,3 +169,51 @@ module.exports.addItem = async (req, res, next) => {
 		next(error);
 	}
 };
+
+module.exports.getOneItem = async (req, res, next) => {
+	console.log('IDDDDDDDDDD >>>>', req.params.id);
+	try {
+		const item = await Item.findOne({
+			where: {
+				id: req.params.id,
+			},
+			include: [
+				{
+					model: Photo,
+					attributes: ['photoUrl'],
+					required: true,
+				},
+				{
+					model: PhysicalCopy,
+					attributes: ['scale', 'color', 'price'],
+					required: true,
+				},
+			],
+			raw: true,
+		});
+
+		res.json(item);
+	} catch (error) {
+		console.error('{{{{{{getOneItem<<<<error>>>>}}}}}}', error);
+		next(error);
+	}
+};
+
+module.exports.getAllItems = async (req, res, next) => {
+	try {
+		const allItems = await Item.findAll({
+			raw: true,
+			include: [
+				{
+					model: Photo,
+					attributes: ['photoUrl'],
+				},
+			],
+			limit: 4,
+		});
+		res.json(allItems);
+	} catch (error) {
+		console.error('{{{{{{getOneItem<<<<error>>>>}}}}}}', error);
+		next(error);
+	}
+};
