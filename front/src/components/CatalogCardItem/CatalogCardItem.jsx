@@ -24,7 +24,7 @@ function CatalogCardItem({ card }) {
 				<CardMedia
 					component="img"
 					alt={`${card.itemTitle}-pic`}
-					image={'http://localhost:4000/' + card?.['Photos.photoUrl'] + '.jpg'}
+					image={'http://localhost:4000/' + card?.['Photos.photoUrl']}
 				></CardMedia>
 				<CardActions className={style.catalogCardItemButtonGroup}>
 					<Button

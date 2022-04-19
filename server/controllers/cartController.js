@@ -1,16 +1,14 @@
-const uuid = require('uuid');
-const {
-	Cart,
-	PhysicalCopy,
-} = require('../db/models');
+const { ShoppingCart, PhysicalCopy } = require('../db/models');
 
 module.exports.addItemToCart = async (req, res, next) => {
-	const physicalCopy = await PhysicalCopy.findByPk({ itemId: req.body.id });
+	const physicalCopy = await PhysicalCopy.findOne({ where: { itemId: req.body.id }, raw: true });
 
-	const itemInCart = await Cart.create({
-		userId: 3,
+	const itemInCart = await ShoppingCart.create({
+		userId: req.body.userId,
 		physicalCopyId: physicalCopy.id,
-		orderNumber: uuid.v4(),
+		orderNumber: Math.round(Math.random() * 10000),
 		quantity: req.body.quantity,
 	});
+
+	res.json(itemInCart);
 };

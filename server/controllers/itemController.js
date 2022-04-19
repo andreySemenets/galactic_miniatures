@@ -183,15 +183,15 @@ module.exports.getOneItem = async (req, res, next) => {
 					attributes: ['photoUrl'],
 					required: true,
 				},
-				// {
-				// 	model: PhysicalCopy,
-				// 	required: true,
-				// },
+				{
+					model: PhysicalCopy,
+					attributes: ['scale', 'color', 'price'],
+					required: true,
+				},
 			],
 			raw: true,
 		});
 
-		console.log('ITEM >>>>', item);
 		res.json(item);
 	} catch (error) {
 		console.error('{{{{{{getOneItem<<<<error>>>>}}}}}}', error);

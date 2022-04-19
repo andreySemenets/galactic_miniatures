@@ -20,19 +20,16 @@ import axios from 'axios';
 export default function ModelPage() {
 	const { id } = useParams();
 
-
 	const cart = useSelector((store) => store.cart);
 	const model = useSelector((store) => store.model);
+	const user = useSelector((store) => store.user);
 	const dispatch = useDispatch();
-
-	console.log('CART >>>', cart);
 
 	const [quantity, setQuantity] = useState({ value: Number(1) }); // счетчик количества
 	const [inputs, setInputs] = useState({}); // инпуты
 	const [totalCost, setTotalCost] = useState({ value: Number(0) });
 	const [alsoBuy, setAlsoBuy] = useState([]);
 
-	console.log('********', alsoBuy);
 
 	useEffect(() => {
 		const modelId = id;
@@ -71,12 +68,12 @@ export default function ModelPage() {
 	const addToCartHandler = (event) => {
 		const formData = {
 			id,
+			userId: user.id,
 			title: model.itemTitle,
-			color: inputs.color,
-			scale: inputs.scale,
 			quantity: quantity.value,
 			total: totalCost.value,
 		};
+
 		dispatch(addModelToCart(event, formData))
 		setInputs({});
 		setQuantity({ value: Number(1) });
@@ -103,7 +100,7 @@ export default function ModelPage() {
 							alt={`${model.itemTitle}-pic`}
 							width="614"
 							height="392"
-							image={'http://localhost:4000/' + model?.['Photos.photoUrl'] + '.jpg'}
+							image={'http://localhost:4000/' + model?.['Photos.photoUrl']}
 						/>
 
 					</Box>
@@ -222,9 +219,9 @@ export default function ModelPage() {
 								color: '#FFFFFF'
 							}}
 						>
-							<MenuItem value={'Yellow'}>Yellow</MenuItem>
-							<MenuItem value={'Green'}>Green</MenuItem>
-							<MenuItem value={'Gray'}>Gray</MenuItem>
+							<MenuItem value={model?.['PhysicalCopies.color']}>{model?.['PhysicalCopies.color']}</MenuItem>
+							{/* <MenuItem value={'Green'}>Green</MenuItem>
+							<MenuItem value={'Gray'}>Gray</MenuItem> */}
 						</Select>
 					</FormControl>
 
@@ -239,9 +236,9 @@ export default function ModelPage() {
 							}}
 							id="scale-select"
 						>
-							<MenuItem value={2.99}>15mm - 2.99$</MenuItem>
-							<MenuItem value={3.99}>28mm - 3.99$</MenuItem>
-							<MenuItem value={4.99}>32mm - 4.99$</MenuItem>
+							<MenuItem value={Number(model?.['PhysicalCopies.price'])}>{model?.['PhysicalCopies.scale']} - {model?.['PhysicalCopies.price']} $</MenuItem>
+							{/* <MenuItem value={3.99}>28mm - 3.99$</MenuItem>
+							<MenuItem value={4.99}>32mm - 4.99$</MenuItem> */}
 						</Select>
 					</FormControl>
 
