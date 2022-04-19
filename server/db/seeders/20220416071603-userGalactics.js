@@ -37,7 +37,7 @@ module.exports = {
 			avatarUrl: 'makerAvatar',
 			isAdmin: false,
 			isMaker: true,
-			isCreator: false,
+			isCreator: true,
 			isActivated: false,
 			createdAt: new Date(),
 			updatedAt: new Date(),

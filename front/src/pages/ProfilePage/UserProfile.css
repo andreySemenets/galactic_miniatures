@@ -17,7 +17,7 @@
     margin-top: 30px;
     display: flex;
     width: 1248px;
-    height: 664px;
+    min-height: 664px;
     left: 96px;
     top: 293px;
     background-color: #1e1f24;
@@ -85,12 +85,36 @@
     text-align: center;
     color: #0054FF;
     background: #FFFFFF;
+    transition: 1s;
+}
+
+.buttonAdd {
+    width: 238px;
+    height: 48px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 4px;
+
+    top: calc(50% - 22px/2);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 22px;
+    text-align: center;
+    color: #FFFFFF;
+    background:  #0054FF;
+    transition: 1s;
 }
 
 .buttonEdit:active {
     color: #ffffff;
     background: #0054FF;
     text-decoration: none;
+}
+
+.buttonAdd:active {
+    color:  #0054FF;
+    background: #FFFFFF;
 }
 
 .userFlagButton {
@@ -174,3 +198,13 @@ Link:active {
     text-decoration: none;
 }
 
+.itemProfileContent {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+     letter-spacing: 0.2px;
+    color: #FFFFFF;
+    margin-top: 30px;
+    padding: 10px;
+}

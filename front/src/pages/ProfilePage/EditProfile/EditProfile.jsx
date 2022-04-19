@@ -97,14 +97,16 @@ const EditProfile = () => {
                                 </button>
                             </form>
 
-                            <div className="labelInput">
-                                <label htmlFor="inputAvatar">Аватар</label>
-                                <input  type="file" id='inputAvatar' name='avatar' accept="image/*"
-                                    // onChange={(e) => dispatch(editingTypingProfile(e))}
-                                    // onChange={changeInputsValue}
-                                    // value={userProfile.phone}
-                                />
-                            </div>
+                            {/*<form action="">*/}
+                                <div className="labelInput addAvatar">
+                                    <label htmlFor="inputAvatar">Аватар</label>
+                                    <input  type="file" id='inputAvatar' name='avatar' accept="image/*"/>
+                                    <button  className='buttonFlag saveProfile'>
+                                        <p>Add avatar</p>
+                                    </button>
+                                </div>
+                            {/*</form>*/}
+                           
 
                         </div>
                     </div>
