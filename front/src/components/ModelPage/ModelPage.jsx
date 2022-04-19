@@ -25,6 +25,7 @@ export default function ModelPage() {
 	const user = useSelector((store) => store.user);
 	const dispatch = useDispatch();
 
+
 	const [quantity, setQuantity] = useState({ value: Number(1) }); // счетчик количества
 	const [inputs, setInputs] = useState({}); // инпуты
 	const [totalCost, setTotalCost] = useState({ value: Number(0) });
