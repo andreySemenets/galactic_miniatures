@@ -1,4 +1,4 @@
-import { ADD_TO_CART } from './action.types';
+import { ADD_TO_CART, SET_CART_ITEMS } from './action.types';
 import axios from 'axios';
 
 export const setCart = (value) => ({ type: ADD_TO_CART, payload: value });
@@ -8,7 +8,16 @@ export const addModelToCart = (event, data) => (dispatch) => {
 	console.log('IIIIIIIDDDDDDDDD', data.id);
 	axios.post(`http://localhost:4000/cart/new`, data, { withCredentials: true })
 		.then((res) => {
-			console.log('RESULT _____', res);
+            dispatch(setCart(res.data));
 		});
-	dispatch(setCart(data));
 };
+
+export const setCartItemsByUser = (value) => ({ type: SET_CART_ITEMS, payload: value });
+
+export const getCartItemsByUser = (userId) => async (dispatch) => {
+    axios.get(`http://localhost:4000/cart/${userId}`)
+        .then((res) => {
+            console.log(res.data);
+            dispatch(setCartItemsByUser(res.data))
+        })
+}

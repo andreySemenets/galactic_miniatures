@@ -52,7 +52,7 @@ export const logInUser = (value) => async (dispatch) => {
 export const checkUserAuth = () => async (dispatch) => {
   try {
     const res = await axios.get(`${API_URL}/auth/refresh`, { withCredentials: true });
-    console.log(res);
+    // console.log(res);
     localStorage.setItem('token', res.data.accessToken);
     dispatch(setUser(res.data.user));
   } catch (err) {
