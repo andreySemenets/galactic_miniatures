@@ -21,10 +21,12 @@ export const SET_FOUND_ITEMS = 'SET_FOUND_ITEMS';
 export const SORT_BY_CATEGORIES = 'SORT_BY_CATEGORIES';
 export const SET_CATEG_FR_SSTRG = 'SET_CATEG_FR_SSTRG';
 
-// action - cart
+// action - cartReducer
 export const ADD_TO_CART = 'ADD_TO_CART';
+export const SET_CART_ITEMS = 'SET_CART_ITEMS';
 
 // action - model
 export const SET_MODEL = 'SET_MODEL';
+
 // action - catalogReducer
 export const SET_CATALOG_ITEMS = 'SET_CATALOG_ITEMS'

@@ -12,3 +12,19 @@ module.exports.addItemToCart = async (req, res, next) => {
 
 	res.json(itemInCart);
 };
+
+module.exports.getUsersCartItems = async (req, res, next) => {
+	try {
+		const { userId } = req.params;
+		console.log(userId, '<<<<<<<<<::::');
+		const result = await ShoppingCart.findAll({
+			raw: true,
+			where: {
+				userId: +userId,
+			},
+		});
+		res.json(result);
+	} catch (error) {
+		console.log(error, 'cartitems{{{{{{{{{');
+	}
+};

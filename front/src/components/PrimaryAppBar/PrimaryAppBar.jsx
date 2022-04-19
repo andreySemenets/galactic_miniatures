@@ -19,6 +19,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import $api from '../../http';
 import { SET_USER } from '../../redux/actions/action.types';
+import { getCartItemsByUser } from '../../redux/actions/cartAC';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -64,6 +65,7 @@ export default function PrimaryAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const user = useSelector((store) => store.user);
+  const cart = useSelector((store) => store.cart)
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -103,6 +105,13 @@ export default function PrimaryAppBar() {
         return null;
     }
   };
+
+  React.useEffect(() => {
+      if (user.id) {
+        dispatch(getCartItemsByUser(user.id))
+      }
+  }, [dispatch, user.id])
+  console.log(cart, user.id, 'aaaaaaaaaalllllllll')
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
@@ -157,7 +166,7 @@ export default function PrimaryAppBar() {
     >
       <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={1} color="error">
+          <Badge badgeContent={cart.length ? cart.length : 0 } color="error">
               <ShoppingCartOutlinedIcon />
           </Badge>
         </IconButton>
@@ -220,7 +229,7 @@ export default function PrimaryAppBar() {
                     mr: '8px', width: '20%'
                   }}>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={8} color="error"
+              <Badge badgeContent={cart.length ? cart.length : 0 } color="error"
               // Менять динамически при добавлении
               >
                 <Link to='/user/id/shoppingcart'>
