@@ -15,7 +15,7 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 
 import logoLeft from '../../assets/images/logoL.png'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import $api from '../../http';
 import { SET_USER } from '../../redux/actions/action.types';
@@ -158,7 +158,7 @@ export default function PrimaryAppBar() {
       <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={1} color="error">
-            <ShoppingCartOutlinedIcon />
+              <ShoppingCartOutlinedIcon />
           </Badge>
         </IconButton>
         <p>Cart</p>
@@ -220,8 +220,12 @@ export default function PrimaryAppBar() {
                     mr: '8px', width: '20%'
                   }}>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="error">
+              <Badge badgeContent={8} color="error"
+              // Менять динамически при добавлении
+              >
+                <Link to='/user/id/shoppingcart'>
                 <ShoppingCartOutlinedIcon />
+                </Link>
               </Badge>
             </IconButton>
             <IconButton
