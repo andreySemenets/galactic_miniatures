@@ -6,6 +6,7 @@ const initState = {
 	editProfileInputs: {},
 	sortedByCategories: [],
 	cart: [],
+	model: {},
 };
 
 export default initState;

@@ -1,3 +1,8 @@
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams, useNavigate } from 'react-router-dom';
+import { addModelToCart } from '../../redux/actions/cartAC';
+import { setModel } from '../../redux/actions/modelAC';
 import { Button, Card, CardContent, CardMedia, Container, FormControl, IconButton, MenuItem, Select, Stack, Typography } from '@mui/material'
 import FavoriteBorderSharpIcon from '@mui/icons-material/FavoriteBorderSharp';
 import LibraryAddCheckOutlinedIcon from '@mui/icons-material/LibraryAddCheckOutlined';
@@ -5,29 +10,33 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import React, { useEffect, useState } from 'react'
 import styles from './style.module.css'
 import { Box } from '@mui/system';
 import CatalogCardItem from '../CatalogCardItem/CatalogCardItem';
-import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
-export default function ModelPage() {
 
-	const [cart, setCart] = useState([]); // состояние корзины
-	const [model, setModel] = useState({}); // данные модели для страницы
+
+export default function ModelPage() {
+	const { id } = useParams();
+
+
+	const cart = useSelector((store) => store.cart);
+	const model = useSelector((store) => store.model);
+	const dispatch = useDispatch();
+
+	console.log('CART >>>', cart);
+
 	const [quantity, setQuantity] = useState({ value: Number(1) }); // счетчик количества
 	const [inputs, setInputs] = useState({}); // инпуты
 	const [totalCost, setTotalCost] = useState({ value: Number(0) });
+	const [alsoBuy, setAlsoBuy] = useState([]);
 
-	console.log('FORM DATA:', cart);
+	console.log('********', alsoBuy);
 
-	const { id } = useParams();
 	useEffect(() => {
-		axios.get(`http://localhost:4000/items/${id}`)
-			.then((response) => {
-				setModel(response.data);
-			});
+		const modelId = id;
+		dispatch(setModel(modelId));
 	}, [id]);
 
 	// Расчет суммы заказа
@@ -35,15 +44,24 @@ export default function ModelPage() {
 		setTotalCost({ value: Number(model.digitalPrice) })
 	}, [model.digitalPrice]);
 
+	useEffect(() => {
+		const modelId = id;
+		axios.get('http://localhost:4000/items', modelId)
+			.then((response) =>
+				setAlsoBuy(response.data));
+	}, []);
+
 	// Расчет суммы заказа в зависимости от количества
 	useEffect(() => {
 		setTotalCost({ value: parseFloat((model.digitalPrice + inputs.scale)).toFixed(2) * Number(quantity.value) })
 	}, [quantity.value]);
 
+	// Выбор цвета модели
 	const colorSelectHandler = (event) => {
 		setInputs((prev) => ({ ...prev, [event.target.name]: event.target.value }));
 	};
 
+	// Выбор масштаба модели
 	const scaleSelectHandler = (event) => {
 		setInputs((prev) => ({ ...prev, [event.target.name]: event.target.value }));
 		setTotalCost({ value: (model.digitalPrice + event.target.value) });
@@ -51,8 +69,6 @@ export default function ModelPage() {
 	};
 
 	const addToCartHandler = (event) => {
-		event.preventDefault();
-
 		const formData = {
 			id,
 			title: model.itemTitle,
@@ -61,13 +77,11 @@ export default function ModelPage() {
 			quantity: quantity.value,
 			total: totalCost.value,
 		};
-
-		setCart(prev => [...prev, formData]);
+		dispatch(addModelToCart(event, formData))
 		setInputs({});
 		setQuantity({ value: Number(1) });
 		setTotalCost({ value: Number(model.digitalPrice) });
 	};
-
 	return (
 		<Container className={styles.myMainContainer} maxWidth="xl">
 			<Box sx={{
@@ -277,10 +291,9 @@ export default function ModelPage() {
 					marginTop: "30px",
 					flexWrap: 'wrap',
 				}}>
-					<CatalogCardItem />
-					<CatalogCardItem />
-					<CatalogCardItem />
-					<CatalogCardItem />
+
+					{alsoBuy.map((el) => (<CatalogCardItem key={el.id} card={el} />))}
+
 				</Box>
 			</Container>
 		</Container >

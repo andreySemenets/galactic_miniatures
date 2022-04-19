@@ -9,6 +9,7 @@ const {
 	Category,
 	SubCategory,
 	ItemsAndTag,
+	PhysicalCopy,
 } = require('../db/models');
 
 module.exports.addItem = async (req, res, next) => {
@@ -80,6 +81,7 @@ module.exports.addItem = async (req, res, next) => {
 };
 
 module.exports.getOneItem = async (req, res, next) => {
+	console.log('IDDDDDDDDDD >>>>', req.params.id);
 	try {
 		const item = await Item.findOne({
 			where: {
@@ -91,11 +93,35 @@ module.exports.getOneItem = async (req, res, next) => {
 					attributes: ['photoUrl'],
 					required: true,
 				},
+				// {
+				// 	model: PhysicalCopy,
+				// 	required: true,
+				// },
 			],
 			raw: true,
 		});
+
+		console.log('ITEM >>>>', item);
 		res.json(item);
-		// console.log('+++++++++++>>>>>>>', item.dataValues);
+	} catch (error) {
+		console.error('{{{{{{getOneItem<<<<error>>>>}}}}}}', error);
+		next(error);
+	}
+};
+
+module.exports.getAllItems = async (req, res, next) => {
+	try {
+		const allItems = await Item.findAll({
+			raw: true,
+			include: [
+				{
+					model: Photo,
+					attributes: ['photoUrl'],
+				},
+			],
+			limit: 4,
+		});
+		res.json(allItems);
 	} catch (error) {
 		console.error('{{{{{{getOneItem<<<<error>>>>}}}}}}', error);
 		next(error);

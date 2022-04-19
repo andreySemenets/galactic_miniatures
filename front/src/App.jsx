@@ -40,10 +40,7 @@ const App = () => {
 				<Route path="/profile/creator" element={<CreatorProfile />} />
 				<Route path="/profile/maker" element={<MakerProfile />} />
 				<Route path="/profile/edit" element={<EditProfile />} />
-				{/* TODO: ПОТОМ ПЕРЕДЕЛАТЬ НА ПАРАМС ЗАПРОС!!!
-				<Route path="/models" element={<ModelPage />} /> */}
 				<Route path="/models/:id" element={<ModelPage />} />
-
 				<Route path="/models/edit" element={<EditListing />} />
 				<Route path="/search" element={<Search />} />
 				<Route path="/user/id/shoppingcart" element={<ShoppingCartPage />} />

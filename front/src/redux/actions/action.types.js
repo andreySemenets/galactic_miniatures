@@ -23,3 +23,6 @@ export const SET_CATEG_FR_SSTRG = 'SET_CATEG_FR_SSTRG';
 
 // action - cart
 export const ADD_TO_CART = 'ADD_TO_CART';
+
+// action - model
+export const SET_MODEL = 'SET_MODEL';
