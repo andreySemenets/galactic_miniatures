@@ -2,7 +2,7 @@ module.exports = {
 	async up(queryInterface, Sequelize) {
 		await queryInterface.bulkInsert('Items', [
 			{
-				userId: 3,
+				userId: 4,
 				categoryId: 1,
 				subCategoryId: 1,
 				collectionId: 1,
@@ -14,7 +14,7 @@ module.exports = {
 				updatedAt: new Date(),
 			},
 			{
-				userId: 3,
+				userId: 4,
 				categoryId: 1,
 				subCategoryId: 1,
 				collectionId: 1,
@@ -26,7 +26,7 @@ module.exports = {
 				updatedAt: new Date(),
 			},
 			{
-				userId: 3,
+				userId: 4,
 				categoryId: 1,
 				subCategoryId: 1,
 				collectionId: 1,
@@ -38,7 +38,7 @@ module.exports = {
 				updatedAt: new Date(),
 			},
 			{
-				userId: 3,
+				userId: 4,
 				categoryId: 1,
 				subCategoryId: 1,
 				collectionId: 1,
@@ -50,7 +50,7 @@ module.exports = {
 				updatedAt: new Date(),
 			},
 			{
-				userId: 3,
+				userId: 4,
 				categoryId: 1,
 				subCategoryId: 1,
 				collectionId: 1,
@@ -62,7 +62,7 @@ module.exports = {
 				updatedAt: new Date(),
 			},
 			{
-				userId: 3,
+				userId: 4,
 				categoryId: 1,
 				subCategoryId: 2,
 				collectionId: 1,
@@ -74,7 +74,7 @@ module.exports = {
 				updatedAt: new Date(),
 			},
 			{
-				userId: 3,
+				userId: 4,
 				categoryId: 1,
 				subCategoryId: 2,
 				collectionId: 1,
@@ -86,7 +86,7 @@ module.exports = {
 				updatedAt: new Date(),
 			},
 			{
-				userId: 3,
+				userId: 4,
 				categoryId: 1,
 				subCategoryId: 2,
 				collectionId: 1,
@@ -98,7 +98,7 @@ module.exports = {
 				updatedAt: new Date(),
 			},
 			{
-				userId: 3,
+				userId: 4,
 				categoryId: 1,
 				subCategoryId: 2,
 				collectionId: 1,
@@ -110,7 +110,7 @@ module.exports = {
 				updatedAt: new Date(),
 			},
 			{
-				userId: 3,
+				userId: 4,
 				categoryId: 1,
 				subCategoryId: 2,
 				collectionId: 1,
@@ -122,7 +122,7 @@ module.exports = {
 				updatedAt: new Date(),
 			},
 			{
-				userId: 3,
+				userId: 4,
 				categoryId: 1,
 				subCategoryId: 2,
 				collectionId: 1,
@@ -134,7 +134,7 @@ module.exports = {
 				updatedAt: new Date(),
 			},
 			{
-				userId: 3,
+				userId: 4,
 				categoryId: 1,
 				subCategoryId: 3,
 				collectionId: 1,
@@ -146,7 +146,7 @@ module.exports = {
 				updatedAt: new Date(),
 			},
 			{
-				userId: 3,
+				userId: 4,
 				categoryId: 1,
 				subCategoryId: 3,
 				collectionId: 1,
@@ -158,7 +158,7 @@ module.exports = {
 				updatedAt: new Date(),
 			},
 			{
-				userId: 3,
+				userId: 4,
 				categoryId: 1,
 				subCategoryId: 3,
 				collectionId: 1,
@@ -170,7 +170,7 @@ module.exports = {
 				updatedAt: new Date(),
 			},
 			{
-				userId: 3,
+				userId: 4,
 				categoryId: 1,
 				subCategoryId: 3,
 				collectionId: 1,
@@ -182,7 +182,7 @@ module.exports = {
 				updatedAt: new Date(),
 			},
 			{
-				userId: 3,
+				userId: 4,
 				categoryId: 1,
 				subCategoryId: 4,
 				collectionId: 1,
@@ -194,7 +194,7 @@ module.exports = {
 				updatedAt: new Date(),
 			},
 			{
-				userId: 3,
+				userId: 4,
 				categoryId: 1,
 				subCategoryId: 4,
 				collectionId: 1,
@@ -206,7 +206,7 @@ module.exports = {
 				updatedAt: new Date(),
 			},
 			{
-				userId: 3,
+				userId: 4,
 				categoryId: 1,
 				subCategoryId: 4,
 				collectionId: 1,
@@ -218,7 +218,7 @@ module.exports = {
 				updatedAt: new Date(),
 			},
 			{
-				userId: 3,
+				userId: 4,
 				categoryId: 1,
 				subCategoryId: 4,
 				collectionId: 1,
