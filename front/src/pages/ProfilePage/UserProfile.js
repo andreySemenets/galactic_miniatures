@@ -12,13 +12,13 @@ const UserProfile = () => {
         const actionsItem = (actions) => {
             switch (actions) {
                 case 1:
-                    return (<div>My Orders CONTENT click</div>);
+                    return (<div className='itemProfileContent'>you don't have Orders</div>);
                 case 2:
-                    return (<div>My Downloads CONTENT click</div>);
+                    return (<div className='itemProfileContent'>you don't have Downloads</div>);
                 case 3:
-                    return (<div>My Settings CONTENT click</div>);
+                    return (<div className='itemProfileContent'>Settings</div>);
                 default :
-                    return (<div>My Orders CONTENT click</div>);
+                    return (<div className='itemProfileContent'>you don't have orders</div>);
             }
         }
 

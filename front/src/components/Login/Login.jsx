@@ -37,7 +37,7 @@ const Login = () => {
 
 	const handleChange = (e) => {
 		setLoginInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-		console.log(loginInputs);
+		// console.log(loginInputs);
 	};
 
 	const handleSubmit = (event) => {
