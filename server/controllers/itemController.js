@@ -171,17 +171,18 @@ module.exports.addItem = async (req, res, next) => {
 };
 
 module.exports.getOneItem = async (req, res, next) => {
-	console.log('IDDDDDDDDDD >>>>', req.params.id);
 	try {
-		const item = await Item.findOne({
+		const item = await Item.findAll({
 			where: {
 				id: req.params.id,
 			},
 			include: [
 				{
 					model: Photo,
+					where: {
+						itemId: req.params.id,
+					},
 					attributes: ['photoUrl'],
-					required: true,
 				},
 				{
 					model: PhysicalCopy,
@@ -192,7 +193,10 @@ module.exports.getOneItem = async (req, res, next) => {
 			raw: true,
 		});
 
-		res.json(item);
+		const photoArr = item.map((el) => el['Photos.photoUrl']);
+		item[0]['Photos.photoUrl'] = photoArr;
+
+		res.json(item[0]);
 	} catch (error) {
 		console.error('{{{{{{getOneItem<<<<error>>>>}}}}}}', error);
 		next(error);
