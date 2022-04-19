@@ -2,10 +2,16 @@ import React from 'react';
 import './UserProfile.css'
 import {Link} from "react-router-dom";
 import {useSelector} from "react-redux";
+import ProfileListingItem from "../../components/ProfileListingItem/ProfileListingItem";
 
 const CreatorProfile = () => {
 
     const userData = useSelector(store => store.user)
+    const Listing = useSelector(store => store.catalogItems)
+
+    const creatorListing = Listing.filter(item => item.userId === userData.id)
+    console.log('creatorListing ===' , creatorListing[0])
+
 
     return (
         <>
@@ -34,10 +40,16 @@ const CreatorProfile = () => {
                     <div className="profileActions">
                         <div className="actionsNavigations addListing">
                             <div className='actionsItem'>My Listing</div>
-                            <Link to='/models/edit'><button className='buttonFlag'>+ Add Listing</button></Link>
+                            <Link to='/models/edit'><button className='buttonAdd' >
+                                + Add Listing
+                            </button></Link>
                         </div>
+                        <br/>
                         <div className="actionsItems">
-                            Render Listing
+                            {creatorListing.map(item =>
+                                <ProfileListingItem item={item} key={item.id}/>
+                            )}
+                            <ProfileListingItem/>
                         </div>
                     </div>
                 </div>
