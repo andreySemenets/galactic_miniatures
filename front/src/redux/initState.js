@@ -5,6 +5,7 @@ const initState = {
   items: [],
   editProfileInputs: {},
   sortedByCategories: [],
+  catalogItems: [],
 };
 
 export default initState;
