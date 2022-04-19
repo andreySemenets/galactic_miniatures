@@ -4,6 +4,7 @@ import errorOnRegReducer from './errorOnRegReducer';
 import userReducer from './userReducer';
 import itemsReducer from './itemsReducer';
 import sortByCategoriesReducer from './sortByCategoriesReducer';
+import catalogReducer from './catalogReducer';
 
 // import {EditProfileInputsReducer} from "./editProfileInputsReducer";
 
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   errorOnLogin: errorOnLoginReducer,
   items: itemsReducer,
   sortedByCategories: sortByCategoriesReducer,
+  catalogItems: catalogReducer,
   // editProfileInputs: EditProfileInputsReducer
 });
 

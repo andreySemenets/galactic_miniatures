@@ -9,37 +9,64 @@ const {
 	Category,
 	SubCategory,
 	ItemsAndTag,
+	PhysicalCopy,
 } = require('../db/models');
 
 module.exports.addItem = async (req, res, next) => {
-	console.log('<<<<<<<addItem REQ BODY>>>>>>>', req.body);
+	console.log(
+		'<<<<<<<addItem REQ.BODY REQ.FILES>>>>>>>',
+		req.body,
+		req.files,
+	);
 
 	try {
 		const { zip, photos } = req.files;
-		console.log('"!!!req.files!!!"', req.files);
-		console.log('"!!!!!!!photos!!!!!!!"', photos);
-		console.log('"!!!!!!!zip!!!!!!!"', zip);
-		const photoName = uuid.v4() + '.jpg';
-		const zipName = uuid.v4() + '.zip';
 
-		photos.mv(path.resolve(__dirname, '..', 'static', photoName));
-		zip.mv(path.resolve(__dirname, '..', 'static', zipName));
+		const photoNames = [];
+		if (Array.isArray(photos)) {
+			photos.forEach((photo) => {
+				const photoName = uuid.v4() + '.jpg';
+				photo.mv(path.resolve(__dirname, '..', 'static', photoName));
+				photoNames.push(photoName);
+			});
+		} else {
+			const photoName = uuid.v4() + '.jpg';
+			photos.mv(path.resolve(__dirname, '..', 'static', photoName));
+			photoNames.push(photoName);
+		}
+
+		const zipNames = [];
+		if (Array.isArray(zip)) {
+			zip.forEach((oneZip) => {
+				const zipName = uuid.v4() + '.jpg';
+				oneZip.mv(
+					path.resolve(__dirname, '..', 'static', uuid.v4() + '.zip'),
+				);
+				zipNames.push(zipName);
+			});
+		} else {
+			const zipName = uuid.v4() + '.jpg';
+			zip.mv(path.resolve(__dirname, '..', 'static', uuid.v4() + '.zip'));
+			zipNames.push(zipName);
+		}
 
 		const category = await Category.findOne({
-			where: { categoryTitle: req.body.category1 }, raw: true,
+			where: { categoryTitle: req.body.category1 },
+			raw: true,
 		});
 
 		const subCategory = await SubCategory.findOne({
-			where: { subCategoryTitle: req.body.category2 }, raw: true,
+			where: { subCategoryTitle: req.body.category2 },
+			raw: true,
 		});
 
 		const newItem = await Item.create({
-			userId: 4, 													// ХАРДКОД
+			userId: 4, // ХАРДКОД
 			categoryId: category.id,
 			subCategoryId: subCategory.id,
-			collectionId: 3, 										// ХАРДКОД
+			collectionId: 3, // ХАРДКОД
 			itemTitle: req.body.title,
-			digitalPrice: req.body.scale,
+			digitalPrice: req.body.digitalPrice,
 			isApproved: false,
 			description: req.body.description,
 		});
@@ -51,7 +78,10 @@ module.exports.addItem = async (req, res, next) => {
 		const tagsArr = req.body.tags;
 
 		tagsArr.forEach(async (tag) => {
-			const existingTag = await Tag.findOne({ where: { tagName: tag } });
+			const existingTag = await Tag.findOne({
+				where: { tagName: tag },
+				raw: true,
+			});
 			if (existingTag) {
 				tagIdArr.push(existingTag.id);
 			} else {
@@ -60,7 +90,7 @@ module.exports.addItem = async (req, res, next) => {
 			}
 		});
 
-		// УБРАТЬ ЭТОТ КОСТЫЛЬ ПЕРЕПИСАВ НА THEN'ы
+		// Можно оставить!
 		setTimeout(() => {
 			tagIdArr.forEach(async (el) => {
 				await ItemsAndTag.create({ itemId: newItem.id, tagId: el });
@@ -69,8 +99,69 @@ module.exports.addItem = async (req, res, next) => {
 
 		// ===================================================================
 
-		await Photo.create({ itemId: newItem.dataValues.id, photoUrl: photoName });
-		await File.create({ itemId: newItem.dataValues.id, fileUrl: zipName });
+		photoNames.forEach(async (photoName) => {
+			await Photo.create({
+				itemId: newItem.dataValues.id,
+				photoUrl: photoName,
+			});
+		});
+
+		zipNames.forEach(async (zipName) => {
+			await File.create({
+				itemId: newItem.dataValues.id,
+				photoUrl: zipName,
+			});
+		});
+
+		const { color } = req.body;
+		const [scale, price] = req.body.scale.split(' - ');
+
+		await PhysicalCopy.create({
+			itemId: newItem.dataValues.id,
+			color,
+			scale,
+			price,
+		});
+
+		// =========TODO: COMPLETE THIS JOIN LATER======== //
+		// const result = await Item.findOne({
+		// 	raw: true,
+		// 	where: {
+		// 		id: newItem.dataValues.id,
+		// 	},
+		// 	include: [
+		// 		{
+		// 			model: Category,
+		// 			where: { categoryTitle: category },
+		// 			required: true,
+		// 		},
+		// 		{
+		// 			model: SubCategory,
+		// 			where: { subCategoryTitle: subCategory },
+		// 			required: true,
+		// 		},
+		// 		{
+		// 			model: Photo,
+		// 			attributes: ['photoUrl'],
+		// 			required: true,
+		// 		},
+		// 		{
+		// 			model: File,
+		// 			attributes: ['fileUrl'],
+		// 			required: true,
+		// 		},
+		// 		{
+		// 			model: PhysicalCopy,
+		// 			attributes: ['color', 'scale', 'price'],
+		// 			required: true,
+		// 		},
+		// 		{
+		// 			model: Tag,
+		// 			through: { attributes: ['itemId', 'tagId'] },
+		// 			// required: true,
+		// 		},
+		// 	],
+		// });
 
 		return res.json(newItem);
 	} catch (error) {
