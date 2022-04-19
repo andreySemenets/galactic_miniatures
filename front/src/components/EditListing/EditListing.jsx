@@ -68,7 +68,7 @@ function EditListing() {
 	// UPLOAD ARCHIVE
 	const [zipInput, setZipInput] = useState(null);
 	const [zip, setZip] = useState([]);
-	console.log(zip);
+	// console.log(zip);
 	const photosHandler = (event) => {
 		// console.log(event.target.files);
 		const arrFromFileList = Array.from((event.target.files));
@@ -80,7 +80,7 @@ function EditListing() {
 	};
 
 	const zipHandler = (event) => {
-		console.log(event.target.files);
+		// console.log(event.target.files);
 		const zipArr = Array.from(event.target.files)
 		setZip((prev) => {
 			if (prev.length) {
@@ -90,11 +90,10 @@ function EditListing() {
 			}
 		});
 		setZipInput(event.target.files[0].name ?? '');
-		// console.log(zip, zipInput);
 	};
 
 	const inputsHandler = (event) => {
-		// console.log(event.target.name);
+
 		setInputs((prev) => ({
 			...prev,
 			[event.target.name]: event.target.value,
