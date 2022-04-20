@@ -184,6 +184,7 @@ module.exports.addItem = async (req, res, next) => {
 };
 
 module.exports.getOneItem = async (req, res, next) => {
+	console.log('ITEM >>>>', req.params.id);
 	try {
 		const item = await Item.findAll({
 			where: {
@@ -206,8 +207,7 @@ module.exports.getOneItem = async (req, res, next) => {
 			raw: true,
 		});
 
-		// const photoArr = item.map((el) => el['Photos.photoUrl']);
-		// item[0]['Photos.photoUrl'] = photoArr;
+
 
 		const photoArr = item.map((el) => el['Photos.photoUrl']).filter((el, i, a) => a.indexOf(el) === i);
 		item[0]['Photos.photoUrl'] = photoArr;
