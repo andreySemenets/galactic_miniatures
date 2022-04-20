@@ -8,8 +8,20 @@ module.exports.addItemToCart = async (req, res, next) => {
 		physicalCopyId: physicalCopy.id,
 		quantity: req.body.quantity,
 	});
-
-	res.json(itemInCart);
+	// res.json(itemInCart);
+	const result = await ShoppingCart.findAll({
+		raw: true,
+		where: {
+			userId: +req.body.userId,
+		},
+		include: [
+			{
+				model: PhysicalCopy,
+				attributes: ['itemId', 'color', 'scale', 'price'],
+			},
+		],
+	});
+	res.json(result);
 };
 
 module.exports.getUsersCartItems = async (req, res, next) => {

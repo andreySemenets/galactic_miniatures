@@ -35,7 +35,7 @@ catalogRouter.get('/', async (req, res) => {
 					required: true,
 				},
 			],
-			order: [['id', 'ASC']],
+			order: [['id', 'DESC']],
 		});
 
 		const result = allItems.filter((el, i, a) => a.findIndex((elem) => (elem.id === el.id)) === i);
