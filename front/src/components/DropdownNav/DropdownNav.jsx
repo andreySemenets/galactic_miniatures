@@ -2,9 +2,8 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { getSortedCategories } from '../../redux/actions/sortAC';
 
 export default function DropdownNav({ category }) {
@@ -22,10 +21,10 @@ export default function DropdownNav({ category }) {
     const handleClose = (event) => {
         setAnchorEl(null);
         // console.log(Boolean(event.target.innerText));
-        if (event.target.innerText){
-             const subCategory = event.target.innerText.toString();
-            dispatch(getSortedCategories(firstCategory, subCategory))
-            navigate('/sort')
+        if (event.target.innerText) {
+            const subCategory = event.target.innerText.toString();
+            dispatch(getSortedCategories(firstCategory, subCategory));
+            navigate('/sort');
         }
     };
 
@@ -37,7 +36,11 @@ export default function DropdownNav({ category }) {
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleClick}
-                sx={{ color: 'white' }}
+                sx={{
+                    color: 'white',
+                    cursor: 'pointer',
+                    '&:hover': { color: '#1976d2', background: 'white' },
+                }}
             >
                 {category}
             </Button>

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Navbar from './components/Navbar/Navbar';
 import Login from './components/Login/Login';
 import { checkUserAuth } from './redux/actions/userAC';
@@ -21,12 +21,13 @@ import SortByCategoryPage from './pages/SortByCategoryPage/SortByCategoryPage';
 
 const App = () => {
 	const dispatch = useDispatch();
+    const user = useSelector(store => store.user)
 
 	useEffect(() => {
 		if (localStorage.getItem('token')) {
 			dispatch(checkUserAuth());
 		}
-	}, [dispatch]);
+	}, [dispatch, user.id]);
 
 	return (
 		<>

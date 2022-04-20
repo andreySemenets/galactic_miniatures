@@ -23,6 +23,11 @@ sortByCategoryRouter.get('/', async (req, res) => {
 					attributes: ['photoUrl'],
 					required: true,
 				},
+				// {
+				// 	model: Models.PhysicalCopy,
+				// 	attributes: ['itemId', 'color', 'scale', 'price'],
+				// 	required: true,
+				// },
 			],
 		});
 		res.json({ result });

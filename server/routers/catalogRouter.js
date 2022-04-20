@@ -5,13 +5,12 @@ catalogRouter.get('/', async (req, res) => {
 	try {
 		const result = await Models.Item.findAll({
 			raw: true,
-			where: {
-				categoryId: 1,
-			},
+			// where: {
+			// 	categoryId: 1,
+			// },
 			include: [
 				{
 					model: Models.Category,
-					where: { id: 1 },
 					required: true,
 				},
 				{
@@ -27,9 +26,13 @@ catalogRouter.get('/', async (req, res) => {
 					attributes: ['photoUrl'],
 					required: true,
 				},
+				// {
+				// 	model: Models.PhysicalCopy,
+				// 	attributes: ['itemId', 'color', 'scale', 'price'],
+				// 	required: true,
+				// },
 			],
-			order: [['id', 'ASC']],
-			limit: 8,
+			order: [['id', 'DESC']],
 		});
 		res.json(result);
 	} catch (error) {

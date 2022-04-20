@@ -14,7 +14,7 @@ const MainPage = () => {
     React.useEffect(() => {
         dispatch(getCatalogItems());
     }, [dispatch]);
-
+    console.log(catalogItems);
     return (
         <>
             <Box
@@ -24,7 +24,7 @@ const MainPage = () => {
                     justifyContent: 'space-between',
                 }}
             >
-                <Box className={styles.mainPic}>
+                <Box className={styles.mainPic} >
                     <Box
                         sx={{
                             position: 'absolute',

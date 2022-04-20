@@ -3,42 +3,60 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { addModelToCart } from '../../redux/actions/cartAC';
 import { setModel } from '../../redux/actions/modelAC';
-import { Button, Card, CardContent, CardMedia, Container, FormControl, IconButton, MenuItem, Select, Stack, Typography } from '@mui/material'
+import {
+	Button,
+	Card,
+	CardContent,
+	CardMedia,
+	Container,
+	FormControl,
+	IconButton,
+	MenuItem,
+	Select,
+	Stack,
+	Typography
+} from '@mui/material'
 import FavoriteBorderSharpIcon from '@mui/icons-material/FavoriteBorderSharp';
 import LibraryAddCheckOutlinedIcon from '@mui/icons-material/LibraryAddCheckOutlined';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import styles from './style.module.css'
+import CircularProgress from '@mui/material/CircularProgress';
 import { Box } from '@mui/system';
+import styles from './style.module.css'
 import CatalogCardItem from '../CatalogCardItem/CatalogCardItem';
 import axios from 'axios';
 
 
 
+
 export default function ModelPage() {
 	const { id } = useParams();
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+
 
 	const cart = useSelector((store) => store.cart);
 	const model = useSelector((store) => store.model);
 	const user = useSelector((store) => store.user);
-	const dispatch = useDispatch();
 
 	const [quantity, setQuantity] = useState({ value: Number(1) }); // счетчик количества
 	const [inputs, setInputs] = useState({}); // инпуты
-	const [totalCost, setTotalCost] = useState({ value: Number(0) });
+	const [totalCost, setTotalCost] = useState({ value: Number(0), loading: true });
 	const [alsoBuy, setAlsoBuy] = useState([]);
-
+	const [preview, setPreview] = useState([]);
+	const photosArr = model['Photos.photoUrl'];
 
 	useEffect(() => {
 		const modelId = id;
 		dispatch(setModel(modelId));
+		setPreview(model['Photos.photoUrl']);
 	}, [id]);
 
 	// Расчет суммы заказа
 	useEffect(() => {
-		setTotalCost({ value: Number(model.digitalPrice) })
+		setTotalCost({ value: Number(model.digitalPrice), loadings: false })
 	}, [model.digitalPrice]);
 
 	useEffect(() => {
@@ -50,7 +68,9 @@ export default function ModelPage() {
 
 	// Расчет суммы заказа в зависимости от количества
 	useEffect(() => {
-		setTotalCost({ value: parseFloat((model.digitalPrice + inputs.scale)).toFixed(2) * Number(quantity.value) })
+		setTotalCost({
+			value: (parseFloat((model.digitalPrice + inputs.scale)) * Number(quantity.value)).toFixed(2),
+		});
 	}, [quantity.value]);
 
 	// Выбор цвета модели
@@ -78,6 +98,7 @@ export default function ModelPage() {
 		setInputs({});
 		setQuantity({ value: Number(1) });
 		setTotalCost({ value: Number(model.digitalPrice) });
+		navigate(`/user/${user.id}/shoppingcart`)
 	};
 	return (
 		<Container className={styles.myMainContainer} maxWidth="xl">
@@ -88,71 +109,60 @@ export default function ModelPage() {
 				justifyContent: 'space-between'
 			}}>
 				<Container>
-					<Box sx={{
-						width: '100%',
-						display: 'flex',
-						flexDirection: 'column',
-						justifyContent: 'space-between',
-						marginBottom: "20px"
-					}}>
-						<CardMedia
-							component="img"
-							alt={`${model.itemTitle}-pic`}
-							width="614"
-							height="392"
-							image={'http://localhost:4000/' + model?.['Photos.photoUrl']}
-						/>
+
+					{/* ОСНОВНОЕ ФОТО */}
+					<Box className={styles.modelPageMainImg}>
+
+						{model['Photos.photoUrl']
+							? <CardMedia
+								component="img"
+								alt={`${model.itemTitle}-pic`}
+								width="614"
+								height="392"
+								image={'http://localhost:4000/' + model?.['Photos.photoUrl']?.[0]}
+							/>
+							: <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+								<CircularProgress sx={{ color: 'blue' }} />
+							</Box>
+						}
 
 					</Box>
 
-					<Box
-						component="div"
-						sx={{
-							width: '100%',
-							height: 102,
-							display: 'flex',
-							justifyContent: 'space-between',
-							alignItems: 'center'
-						}}
-					>
-						<IconButton color="inherit"
-							sx={{
-								border: '2px solid #1F2937',
-								borderRadius: '5px',
-								width: 40,
-								height: 102,
-							}}
-						><ArrowBackIosNewIcon /></IconButton>
+					{/* МИНИАТЮРЫ ФОТО */}
+					<Box component="div" className={styles.modelPageCarouselBox} >
 
-						<Typography> Img1 </Typography>
-						<Typography> Img2 </Typography>
-						<Typography> Img3 </Typography>
+						<IconButton className={styles.modelPageCarouselBtn} ><ArrowBackIosNewIcon /></IconButton>
 
-						<IconButton color="inherit" sx={{
-							border: '2px solid #1F2937',
-							borderRadius: '5px',
-							width: 40,
-							height: 102,
-						}} ><ArrowForwardIosIcon /></IconButton>
+						<Stack direction="row" alignItems="center" spacing={2}>
+							{photosArr?.length
+								? photosArr.map((el) => (
+									<Box key={el} >
+										<img
+											style={{
+												width: '150px',
+												height: '105px',
+											}}
+											src={'http://localhost:4000/' + el}
+											alt="here"
+											loading="lazy"
+										/>
+									</Box>
+								))
+								: null}
+						</Stack>
+
+						<IconButton className={styles.modelPageCarouselBtn}><ArrowForwardIosIcon /></IconButton>
 
 					</Box>
 
-					<Typography
-						component="div"
-						sx={{
-							fontWeight: 'bold',
-							marginTop: "50px",
-							marginBottom: "15px"
-						}}
-					>Description</Typography>
+					{/* ОПИСАНИЕ */}
+					<Typography className={styles.modelPageDescriptionTitle} component="div">Description</Typography>
 
 					<Typography>{model.description}</Typography>
+
 				</Container>
 
-
-				<Box
-					component="form"
-					onSubmit={addToCartHandler}
+				<Box component="form" onSubmit={addToCartHandler}
 					sx={{
 						width: '100%',
 						display: 'flex',
@@ -160,134 +170,93 @@ export default function ModelPage() {
 						justifyContent: 'space-between',
 					}} >
 
-					<Typography
-						component="h2"
-						sx={{
-							fontSize: '24',
-							fontWeight: 'bold',
-							wordSpacing: '4px',
-							marginBottom: '16px'
-						}}
-					>{model.itemTitle}</Typography>
-
-					<Typography
-						variant="h4"
-						component="span"
-						sx={{
-							marginBottom: '40px'
-						}}
-					>{totalCost.value} USD</Typography>
+					<Typography className={styles.modelPageModelTitle}>{model.itemTitle}</Typography>
 
 
-					<Card sx={{
-						backgroundColor: '#1F2937',
-						color: '#FFFFFF',
-						heigth: 222,
-						marginBottom: '40px'
-					}}>
+					{model.digitalPrice
+						? <Typography className={styles.modelPageModelTotalCost} variant="h4">{totalCost.value} USD</Typography>
+						: <Box> <CircularProgress sx={{ color: 'blue' }} /> </Box>
+					}
+
+
+					<Card className={styles.modelPageModelBuyDigital}>
 						<CardContent>
-							<Stack
-								spacing={1}
-								direction="row">
-								<LibraryAddCheckOutlinedIcon
-									sx={{ color: 'blue' }}
-								/>
-								<Typography
-									variant="h6"
-									component="b">
+							<Stack spacing={1} direction="row">
+
+								<LibraryAddCheckOutlinedIcon sx={{ color: 'blue' }} />
+
+								<Typography variant="h6" component="b">
 									Digital copy available
 								</Typography>
+
 							</Stack>
+
 							<Typography color="#6B7280">
 								You can buy a Digital version of this model. The priceis fixed, the ability to select options is not available.
 							</Typography>
+
 						</CardContent>
 
-						<Box sx={{ display: 'flex', justifyContent: 'center' }}>
+						<Box className={styles.modelPageModelBuyDigitalBtn}>
 							<Button className={styles.modelPageBuyButton}> Buy digital for {model.digitalPrice} USD </Button>
 						</Box>
 
 					</Card>
 
+					{/* COLOR SELECTOR */}
 					<Typography sx={{ marginBottom: "15px" }}> Color </Typography>
 					<FormControl sx={{ color: "#1F2937", marginBottom: "40px" }} size="small">
-						<Select
-							name="color"
+
+						<Select name="color" id="color-select"
 							onChange={colorSelectHandler} value={inputs.color ?? ''}
-							sx={{
-								border: '2px solid #1F2937',
-								color: '#FFFFFF'
-							}}
-						>
+							className={styles.modelPageSelect}>
+
 							<MenuItem value={model?.['PhysicalCopies.color']}>{model?.['PhysicalCopies.color']}</MenuItem>
-							{/* <MenuItem value={'Green'}>Green</MenuItem>
-							<MenuItem value={'Gray'}>Gray</MenuItem> */}
 						</Select>
+
 					</FormControl>
 
+					{/* SCALE SELECTOR */}
 					<Typography sx={{ marginBottom: "15px" }}> Scale </Typography>
 					<FormControl sx={{ marginBottom: "40px" }} size="small">
-						<Select
-							name="scale"
-							onChange={scaleSelectHandler} value={inputs.scale ?? ''}
-							sx={{
-								border: '2px solid #1F2937',
-								color: '#FFFFFF'
-							}}
-							id="scale-select"
-						>
-							<MenuItem value={Number(model?.['PhysicalCopies.price'])}>{model?.['PhysicalCopies.scale']} - {model?.['PhysicalCopies.price']} $</MenuItem>
-							{/* <MenuItem value={3.99}>28mm - 3.99$</MenuItem>
-							<MenuItem value={4.99}>32mm - 4.99$</MenuItem> */}
+
+						<Select name="scale" id="scale-select"
+							onChange={scaleSelectHandler} value={inputs.scale ?? 0}
+							className={styles.modelPageSelect}>
+
+							<MenuItem value={Number(model?.['PhysicalCopies.price'])}>
+								{model?.['PhysicalCopies.scale']} - {model?.['PhysicalCopies.price']} $
+							</MenuItem>
+
 						</Select>
+
 					</FormControl>
 
-					<Typography
-						sx={{
-							marginBottom: "15px"
-						}}
-					> Quantity </Typography>
+					<Typography> Quantity </Typography>
 
-					<Box
-						component="div"
-						sx={{
-							border: '2px solid #1F2937',
-							borderRadius: '5px',
-							width: 146,
-							height: 45,
-							display: 'flex',
-							justifyContent: 'space-around',
-							alignItems: 'center',
-							marginBottom: "40px"
-						}}
-					>
+					<Box className={styles.modelPageCounter} component="div">
 						<IconButton color="inherit" disabled={quantity.value === 1}
 							onClick={() => { setQuantity({ value: quantity.value - Number(1) }) }} ><RemoveIcon /></IconButton>
 						<Typography> {quantity.value} </Typography>
-						<IconButton color="inherit"
+						<IconButton color="inherit" disabled={!inputs.scale}
 							onClick={() => { setQuantity({ value: quantity.value + Number(1) }) }}><AddIcon /></IconButton>
 					</Box>
 
 					<Stack spacing={2} direction="row" container="true" justifyContent="center">
-						<Button type="submit" className={styles.modelPageAddToCartButton} size="large" variant="contained">ADD TO CART</Button>
+						<Button disabled={!inputs.scale || !inputs.color} type="submit"
+							className={styles.modelPageAddToCartButton} size="large" variant="contained">
+							ADD TO CART
+						</Button>
 						<Button className={styles.modelPageAddToFavorite} children={<FavoriteBorderSharpIcon />}></Button>
 					</Stack>
 				</Box>
 
 			</Box>
-			<Container maxWidth="xl">
-				<Typography
-					component="span"
-					sx={{ fontWeight: 'bold' }}
-				>Customers also bought these</Typography>
 
-				<Box sx={{
-					width: '100%',
-					display: 'flex',
-					justifyContent: 'space-between',
-					marginTop: "30px",
-					flexWrap: 'wrap',
-				}}>
+			<Container maxWidth="xl">
+				<Typography sx={{ fontWeight: 'bold' }}>Customers also bought these</Typography>
+
+				<Box className={styles.modelPageAlsoBuyBox}>
 
 					{alsoBuy.map((el) => (<CatalogCardItem key={el.id} card={el} />))}
 

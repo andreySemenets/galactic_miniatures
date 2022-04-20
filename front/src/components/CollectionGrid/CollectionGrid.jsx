@@ -5,51 +5,77 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 
-import styles from './CollectionGrid.module.css'
-import { useSelector } from 'react-redux'
+import styles from './CollectionGrid.module.css';
+import { useSelector } from 'react-redux';
 
 const Item = styled(Paper)(({ theme }) => ({
-  padding: theme.spacing(2),
-  height: '10rem',
-  color: theme.palette.text.secondary,
-  borderRadius: '10px'
+    padding: theme.spacing(2),
+    height: '10rem',
+    color: theme.palette.text.secondary,
+    borderRadius: '10px',
 }));
 
 export default function CollectionGrid() {
     const catalogItems = useSelector((store) => store.catalogItems);
 
-  return (
-    <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={2}>
-        <Grid  item xs={5}>
-          <Item id={catalogItems[0]?.id} className={styles.collectionCard}
-          >{catalogItems[0]?.['Collection.collectionName']}
-          <Button onClick={(e) => console.log(e.target.parentNode.id)} size="small" className={styles.collectionButton}>view</Button>
-          </Item>
-
-        </Grid>
-        <Grid item xs={7}>
-          <Item className={styles.collectionCard}
-          >Collection <br /> name <br />
-          <Button size="small" className={styles.collectionButton}>view</Button>
-          </Item>
-
-        </Grid>
-        <Grid item xs={7}>
-          <Item className={styles.collectionCard}
-          >Collection <br /> name <br />
-          <Button size="small" className={styles.collectionButton}>view</Button>
-          </Item>
-
-        </Grid>
-        <Grid item xs={5}>
-          <Item className={styles.collectionCard}
-          >Collection <br /> name <br />
-          <Button size="small" className={styles.collectionButton}>view</Button>
-          </Item>
-
-        </Grid>
-      </Grid>
-    </Box>
-  );
+    return (
+        <Box sx={{ flexGrow: 1 }}>
+            <Grid container spacing={2}>
+                <Grid item xs={5}>
+                    <Item
+                        className={`${styles.collectionCard} ${styles.collection1}`}
+                        id={catalogItems[0]?.id}
+                    >
+                        {catalogItems[0]?.['Collection.collectionName']}
+                        <Button
+                            onClick={(e) => console.log(e.target.parentNode.id)}
+                            size="small"
+                            className={styles.collectionButton}
+                        >
+                            view
+                        </Button>
+                    </Item>
+                </Grid>
+                <Grid item xs={7}>
+                    <Item
+                        className={`${styles.collectionCard} ${styles.collection2}`}
+                    >
+                        Egyptian <br /> sweeties <br />
+                        <Button
+                            size="small"
+                            className={styles.collectionButton}
+                        >
+                            view
+                        </Button>
+                    </Item>
+                </Grid>
+                <Grid item xs={7}>
+                    <Item
+                        className={`${styles.collectionCard} ${styles.collection3}`}
+                    >
+                        Durka <br /> collection <br />
+                        <Button
+                            size="small"
+                            className={styles.collectionButton}
+                        >
+                            view
+                        </Button>
+                    </Item>
+                </Grid>
+                <Grid item xs={5}>
+                    <Item
+                        className={`${styles.collectionCard} ${styles.collection4}`}
+                    >
+                        Lynxes <br /> collection <br />
+                        <Button
+                            size="small"
+                            className={styles.collectionButton}
+                        >
+                            view
+                        </Button>
+                    </Item>
+                </Grid>
+            </Grid>
+        </Box>
+    );
 }
