@@ -1,12 +1,15 @@
 import * as React from 'react';
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import ShoppingCartItem from '../../components/ShoppingCartItem/ShoppingCartItem';
 
 import './ShoppingCartPage.css';
-
-const steps = ['Cart', 'Customer Information', 'Payment'];
+import {useSelector} from "react-redux";
 
 const ShoppingCartPage = () => {
+
+    const cartList = useSelector(store => store.cart)
+
+    console.log(cartList)
+
     return (
         <>
             <div className="shoppingCardContainer">

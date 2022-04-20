@@ -6,7 +6,6 @@ module.exports.addItemToCart = async (req, res, next) => {
 	const itemInCart = await ShoppingCart.create({
 		userId: req.body.userId,
 		physicalCopyId: physicalCopy.id,
-		orderNumber: Math.round(Math.random() * 10000),
 		quantity: req.body.quantity,
 	});
 
