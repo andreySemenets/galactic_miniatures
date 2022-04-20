@@ -111,7 +111,7 @@ export default function PrimaryAppBar() {
         dispatch(getCartItemsByUser(user.id))
       }
   }, [dispatch, user.id])
-  console.log(cart, user.id, 'aaaaaaaaaalllllllll')
+
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
@@ -166,7 +166,7 @@ export default function PrimaryAppBar() {
     >
       <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={cart.length ? cart.length : 0 } color="error">
+          <Badge badgeContent={cart.length ? cart.length : null } color="error">
               <ShoppingCartOutlinedIcon />
           </Badge>
         </IconButton>
@@ -229,7 +229,7 @@ export default function PrimaryAppBar() {
                     mr: '8px', width: '20%'
                   }}>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={cart.length ? cart.length : 0 } color="error"
+              <Badge badgeContent={cart.length ? cart.length : null } color="error"
               // Менять динамически при добавлении
               >
                 <Link to='/user/id/shoppingcart'>

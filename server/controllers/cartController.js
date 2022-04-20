@@ -22,6 +22,12 @@ module.exports.getUsersCartItems = async (req, res, next) => {
 			where: {
 				userId: +userId,
 			},
+			include: [
+				{
+					model: PhysicalCopy,
+					attributes: ['itemId'],
+				},
+			],
 		});
 		res.json(result);
 	} catch (error) {

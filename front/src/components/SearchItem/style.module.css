@@ -20,6 +20,14 @@
 
 .catalogCardItemContainer {
 	max-width: 300px;
+    margin-bottom: 30px;
+    box-shadow: 0px 0px 1px 2px rgb(15 11 11 / 84%);
+    border-radius: 3px;
+}
+
+.catalogCardItemContainer:hover{
+    cursor: pointer;
+    transform: scale(1.04);
 }
 
 .catalogCardItem {
