@@ -26,11 +26,11 @@ catalogRouter.get('/', async (req, res) => {
 					attributes: ['photoUrl'],
 					required: true,
 				},
-				// {
-				// 	model: Models.PhysicalCopy,
-				// 	attributes: ['itemId', 'color', 'scale', 'price'],
-				// 	required: true,
-				// },
+				{
+					model: Models.PhysicalCopy,
+					attributes: ['itemId', 'color', 'scale', 'price'],
+					required: true,
+				},
 			],
 			order: [['id', 'DESC']],
 		});

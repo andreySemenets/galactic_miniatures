@@ -14,7 +14,7 @@ const MainPage = () => {
     React.useEffect(() => {
         dispatch(getCatalogItems());
     }, [dispatch]);
-    console.log(catalogItems);
+    // console.log(catalogItems);
     return (
         <>
             <Box

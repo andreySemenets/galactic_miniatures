@@ -19,3 +19,12 @@ export const getCartItemsByUser = (userId) => async (dispatch) => {
 			dispatch(setCartItemsByUser(res.data))
 		})
 }
+
+export const postDeleteItemCart = (userId ,itemId) => async (dispatch) => {
+    // console.log(userId, itemId)
+    axios.post(`http://localhost:4000/cart/${userId}/${itemId}`)
+        .then((res) => {
+            console.log(res.data);
+            dispatch(setCartItemsByUser(res.data))
+        })
+}
