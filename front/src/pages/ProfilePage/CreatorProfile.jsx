@@ -4,15 +4,16 @@ import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import ProfileListingItem from "../../components/ProfileListingItem/ProfileListingItem";
 import {getCatalogItems} from "../../redux/actions/catalogAC";
+import {setCartItemsByUser} from "../../redux/actions/cartAC";
 
 const CreatorProfile = () => {
 
     const userData = useSelector(store => store.user)
     const Listing = useSelector(store => store.catalogItems)
-
     const dispatch = useDispatch();
 
     React.useEffect(() => {
+        dispatch(setCartItemsByUser())
         dispatch(getCatalogItems());
     }, [dispatch]);
 
@@ -52,7 +53,7 @@ const CreatorProfile = () => {
                         <br/>
                         <div className="actionsItems">
                             {creatorListing.map(item =>
-                                <ProfileListingItem item={item} key={item.id}/>
+                                <ProfileListingItem item={item}  key={item.id}/>
                             )}
                         </div>
                     </div>
