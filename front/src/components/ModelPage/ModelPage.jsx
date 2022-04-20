@@ -28,16 +28,11 @@ import styles from './style.module.css'
 import CatalogCardItem from '../CatalogCardItem/CatalogCardItem';
 import axios from 'axios';
 
-
-
-
 export default function ModelPage() {
 	const { id } = useParams();
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-
-	const cart = useSelector((store) => store.cart);
 	const model = useSelector((store) => store.model);
 	const user = useSelector((store) => store.user);
 
@@ -48,58 +43,56 @@ export default function ModelPage() {
 	const photosArr = model['Photos.photoUrl'];
 
 	const [activeActions, setActiveActions] = useState(0)
-	console.log('photosArr >>>>>', photosArr);
 
-	const actionsItem = (actions) => {
-		switch (actions) {
-			case 0:
-				return (<img
-					style={{
-						width: '614px',
-						height: '392px',
-					}}
-					src={'http://localhost:4000/' + photosArr?.[0]}
-					alt="here0"
-					loading="lazy"
-				/>);
-			case 1:
-				return (<img
-					style={{
-						width: '614px',
-						height: '392px',
-					}}
-					src={'http://localhost:4000/' + photosArr[1]}
-					alt="here1"
-					loading="lazy"
-				/>);
-			case 2:
-				return (<img
-					style={{
-						width: '614px',
-						height: '392px',
-					}}
-					src={'http://localhost:4000/' + photosArr[2]}
-					alt="here2"
-					loading="lazy"
-				/>);
-			default:
-				return (<img
-					style={{
-						width: '614px',
-						height: '392px',
-					}}
-					src={'http://localhost:4000/' + photosArr[0]}
-					alt="here0"
-					loading="lazy"
-				/>);
+	// PHOTO-SLIDER
+	const mainPhotoRender = (array) => {
+		if (activeActions < 0) {
+			setActiveActions(array?.length - 1)
+			return (
+				array?.[`${activeActions}`]
+					? <CardMedia
+						component="img"
+						alt={`${model.itemTitle}-pic`}
+						width="614"
+						height="392"
+						image={'http://localhost:4000/' + array?.[`${activeActions}`]} />
+					: <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+						<CircularProgress sx={{ color: 'blue' }} />
+					</Box>)
 		}
+		if (activeActions > array?.length - 1) {
+			setActiveActions(0)
+			return (
+				array?.[`${activeActions}`]
+					? <CardMedia
+						component="img"
+						alt={`${model.itemTitle}-pic`}
+						width="614"
+						height="392"
+						image={'http://localhost:4000/' + array?.[`${activeActions}`]} />
+					: <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+						<CircularProgress sx={{ color: 'blue' }} />
+					</Box>)
+		}
+		return (
+			array?.[`${activeActions}`]
+				? <CardMedia
+					component="img"
+					alt={`${model.itemTitle}-pic`}
+					width="614"
+					height="392"
+					image={'http://localhost:4000/' + array?.[`${activeActions}`]} />
+				: <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+					<CircularProgress sx={{ color: 'blue' }} />
+				</Box>)
 	}
-
 
 	useEffect(() => {
 		const modelId = id;
 		dispatch(setModel(modelId));
-	}, []);
+	}, [id]);
+
+	// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 	// Расчет суммы заказа
 	useEffect(() => {
@@ -108,13 +101,18 @@ export default function ModelPage() {
 		}
 	}, [model.digitalPrice]);
 
+	// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 	// TOOOOOOODDDOOOOOOOOOOOOO
+	console.log('MODEL DATA >>>', model);
 	useEffect(() => {
 		const modelId = id;
 		axios.get('http://localhost:4000/items', modelId)
 			.then((response) =>
 				setAlsoBuy(response.data));
 	}, []);
+
+	// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 	// Расчет суммы заказа в зависимости от количества
 	useEffect(() => {
@@ -135,6 +133,7 @@ export default function ModelPage() {
 		setQuantity({ value: Number(1) });
 	};
 
+	// ADD TO CART
 	const addToCartHandler = (event) => {
 		const formData = {
 			id,
@@ -148,6 +147,10 @@ export default function ModelPage() {
 		setInputs({});
 		setQuantity({ value: Number(1) });
 		setTotalCost({ value: Number(model.digitalPrice) });
+<<<<<<< HEAD
+		navigate('/')
+=======
+>>>>>>> master
 	};
 
 	return (
@@ -162,44 +165,22 @@ export default function ModelPage() {
 
 					{/* ОСНОВНОЕ ФОТО */}
 					<Box className={styles.modelPageMainImg}>
-
-						{/* {model['Photos.photoUrl']
-							? <CardMedia
-								component="img"
-								alt={`${model.itemTitle}-pic`}
-								width="614"
-								height="392"
-								image={'http://localhost:4000/' + model?.['Photos.photoUrl']?.[0]}
-							/>
-							: <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-								<CircularProgress sx={{ color: 'blue' }} />
-							</Box>
-						} */}
-
-						<div>
-							{actionsItem(activeActions)}
-						</div>
-
+						{mainPhotoRender(photosArr)}
 					</Box>
-
-
-
 
 					{/* МИНИАТЮРЫ ФОТО */}
 					<Box component="div" className={styles.modelPageCarouselBox} >
 
 						{/* КНОПКА НАЗАД */}
-						<IconButton className={styles.modelPageCarouselBtn} onClick={() => setActiveActions(prev => prev - 1)} ><ArrowBackIosNewIcon /></IconButton>
+						<IconButton className={styles.modelPageCarouselBtn} onClick={() => setActiveActions(prev => prev - 1)} >
+							<ArrowBackIosNewIcon />
+						</IconButton>
 
 						<Stack direction="row" alignItems="center" spacing={2}>
 							{photosArr?.length
 								? photosArr.map((el) => (
 									<Box key={el} >
-										<img
-											style={{
-												width: '150px',
-												height: '105px',
-											}}
+										<img style={{ width: '150px', height: '105px' }}
 											src={'http://localhost:4000/' + el}
 											alt="here"
 											loading="lazy"
@@ -215,10 +196,6 @@ export default function ModelPage() {
 						</IconButton>
 
 					</Box>
-
-
-
-
 
 					{/* ОПИСАНИЕ */}
 					<Typography className={styles.modelPageDescriptionTitle} component="div">Description</Typography>
