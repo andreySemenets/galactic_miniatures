@@ -25,9 +25,6 @@ const ShoppingCartPage = () => {
         // return  sum + current.digitalPrice
     },0)
 
-    // console.log(resultList)
-    // console.log('optionsPrice', optionsPrice)
-
     return (
         <>
             <div className="shoppingCardContainer">
@@ -59,6 +56,7 @@ const ShoppingCartPage = () => {
 
                 <div className="shoppingCartContent">
                     <div className="shoppingList">
+
                         {resultList.map(item =>
                             <ShoppingCartItem item={item} key={item.id}/>
                         )}
