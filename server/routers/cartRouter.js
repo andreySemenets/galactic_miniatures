@@ -1,8 +1,9 @@
 const router = require('express').Router();
-const { addItemToCart, getUsersCartItems } = require('../controllers/cartController');
+const { addItemToCart, getUsersCartItems, deleteItemCart } = require('../controllers/cartController');
 
 router
 	.post('/new', addItemToCart)
-	.get('/:userId', getUsersCartItems);
+	.get('/:userId', getUsersCartItems)
+	.post('/:userId/:itemId', deleteItemCart );
 
 module.exports = router;

@@ -5,23 +5,34 @@ import UpdateIcon from '@mui/icons-material/Update';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 import './ShoppingCartItem.css'
+import {useDispatch, useSelector} from "react-redux";
+import {postDeleteItemCart} from "../../redux/actions/cartAC";
 
-const ShoppingCartItem = () => {
+const ShoppingCartItem = ({item}) => {
+
+    const userData = useSelector(store => store.user)
+    const dispatch = useDispatch()
+
+    const deleteItemCart = (itemId) => {
+        dispatch(postDeleteItemCart(userData.id,itemId))
+    }
+
+
     return (
         <>
             <div className="ShoppingCartItem">
                 <div className="cartPicture">
-                    <img src="#" alt="Картинка"/>
+                    <img src={'http://localhost:4000/'+ item?.photoUrl} alt="Картинка"/>
                 </div>
                 <div className="cartInformation">
                     <div className="cartTitle">
-                        Название товара
+                        {item?.itemTitle}
                     </div>
                     <div className="cartDescription">
-                        Описание товара
+                        {item?.description}
                     </div>
                     <div className="cartItemPrice">
-                        цена
+                        ${item?.digitalPrice}
                     </div>
                 </div>
 
@@ -34,7 +45,7 @@ const ShoppingCartItem = () => {
                         </div>
 
                         <div className="cartCount">
-                            2
+                            {item.quantity}
                         </div>
 
                         <div className="cartPlus">
@@ -50,7 +61,7 @@ const ShoppingCartItem = () => {
                                 <path d="M10 11C11.657 11 13 12.343 13 14C13 14.85 12.647 15.616 12.08 16.162L10.17 18H13V20H7V18.276L10.693 14.721C10.883 14.538 11 14.283 11 14C11 13.448 10.552 13 10 13C9.448 13 9 13.448 9 14H7C7 12.343 8.343 11 10 11ZM16 11V15H18V11H20V20H18V17H14V11H16ZM2 10C2 12.527 3.171 14.78 5 16.246V18.662C2.011 16.933 0 13.702 0 10H2ZM10 0C15.185 0 19.449 3.947 19.95 9H17.938C17.446 5.054 14.08 2 10 2C7.25 2 4.824 3.387 3.385 5.5H6V7.5H0V1.5H2V4C3.824 1.57 6.729 0 10 0Z" fill="white"/>
                             </svg>
                         </div>
-                        <div className="delIcon">
+                        <div className="delIcon" onClick={() => deleteItemCart(item.id)}>
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M15 4H20V6H18V19C18 19.2652 17.8946 19.5196 17.7071 19.7071C17.5196 19.8946 17.2652 20 17 20H3C2.73478 20 2.48043 19.8946 2.29289 19.7071C2.10536 19.5196 2 19.2652 2 19V6H0V4H5V1C5 0.734784 5.10536 0.48043 5.29289 0.292893C5.48043 0.105357 5.73478 0 6 0H14C14.2652 0 14.5196 0.105357 14.7071 0.292893C14.8946 0.48043 15 0.734784 15 1V4ZM16 6H4V18H16V6ZM7 2V4H13V2H7Z" fill="white"/>
                             </svg>

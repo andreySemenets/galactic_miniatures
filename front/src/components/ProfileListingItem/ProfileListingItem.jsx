@@ -16,7 +16,7 @@ const ProfileListingItem = ({item}) => {
                         {item?.description}
                     </div>
                     <div className="cartItemPrice">
-                        {item?.digitalPrice}
+                        ${item?.digitalPrice}
                     </div>
                 </div>
                 <div className="cartFunctionalIcon">
