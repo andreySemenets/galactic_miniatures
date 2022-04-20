@@ -2,17 +2,34 @@ import React, {useEffect, useState} from 'react';
 import './UserProfile.css'
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
+import {setCartItemsByUser} from "../../redux/actions/cartAC";
+import {getCatalogItems} from "../../redux/actions/catalogAC";
+import MyOrder from "../../components/MyOrder/MyOrder";
+import ProfileListingItem from "../../components/ProfileListingItem/ProfileListingItem";
 
 const UserProfile = () => {
 
     const userData = useSelector(store => store.user)
+    const cartList = useSelector(store => store.cart)
+    // const dispatch = useDispatch();
+
+    React.useEffect(() => {
+    //     dispatch(setCartItemsByUser())
+    }, [cartList]);
+
+    console.log('cartList ==============', cartList)
 
     const [activeActions, setActiveActions] = useState(1)
 
         const actionsItem = (actions) => {
             switch (actions) {
                 case 1:
-                    return (<div className='itemProfileContent'>you don't have Orders</div>);
+                    return (<div className='itemProfileContent'>
+                        {cartList.map(cart => <MyOrder order={cart} orderList={cartList}/>)}
+                        {/*{creatorListing.map(item =>*/}
+                        {/*    <ProfileListingItem item={item} key={item.id}/>*/}
+                        {/*)}*/}
+                    </div>);
                 case 2:
                     return (<div className='itemProfileContent'>you don't have Downloads</div>);
                 case 3:
