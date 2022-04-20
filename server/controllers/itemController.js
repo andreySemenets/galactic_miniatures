@@ -77,18 +77,31 @@ module.exports.addItem = async (req, res, next) => {
 
 		const tagsArr = req.body.tags;
 
-		tagsArr.forEach(async (tag) => {
+		if (Array.isArray(tagsArr)) {
+			tagsArr.forEach(async (tag) => {
+				const existingTag = await Tag.findOne({
+					where: { tagName: tag },
+					raw: true,
+				});
+				if (existingTag) {
+					tagIdArr.push(existingTag.id);
+				} else {
+					const newTag = await Tag.create({ tagName: tag });
+					tagIdArr.push(newTag.id);
+				}
+			});
+		} else {
 			const existingTag = await Tag.findOne({
-				where: { tagName: tag },
+				where: { tagName: req.body.tags },
 				raw: true,
 			});
 			if (existingTag) {
 				tagIdArr.push(existingTag.id);
 			} else {
-				const newTag = await Tag.create({ tagName: tag });
+				const newTag = await Tag.create({ tagName: req.body.tags });
 				tagIdArr.push(newTag.id);
 			}
-		});
+		}
 
 		// Можно оставить!
 		setTimeout(() => {
@@ -193,7 +206,10 @@ module.exports.getOneItem = async (req, res, next) => {
 			raw: true,
 		});
 
-		const photoArr = item.map((el) => el['Photos.photoUrl']);
+		// const photoArr = item.map((el) => el['Photos.photoUrl']);
+		// item[0]['Photos.photoUrl'] = photoArr;
+
+		const photoArr = item.map((el) => el['Photos.photoUrl']).filter((el, i, a) => a.indexOf(el) === i);
 		item[0]['Photos.photoUrl'] = photoArr;
 
 		res.json(item[0]);

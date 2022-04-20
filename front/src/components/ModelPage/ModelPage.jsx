@@ -43,22 +43,72 @@ export default function ModelPage() {
 
 	const [quantity, setQuantity] = useState({ value: Number(1) }); // счетчик количества
 	const [inputs, setInputs] = useState({}); // инпуты
-	const [totalCost, setTotalCost] = useState({ value: Number(0), loading: true });
+	const [totalCost, setTotalCost] = useState({ value: Number(0) });
 	const [alsoBuy, setAlsoBuy] = useState([]);
-	const [preview, setPreview] = useState([]);
 	const photosArr = model['Photos.photoUrl'];
+
+	const [activeActions, setActiveActions] = useState(0)
+	console.log('photosArr >>>>>', photosArr);
+
+	const actionsItem = (actions) => {
+		switch (actions) {
+			case 0:
+				return (<img
+					style={{
+						width: '614px',
+						height: '392px',
+					}}
+					src={'http://localhost:4000/' + photosArr?.[0]}
+					alt="here0"
+					loading="lazy"
+				/>);
+			case 1:
+				return (<img
+					style={{
+						width: '614px',
+						height: '392px',
+					}}
+					src={'http://localhost:4000/' + photosArr[1]}
+					alt="here1"
+					loading="lazy"
+				/>);
+			case 2:
+				return (<img
+					style={{
+						width: '614px',
+						height: '392px',
+					}}
+					src={'http://localhost:4000/' + photosArr[2]}
+					alt="here2"
+					loading="lazy"
+				/>);
+			default:
+				return (<img
+					style={{
+						width: '614px',
+						height: '392px',
+					}}
+					src={'http://localhost:4000/' + photosArr[0]}
+					alt="here0"
+					loading="lazy"
+				/>);
+		}
+	}
+
 
 	useEffect(() => {
 		const modelId = id;
 		dispatch(setModel(modelId));
-		setPreview(model['Photos.photoUrl']);
-	}, [id]);
+	}, []);
 
 	// Расчет суммы заказа
 	useEffect(() => {
-		setTotalCost({ value: Number(model.digitalPrice), loadings: false })
+		if (model.digitalPrice) {
+			setTotalCost({ value: Number(model.digitalPrice) });
+		}
 	}, [model.digitalPrice]);
 
+	// TOOOOOOODDDOOOOOOOOOOOOO
 	useEffect(() => {
 		const modelId = id;
 		axios.get('http://localhost:4000/items', modelId)
@@ -100,6 +150,7 @@ export default function ModelPage() {
 		setTotalCost({ value: Number(model.digitalPrice) });
 		navigate(`/user/${user.id}/shoppingcart`)
 	};
+
 	return (
 		<Container className={styles.myMainContainer} maxWidth="xl">
 			<Box sx={{
@@ -113,7 +164,7 @@ export default function ModelPage() {
 					{/* ОСНОВНОЕ ФОТО */}
 					<Box className={styles.modelPageMainImg}>
 
-						{model['Photos.photoUrl']
+						{/* {model['Photos.photoUrl']
 							? <CardMedia
 								component="img"
 								alt={`${model.itemTitle}-pic`}
@@ -124,14 +175,22 @@ export default function ModelPage() {
 							: <Box sx={{ display: 'flex', justifyContent: 'center' }}>
 								<CircularProgress sx={{ color: 'blue' }} />
 							</Box>
-						}
+						} */}
+
+						<div>
+							{actionsItem(activeActions)}
+						</div>
 
 					</Box>
+
+
+
 
 					{/* МИНИАТЮРЫ ФОТО */}
 					<Box component="div" className={styles.modelPageCarouselBox} >
 
-						<IconButton className={styles.modelPageCarouselBtn} ><ArrowBackIosNewIcon /></IconButton>
+						{/* КНОПКА НАЗАД */}
+						<IconButton className={styles.modelPageCarouselBtn} onClick={() => setActiveActions(prev => prev - 1)} ><ArrowBackIosNewIcon /></IconButton>
 
 						<Stack direction="row" alignItems="center" spacing={2}>
 							{photosArr?.length
@@ -151,9 +210,16 @@ export default function ModelPage() {
 								: null}
 						</Stack>
 
-						<IconButton className={styles.modelPageCarouselBtn}><ArrowForwardIosIcon /></IconButton>
+						{/* КНОПКА ВПЕРЕД */}
+						<IconButton className={styles.modelPageCarouselBtn} onClick={() => setActiveActions(prev => prev + 1)}>
+							<ArrowForwardIosIcon />
+						</IconButton>
 
 					</Box>
+
+
+
+
 
 					{/* ОПИСАНИЕ */}
 					<Typography className={styles.modelPageDescriptionTitle} component="div">Description</Typography>
@@ -221,7 +287,7 @@ export default function ModelPage() {
 					<FormControl sx={{ marginBottom: "40px" }} size="small">
 
 						<Select name="scale" id="scale-select"
-							onChange={scaleSelectHandler} value={inputs.scale ?? 0}
+							onChange={scaleSelectHandler} value={inputs.scale ?? ''}
 							className={styles.modelPageSelect}>
 
 							<MenuItem value={Number(model?.['PhysicalCopies.price'])}>
@@ -251,7 +317,7 @@ export default function ModelPage() {
 					</Stack>
 				</Box>
 
-			</Box>
+			</Box >
 
 			<Container maxWidth="xl">
 				<Typography sx={{ fontWeight: 'bold' }}>Customers also bought these</Typography>
