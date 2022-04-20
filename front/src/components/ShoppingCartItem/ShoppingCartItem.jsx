@@ -6,7 +6,7 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 import './ShoppingCartItem.css'
 import {useDispatch, useSelector} from "react-redux";
-import {postDeleteItemCart} from "../../redux/actions/cartAC";
+import {postAddQuantityItem, postDeleteItemCart, postDeleteQuantityItem} from "../../redux/actions/cartAC";
 
 const ShoppingCartItem = ({item}) => {
 
@@ -17,6 +17,13 @@ const ShoppingCartItem = ({item}) => {
         dispatch(postDeleteItemCart(userData.id,itemId))
     }
 
+    const addQuantityItem = (itemId) => {
+        dispatch(postAddQuantityItem(userData.id,itemId))
+    }
+
+    const deleteQuantityItem = (itemId) => {
+        dispatch(postDeleteQuantityItem(userData.id,itemId))
+    }
 
     return (
         <>
@@ -38,7 +45,7 @@ const ShoppingCartItem = ({item}) => {
 
                 <div className="cartFunctionalIcon">
                     <div className="countFunctional">
-                        <div className='catrMinus'>
+                        <div className='catrMinus' onClick={() => deleteQuantityItem(item.id)}>
                             <svg width="17" height="4" viewBox="0 0 17 4" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M0 3.95988V0.879883H6.92H10.04H16.92V3.95988H10.04H6.92H0Z" fill="white"/>
                             </svg>
@@ -48,7 +55,7 @@ const ShoppingCartItem = ({item}) => {
                             {item.quantity}
                         </div>
 
-                        <div className="cartPlus">
+                        <div className="cartPlus" onClick={() => addQuantityItem(item.id)}>
                             <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M0 9.96V6.88H6.92V0H10.04V6.88H16.92V9.96H10.04V16.84H6.92V9.96H0Z" fill="white"/>
                             </svg>

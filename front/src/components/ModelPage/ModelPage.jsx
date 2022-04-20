@@ -148,7 +148,6 @@ export default function ModelPage() {
 		setInputs({});
 		setQuantity({ value: Number(1) });
 		setTotalCost({ value: Number(model.digitalPrice) });
-		navigate(`/user/${user.id}/shoppingcart`)
 	};
 
 	return (
