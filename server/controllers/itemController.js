@@ -184,7 +184,7 @@ module.exports.addItem = async (req, res, next) => {
 };
 
 module.exports.getOneItem = async (req, res, next) => {
-	console.log('ITEM >>>>', req.params.id);
+
 	try {
 		const item = await Item.findAll({
 			where: {
@@ -193,9 +193,6 @@ module.exports.getOneItem = async (req, res, next) => {
 			include: [
 				{
 					model: Photo,
-					where: {
-						itemId: req.params.id,
-					},
 					attributes: ['photoUrl'],
 				},
 				{
@@ -203,14 +200,19 @@ module.exports.getOneItem = async (req, res, next) => {
 					attributes: ['scale', 'color', 'price'],
 					required: true,
 				},
+				{
+					model: Tag,
+					attributes: [['id', 'tagId'], 'tagName'],
+					// required: true,
+				},
 			],
 			raw: true,
 		});
 
-
-
 		const photoArr = item.map((el) => el['Photos.photoUrl']).filter((el, i, a) => a.indexOf(el) === i);
+		const tagArr = item.map((el) => el['Tags.ItemsAndTags.tagId']).filter((el, i, a) => a.indexOf(el) === i);
 		item[0]['Photos.photoUrl'] = photoArr;
+		item[0]['Tags.ItemsAndTags.tagId'] = tagArr;
 
 		res.json(item[0]);
 	} catch (error) {
