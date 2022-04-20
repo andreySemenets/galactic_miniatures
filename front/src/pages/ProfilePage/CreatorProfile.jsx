@@ -1,17 +1,22 @@
 import React from 'react';
 import './UserProfile.css'
 import {Link} from "react-router-dom";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import ProfileListingItem from "../../components/ProfileListingItem/ProfileListingItem";
+import {getCatalogItems} from "../../redux/actions/catalogAC";
 
 const CreatorProfile = () => {
 
     const userData = useSelector(store => store.user)
     const Listing = useSelector(store => store.catalogItems)
 
-    const creatorListing = Listing.filter(item => item.userId === userData.id)
-    console.log('creatorListing ===' , creatorListing[0])
+    const dispatch = useDispatch();
 
+    React.useEffect(() => {
+        dispatch(getCatalogItems());
+    }, [dispatch]);
+
+    const creatorListing = Listing.filter(item => item.userId === userData.id)
 
     return (
         <>
@@ -20,7 +25,7 @@ const CreatorProfile = () => {
                 <div className="profileContent">
                     <div className="profileInfo">
                         {userData.avatarUrl ? (<img className='avatar' src={'http://localhost:4000/' + userData.avatarUrl + '.jpg'}/>) :
-                            (<div className="avatar">{userData.firstName[0] + userData.lastName[0]}</div>)}
+                            (<div className="avatar">{userData.firstName?.[0] + userData.lastName?.[0]}</div>)}
                         <div className='profileName'>{userData.firstName} {userData.lastName}</div>
                         <div className='profileEmail'>creator</div>
                         <div className="profileButton">
@@ -49,7 +54,6 @@ const CreatorProfile = () => {
                             {creatorListing.map(item =>
                                 <ProfileListingItem item={item} key={item.id}/>
                             )}
-                            <ProfileListingItem/>
                         </div>
                     </div>
                 </div>

@@ -14,7 +14,7 @@ const MakerProfile = () => {
                 <div className="profileContent">
                     <div className="profileInfo">
                         {userData.avatarUrl ? (<img className='avatar' src={'http://localhost:4000/' + userData.avatarUrl + '.jpg'}/>) :
-                            (<div className="avatar">{userData.firstName[0] + userData.lastName[0]}</div>)}
+                            (<div className="avatar">{userData.firstName?.[0] + userData.lastName?.[0]}</div>)}
                         <div className='profileName'>{userData.firstName} {userData.lastName}</div>
                         <div className='profileEmail'>Maker</div>
                         <div className="profileButton">
