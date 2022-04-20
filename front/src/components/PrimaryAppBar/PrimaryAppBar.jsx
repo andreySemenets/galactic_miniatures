@@ -232,13 +232,16 @@ export default function PrimaryAppBar() {
                     justifyContent: 'space-around',
                     mr: '8px', width: '20%'
                   }}>
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+
+            <IconButton
+                onClick={() => navigate('/user/id/shoppingcart')}
+                size="large"
+                aria-label="show 4 new mails"
+                color="inherit">
               <Badge badgeContent={cartFilter.length ? cartFilter.length : null } color="error"
               // Менять динамически при добавлении
               >
-                <Link to='/user/id/shoppingcart'>
                 <ShoppingCartOutlinedIcon />
-                </Link>
               </Badge>
             </IconButton>
             <IconButton

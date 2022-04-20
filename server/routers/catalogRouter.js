@@ -3,7 +3,7 @@ const Models = require('../db/models');
 
 catalogRouter.get('/', async (req, res) => {
 	try {
-		const result = await Models.Item.findAll({
+		const allItems = await Models.Item.findAll({
 			raw: true,
 			// where: {
 			// 	categoryId: 1,
@@ -11,14 +11,17 @@ catalogRouter.get('/', async (req, res) => {
 			include: [
 				{
 					model: Models.Category,
+					attributes: ['categoryTitle'],
 					required: true,
 				},
 				{
 					model: Models.Collection,
+					attributes: ['collectionName'],
 					required: true,
 				},
 				{
 					model: Models.SubCategory,
+					attributes: ['subCategoryTitle'],
 					required: true,
 				},
 				{
@@ -32,8 +35,11 @@ catalogRouter.get('/', async (req, res) => {
 					required: true,
 				},
 			],
-			order: [['id', 'DESC']],
+			order: [['id', 'ASC']],
 		});
+
+		const result = allItems.filter((el, i, a) => a.findIndex((elem) => (elem.id === el.id)) === i);
+
 		res.json(result);
 	} catch (error) {
 		console.log(error);

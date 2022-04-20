@@ -3,7 +3,6 @@ const initState = {
 	errorOnReg: null,
 	errorOnLogin: null,
 	items: [],
-	editProfileInputs: {},
 	sortedByCategories: [],
 	cart: [],
 	model: {},
