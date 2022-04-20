@@ -28,3 +28,21 @@ export const postDeleteItemCart = (userId ,itemId) => async (dispatch) => {
             dispatch(setCartItemsByUser(res.data))
         })
 }
+
+export const postAddQuantityItem = (userId ,itemId) => async (dispatch) => {
+	console.log('postAddQuantityItem')
+	axios.post(`http://localhost:4000/cart/${userId}/${itemId}/plus`)
+		.then((res) => {
+			console.log(res.data);
+			dispatch(setCartItemsByUser(res.data))
+		})
+}
+
+export const postDeleteQuantityItem = (userId ,itemId) => async (dispatch) => {
+	console.log('postDeleteQuantityItem')
+	axios.post(`http://localhost:4000/cart/${userId}/${itemId}/minus`)
+		.then((res) => {
+			console.log(res.data);
+			dispatch(setCartItemsByUser(res.data))
+		})
+}
