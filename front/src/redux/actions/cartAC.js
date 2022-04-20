@@ -5,21 +5,19 @@ export const setCart = (value) => ({ type: ADD_TO_CART, payload: value });
 
 export const addModelToCart = (event, data) => (dispatch) => {
 	event.preventDefault();
-	console.log('IIIIIIIDDDDDDDDD', data.id);
 	axios.post(`http://localhost:4000/cart/new`, data, { withCredentials: true })
 		.then((res) => {
-            dispatch(setCart(res.data));
+			dispatch(setCart(res.data));
 		});
 };
 
 export const setCartItemsByUser = (value) => ({ type: SET_CART_ITEMS, payload: value });
 
 export const getCartItemsByUser = (userId) => async (dispatch) => {
-    axios.get(`http://localhost:4000/cart/${userId}`)
-        .then((res) => {
-            console.log(res.data);
-            dispatch(setCartItemsByUser(res.data))
-        })
+	axios.get(`http://localhost:4000/cart/${userId}`)
+		.then((res) => {
+			dispatch(setCartItemsByUser(res.data))
+		})
 }
 
 export const postDeleteItemCart = (userId ,itemId) => async (dispatch) => {
