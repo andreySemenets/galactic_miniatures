@@ -8,8 +8,6 @@ import cartReducer from './cartReducer';
 import modelOrderReducer from './modelOrderReducer';
 import catalogReducer from './catalogReducer';
 
-// import {EditProfileInputsReducer} from "./editProfileInputsReducer";
-
 const rootReducer = combineReducers({
 	user: userReducer,
 	errorOnReg: errorOnRegReducer,
@@ -19,7 +17,6 @@ const rootReducer = combineReducers({
 	cart: cartReducer,
 	model: modelOrderReducer,
 	catalogItems: catalogReducer,
-	// editProfileInputs: EditProfileInputsReducer
 });
 
 export default rootReducer;

@@ -20,7 +20,7 @@ export default function DropdownNav({ category }) {
     };
     const handleClose = (event) => {
         setAnchorEl(null);
-        // console.log(Boolean(event.target.innerText));
+
         if (event.target.innerText) {
             const subCategory = event.target.innerText.toString();
             dispatch(getSortedCategories(firstCategory, subCategory));

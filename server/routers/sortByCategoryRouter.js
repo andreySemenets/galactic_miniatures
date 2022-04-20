@@ -5,17 +5,19 @@ sortByCategoryRouter.get('/', async (req, res) => {
 	console.log(req.query);
 	try {
 		const { category, subCategory } = req.query;
-		const result = await Models.Item.findAll({
+		const sortedItems = await Models.Item.findAll({
 			raw: true,
 			include: [
 				{
 					model: Models.Category,
 					where: { categoryTitle: category },
+					attributes: ['categoryTitle'],
 					required: true,
 				},
 				{
 					model: Models.SubCategory,
 					where: { subCategoryTitle: subCategory },
+					attributes: ['subCategoryTitle'],
 					required: true,
 				},
 				{
@@ -30,6 +32,7 @@ sortByCategoryRouter.get('/', async (req, res) => {
 				// },
 			],
 		});
+		const result = sortedItems.filter((el, i, a) => a.findIndex((el2) => (el2.id === el.id)) === i);
 		res.json({ result });
 	} catch (error) {
 		console.log(error);
