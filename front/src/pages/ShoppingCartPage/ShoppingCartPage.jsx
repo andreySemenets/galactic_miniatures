@@ -2,15 +2,23 @@ import * as React from 'react';
 import ShoppingCartItem from '../../components/ShoppingCartItem/ShoppingCartItem';
 
 import './ShoppingCartPage.css';
-import {useSelector} from "react-redux";
-import ProfileListingItem from "../../components/ProfileListingItem/ProfileListingItem";
+import {useDispatch, useSelector} from "react-redux";
+import {postAddOrderCart} from "../../redux/actions/cartAC";
+
 
 const ShoppingCartPage = () => {
 
+    const userData = useSelector(store => store.user)
     const cartList = useSelector(store => store.cart)
+    const notOrderList = cartList.filter(item => !item.orderNumber)
     const catalogItems = useSelector(store => store.catalogItems)
+    const dispatch = useDispatch()
 
-    const resultList = cartList.map(item => {
+    const addOrderCart = () => {
+        dispatch(postAddOrderCart(userData.id, cartList))
+    }
+
+    const resultList = notOrderList?.map(item => {
         let findItem = catalogItems.find(elem => item['PhysicalCopy.itemId'] === elem['PhysicalCopies.itemId'])
         return  {...item, photoUrl: findItem['Photos.photoUrl'], digitalPrice:  findItem.digitalPrice, description:findItem.description , itemTitle: findItem.itemTitle}
     })
@@ -88,7 +96,7 @@ const ShoppingCartPage = () => {
                                 </textarea>
                             </div>
                             
-                            <button className='proceed'>Proceed to Checkout</button>
+                            <button className='proceed' onClick={() => addOrderCart()}>Proceed to Checkout</button>
                         </div>
                     </div>
                 </div>

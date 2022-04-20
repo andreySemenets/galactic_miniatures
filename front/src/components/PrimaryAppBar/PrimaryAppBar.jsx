@@ -66,6 +66,10 @@ export default function PrimaryAppBar() {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const user = useSelector((store) => store.user);
   const cart = useSelector((store) => store.cart)
+
+  const cartFilter = cart.filter(item => !item.orderNumber)
+
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -229,7 +233,7 @@ export default function PrimaryAppBar() {
                     mr: '8px', width: '20%'
                   }}>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={cart.length ? cart.length : null } color="error"
+              <Badge badgeContent={cartFilter.length ? cartFilter.length : null } color="error"
               // Менять динамически при добавлении
               >
                 <Link to='/user/id/shoppingcart'>

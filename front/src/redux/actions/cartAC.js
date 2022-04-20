@@ -46,3 +46,12 @@ export const postDeleteQuantityItem = (userId ,itemId) => async (dispatch) => {
 			dispatch(setCartItemsByUser(res.data))
 		})
 }
+
+export const postAddOrderCart = (userId, cartList) => async (dispatch) => {
+	console.log('postAddOrderCart',userId , cartList)
+	axios.post(`http://localhost:4000/cart/${userId}/addOrder`, {cartList} )
+		.then((res) => {
+			console.log(res.data);
+			dispatch(setCartItemsByUser(res.data))
+		})
+}

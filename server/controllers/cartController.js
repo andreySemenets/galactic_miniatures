@@ -125,3 +125,34 @@ module.exports.minusItemCart = async (req,res, next) => {
 		next()
 	}
 }
+
+module.exports.addOrderCart = async (req, res, next) => {
+	try {
+		const {userId} = req.params
+		const orderNumber = Math.floor(Math.random() * 999999)
+		const {cartList} = req.body
+		console.log('cartList[0].id =============', cartList[0].id)
+		for (let i = 0; i < cartList.length; i++) {
+			const itemOrder = await ShoppingCart.findOne({where: {id:cartList[i].id }})
+			itemOrder.set({orderNumber: orderNumber})
+			await itemOrder.save()
+		}
+		const result = await ShoppingCart.findAll({
+			raw: true,
+			where: {
+				userId: +userId,
+			},
+			include: [
+				{
+					model: PhysicalCopy,
+					attributes: ['itemId', 'color', 'scale', 'price'],
+				},
+			],
+		});
+		res.json(result);
+
+	} catch (error) {
+		console.log(error, 'addOrderCart ERROR')
+		next()
+	}
+}
