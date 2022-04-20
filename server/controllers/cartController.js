@@ -24,7 +24,7 @@ module.exports.getUsersCartItems = async (req, res, next) => {
 			include: [
 				{
 					model: PhysicalCopy,
-					attributes: ['itemId'],
+					attributes: ['itemId', 'color', 'scale', 'price'],
 				},
 			],
 		});
@@ -33,3 +33,28 @@ module.exports.getUsersCartItems = async (req, res, next) => {
 		console.log(error, 'cartitems{{{{{{{{{');
 	}
 };
+
+module.exports.deleteItemCart = async (req, res, next) => {
+	try {
+		console.log('deleteItemCart' ,req.params)
+		const {userId,itemId } = req.params
+		const itemDelete = await ShoppingCart.findOne({where: {id: itemId,}});
+		itemDelete.destroy()
+		const result = await ShoppingCart.findAll({
+			raw: true,
+			where: {
+				userId: +userId,
+			},
+			include: [
+				{
+					model: PhysicalCopy,
+					attributes: ['itemId', 'color', 'scale', 'price'],
+				},
+			],
+		});
+		res.json(result);
+
+	}  catch (error) {
+		console.log(error, 'deleteItemCart ERROR')
+	}
+}

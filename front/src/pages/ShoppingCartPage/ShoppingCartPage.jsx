@@ -3,12 +3,30 @@ import ShoppingCartItem from '../../components/ShoppingCartItem/ShoppingCartItem
 
 import './ShoppingCartPage.css';
 import {useSelector} from "react-redux";
+import ProfileListingItem from "../../components/ProfileListingItem/ProfileListingItem";
 
 const ShoppingCartPage = () => {
 
     const cartList = useSelector(store => store.cart)
+    const catalogItems = useSelector(store => store.catalogItems)
 
-    console.log(cartList)
+    const resultList = cartList.map(item => {
+        let findItem = catalogItems.find(elem => item['PhysicalCopy.itemId'] === elem['PhysicalCopies.itemId'])
+        return  {...item, photoUrl: findItem['Photos.photoUrl'], digitalPrice:  findItem.digitalPrice, description:findItem.description , itemTitle: findItem.itemTitle}
+    })
+
+    const modelsPrice = resultList.reduce((sum, current) => {
+       return sum + (current.digitalPrice * current.quantity)
+       // return  sum + current.digitalPrice
+    },0)
+
+    const optionsPrice = resultList.reduce((sum, current) => {
+        return sum + ( +current['PhysicalCopy.price'] * current.quantity)
+        // return  sum + current.digitalPrice
+    },0)
+
+    // console.log(resultList)
+    // console.log('optionsPrice', optionsPrice)
 
     return (
         <>
@@ -41,9 +59,9 @@ const ShoppingCartPage = () => {
 
                 <div className="shoppingCartContent">
                     <div className="shoppingList">
-                        <ShoppingCartItem/>
-                        <ShoppingCartItem/>
-                        <ShoppingCartItem/>
+                        {resultList.map(item =>
+                            <ShoppingCartItem item={item} key={item.id}/>
+                        )}
                     </div>
 
                     <div className="orderSummary">
@@ -52,16 +70,16 @@ const ShoppingCartPage = () => {
                                 Order Summary
                             </div>
                             <div className="orderPrice">
-                                <p>Models Price</p>
-                                <p className='boltPrice'>$75.00</p>
+                                <p>Models price</p>
+                                <p className='boltPrice'>${modelsPrice.toFixed(2)}</p>
                             </div>
                             <div className="orderPrice">
                                 <p>Options Price</p>
-                                <p className='boltPrice'>$75.00</p>
+                                <p className='boltPrice'>${optionsPrice.toFixed(2)}</p>
                             </div>
                             <div className="orderPrice bolt">
                                 <p>Order Total</p>
-                                <p className='boltPrice'>$150.00</p>
+                                <p className='boltPrice'>${(modelsPrice + optionsPrice).toFixed(2)}</p>
                             </div>
 
                             <div className="noteOrder">
