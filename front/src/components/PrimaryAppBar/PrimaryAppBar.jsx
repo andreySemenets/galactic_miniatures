@@ -65,7 +65,8 @@ export default function PrimaryAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const user = useSelector((store) => store.user);
-  const cart = useSelector((store) => store.cart)
+  const cart = useSelector((store) => store.cart);
+  const wishes = useSelector((store) => store.wishes);
 
   const cartFilter = cart.filter(item => !item.orderNumber)
 
@@ -182,7 +183,7 @@ export default function PrimaryAppBar() {
           aria-label="show 17 new notifications"
           color="inherit"
         >
-          <Badge badgeContent={99} color="error">
+          <Badge badgeContent={wishes.length ? wishes.length : null } color="error">
             <FavoriteBorderOutlinedIcon />
           </Badge>
         </IconButton>
@@ -249,7 +250,7 @@ export default function PrimaryAppBar() {
               aria-label="show 17 new notifications"
               color="inherit"
             >
-              <Badge badgeContent={17} color="error">
+              <Badge badgeContent={wishes.length ? wishes.length : null } color="error">
                 <FavoriteBorderOutlinedIcon />
               </Badge>
             </IconButton>

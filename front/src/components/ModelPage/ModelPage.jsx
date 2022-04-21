@@ -1,21 +1,22 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { addModelToCart } from '../../redux/actions/cartAC';
 import { setModel } from '../../redux/actions/modelAC';
 import {
-	Button,
-	Card,
-	CardContent,
-	CardMedia,
-	Container,
-	FormControl,
-	IconButton,
-	MenuItem,
-	Select,
-	Stack,
-	Typography
-} from '@mui/material'
+    Button,
+    Card,
+    CardContent,
+    CardMedia,
+    Container,
+    FormControl,
+    IconButton,
+    MenuItem,
+    Select,
+    Stack,
+    Typography,
+} from '@mui/material';
+import FavoriteSharpIcon from '@mui/icons-material/FavoriteSharp';
 import FavoriteBorderSharpIcon from '@mui/icons-material/FavoriteBorderSharp';
 import LibraryAddCheckOutlinedIcon from '@mui/icons-material/LibraryAddCheckOutlined';
 import AddIcon from '@mui/icons-material/Add';
@@ -24,283 +25,417 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Box } from '@mui/system';
-import styles from './style.module.css'
+import styles from './style.module.css';
 import CatalogCardItem from '../CatalogCardItem/CatalogCardItem';
 import axios from 'axios';
+import {
+    deleteWish,
+    getUserWishes,
+    saveWish,
+} from '../../redux/actions/wishAC';
 
 export default function ModelPage() {
-	const { id } = useParams();
-	const dispatch = useDispatch();
-	const navigate = useNavigate();
+    const { id } = useParams();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-	const model = useSelector((store) => store.model);
-	const user = useSelector((store) => store.user);
+    const model = useSelector((store) => store.model);
+    const user = useSelector((store) => store.user);
+    const wishes = useSelector((store) => store.wishes);
 
-	const [quantity, setQuantity] = useState({ value: Number(1) }); // счетчик количества
-	const [inputs, setInputs] = useState({}); // инпуты
-	const [totalCost, setTotalCost] = useState({ value: Number(0) });
-	const [alsoBuy, setAlsoBuy] = useState([]);
-	const photosArr = model['Photos.photoUrl'];
+    const [quantity, setQuantity] = useState({ value: Number(1) }); // счетчик количества
+    const [inputs, setInputs] = useState({}); // инпуты
+    const [totalCost, setTotalCost] = useState({ value: Number(0) });
+    const [alsoBuy, setAlsoBuy] = useState([]);
+    const photosArr = model['Photos.photoUrl'];
 
-	const [activeActions, setActiveActions] = useState(0)
+    const [activeActions, setActiveActions] = useState(0);
 
-	// PHOTO-SLIDER
-	const mainPhotoRender = (array) => {
-		if (activeActions < 0) {
-			setActiveActions(array?.length - 1)
-			return (
-				array?.[`${activeActions}`]
-					? <CardMedia
-						component="img"
-						alt={`${model.itemTitle}-pic`}
-						width="614"
-						height="392"
-						image={'http://localhost:4000/' + array?.[`${activeActions}`]} />
-					: <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-						<CircularProgress sx={{ color: 'blue' }} />
-					</Box>)
-		}
-		if (activeActions > array?.length - 1) {
-			setActiveActions(0)
-			return (
-				array?.[`${activeActions}`]
-					? <CardMedia
-						component="img"
-						alt={`${model.itemTitle}-pic`}
-						width="614"
-						height="392"
-						image={'http://localhost:4000/' + array?.[`${activeActions}`]} />
-					: <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-						<CircularProgress sx={{ color: 'blue' }} />
-					</Box>)
-		}
-		return (
-			array?.[`${activeActions}`]
-				? <CardMedia
-					component="img"
-					alt={`${model.itemTitle}-pic`}
-					width="614"
-					height="392"
-					image={'http://localhost:4000/' + array?.[`${activeActions}`]} />
-				: <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-					<CircularProgress sx={{ color: 'blue' }} />
-				</Box>)
-	}
+    const [wished, setWished] = useState(false);
 
-	useEffect(() => {
-		const modelId = id;
-		dispatch(setModel(modelId));
-	}, [id]);
+    useEffect(() => {
+        dispatch(getUserWishes(user.id));
+    }, [dispatch, user.id]);
 
-	// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    useEffect(() => {
+        setWished(wishes.find(el => el.itemId == id))
+    })
 
-	// Расчет суммы заказа
-	useEffect(() => {
-		if (model.digitalPrice) {
-			setTotalCost({ value: Number(model.digitalPrice) });
-		}
-	}, [model.digitalPrice]);
+    const wishHandler = () => {
 
-	// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        dispatch(saveWish(user.id, id));
+    };
 
-	// TOOOOOOODDDOOOOOOOOOOOOO
-	console.log('MODEL DATA >>>', model);
-	useEffect(() => {
-		const modelId = id;
-		axios.get('http://localhost:4000/items', modelId)
-			.then((response) =>
-				setAlsoBuy(response.data));
-	}, []);
+    const unWishHandler = () => {
+        const targetWish = wishes.find(el => el.itemId === +id);
+        dispatch(deleteWish(targetWish.id));
 
-	// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    };
 
-	// Расчет суммы заказа в зависимости от количества
-	useEffect(() => {
-		setTotalCost({
-			value: (parseFloat((model.digitalPrice + inputs.scale)) * Number(quantity.value)).toFixed(2),
-		});
-	}, [quantity.value]);
+    // PHOTO-SLIDER
+    const mainPhotoRender = (array) => {
+        if (activeActions < 0) {
+            setActiveActions(array?.length - 1);
+            return array?.[`${activeActions}`] ? (
+                <CardMedia
+                    component="img"
+                    alt={`${model.itemTitle}-pic`}
+                    width="614"
+                    height="392"
+                    image={
+                        'http://localhost:4000/' + array?.[`${activeActions}`]
+                    }
+                />
+            ) : (
+                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                    <CircularProgress sx={{ color: 'blue' }} />
+                </Box>
+            );
+        }
+        if (activeActions > array?.length - 1) {
+            setActiveActions(0);
+            return array?.[`${activeActions}`] ? (
+                <CardMedia
+                    component="img"
+                    alt={`${model.itemTitle}-pic`}
+                    width="614"
+                    height="392"
+                    image={
+                        'http://localhost:4000/' + array?.[`${activeActions}`]
+                    }
+                />
+            ) : (
+                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                    <CircularProgress sx={{ color: 'blue' }} />
+                </Box>
+            );
+        }
+        return array?.[`${activeActions}`] ? (
+            <CardMedia
+                component="img"
+                alt={`${model.itemTitle}-pic`}
+                width="614"
+                height="392"
+                image={'http://localhost:4000/' + array?.[`${activeActions}`]}
+            />
+        ) : (
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                <CircularProgress sx={{ color: 'blue' }} />
+            </Box>
+        );
+    };
 
-	// Выбор цвета модели
-	const colorSelectHandler = (event) => {
-		setInputs((prev) => ({ ...prev, [event.target.name]: event.target.value }));
-	};
+    useEffect(() => {
+        const modelId = id;
+        dispatch(setModel(modelId));
+    }, [id]);
 
-	// Выбор масштаба модели
-	const scaleSelectHandler = (event) => {
-		setInputs((prev) => ({ ...prev, [event.target.name]: event.target.value }));
-		setTotalCost({ value: (model.digitalPrice + event.target.value) });
-		setQuantity({ value: Number(1) });
-	};
+    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-	// ADD TO CART
-	const addToCartHandler = (event) => {
-		const formData = {
-			id,
-			userId: user.id,
-			title: model.itemTitle,
-			quantity: quantity.value,
-			total: totalCost.value,
-		};
+    // Расчет суммы заказа
+    useEffect(() => {
+        if (model.digitalPrice) {
+            setTotalCost({ value: Number(model.digitalPrice) });
+        }
+    }, [model.digitalPrice]);
 
-		dispatch(addModelToCart(event, formData))
-		setInputs({});
-		setQuantity({ value: Number(1) });
-		setTotalCost({ value: Number(model.digitalPrice) });
-		navigate('/')
-	};
+    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-	return (
-		<Container className={styles.myMainContainer} maxWidth="xl">
-			<Box sx={{
-				width: "100%",
-				marginBottom: "125px",
-				display: 'flex',
-				justifyContent: 'space-between'
-			}}>
-				<Container>
+    // TOOOOOOODDDOOOOOOOOOOOOO
+    // console.log('MODEL DATA >>>', model);
+    useEffect(() => {
+        const modelId = id;
+        axios
+            .get('http://localhost:4000/items', modelId)
+            .then((response) => setAlsoBuy(response.data));
+    }, []);
 
-					{/* ОСНОВНОЕ ФОТО */}
-					<Box className={styles.modelPageMainImg}>
-						{mainPhotoRender(photosArr)}
-					</Box>
+    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-					{/* МИНИАТЮРЫ ФОТО */}
-					<Box component="div" className={styles.modelPageCarouselBox} >
+    // Расчет суммы заказа в зависимости от количества
+    useEffect(() => {
+        setTotalCost({
+            value: (
+                parseFloat(model.digitalPrice + inputs.scale) *
+                Number(quantity.value)
+            ).toFixed(2),
+        });
+    }, [quantity.value]);
 
-						{/* КНОПКА НАЗАД */}
-						<IconButton className={styles.modelPageCarouselBtn} onClick={() => setActiveActions(prev => prev - 1)} >
-							<ArrowBackIosNewIcon />
-						</IconButton>
+    // Выбор цвета модели
+    const colorSelectHandler = (event) => {
+        setInputs((prev) => ({
+            ...prev,
+            [event.target.name]: event.target.value,
+        }));
+    };
 
-						<Stack direction="row" alignItems="center" spacing={2}>
-							{photosArr?.length
-								? photosArr.map((el) => (
-									<Box key={el} >
-										<img style={{ width: '150px', height: '105px' }}
-											src={'http://localhost:4000/' + el}
-											alt="here"
-											loading="lazy"
-										/>
-									</Box>
-								))
-								: null}
-						</Stack>
+    // Выбор масштаба модели
+    const scaleSelectHandler = (event) => {
+        setInputs((prev) => ({
+            ...prev,
+            [event.target.name]: event.target.value,
+        }));
+        setTotalCost({ value: model.digitalPrice + event.target.value });
+        setQuantity({ value: Number(1) });
+    };
 
-						{/* КНОПКА ВПЕРЕД */}
-						<IconButton className={styles.modelPageCarouselBtn} onClick={() => setActiveActions(prev => prev + 1)}>
-							<ArrowForwardIosIcon />
-						</IconButton>
+    // ADD TO CART
+    const addToCartHandler = (event) => {
+        const formData = {
+            id,
+            userId: user.id,
+            title: model.itemTitle,
+            quantity: quantity.value,
+            total: totalCost.value,
+        };
 
-					</Box>
+        dispatch(addModelToCart(event, formData));
+        setInputs({});
+        setQuantity({ value: Number(1) });
+        setTotalCost({ value: Number(model.digitalPrice) });
+        navigate('/');
+    };
 
-					{/* ОПИСАНИЕ */}
-					<Typography className={styles.modelPageDescriptionTitle} component="div">Description</Typography>
+    return (
+        <Container className={styles.myMainContainer} maxWidth="xl">
+            <Box
+                sx={{
+                    width: '100%',
+                    marginBottom: '125px',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                }}
+            >
+                <Container>
+                    {/* ОСНОВНОЕ ФОТО */}
+                    <Box className={styles.modelPageMainImg}>
+                        {mainPhotoRender(photosArr)}
+                    </Box>
 
-					<Typography>{model.description}</Typography>
+                    {/* МИНИАТЮРЫ ФОТО */}
+                    <Box
+                        component="div"
+                        className={styles.modelPageCarouselBox}
+                    >
+                        {/* КНОПКА НАЗАД */}
+                        <IconButton
+                            className={styles.modelPageCarouselBtn}
+                            onClick={() => setActiveActions((prev) => prev - 1)}
+                        >
+                            <ArrowBackIosNewIcon />
+                        </IconButton>
 
-				</Container>
+                        <Stack direction="row" alignItems="center" spacing={2}>
+                            {photosArr?.length
+                                ? photosArr.map((el) => (
+                                      <Box key={el}>
+                                          <img
+                                              style={{
+                                                  width: '150px',
+                                                  height: '105px',
+                                              }}
+                                              src={
+                                                  'http://localhost:4000/' + el
+                                              }
+                                              alt="here"
+                                              loading="lazy"
+                                          />
+                                      </Box>
+                                  ))
+                                : null}
+                        </Stack>
 
-				<Box component="form" onSubmit={addToCartHandler}
-					sx={{
-						width: '100%',
-						display: 'flex',
-						flexDirection: 'column',
-						justifyContent: 'space-between',
-					}} >
+                        {/* КНОПКА ВПЕРЕД */}
+                        <IconButton
+                            className={styles.modelPageCarouselBtn}
+                            onClick={() => setActiveActions((prev) => prev + 1)}
+                        >
+                            <ArrowForwardIosIcon />
+                        </IconButton>
+                    </Box>
 
-					<Typography className={styles.modelPageModelTitle}>{model.itemTitle}</Typography>
+                    {/* ОПИСАНИЕ */}
+                    <Typography
+                        className={styles.modelPageDescriptionTitle}
+                        component="div"
+                    >
+                        Description
+                    </Typography>
 
+                    <Typography>{model.description}</Typography>
+                </Container>
 
-					{model.digitalPrice
-						? <Typography className={styles.modelPageModelTotalCost} variant="h4">{totalCost.value} USD</Typography>
-						: <Box> <CircularProgress sx={{ color: 'blue' }} /> </Box>
-					}
+                <Box
+                    component="form"
+                    onSubmit={addToCartHandler}
+                    sx={{
+                        width: '100%',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                    }}
+                >
+                    <Typography className={styles.modelPageModelTitle}>
+                        {model.itemTitle}
+                    </Typography>
 
+                    {model.digitalPrice ? (
+                        <Typography
+                            className={styles.modelPageModelTotalCost}
+                            variant="h4"
+                        >
+                            {totalCost.value} USD
+                        </Typography>
+                    ) : (
+                        <Box>
+                            {' '}
+                            <CircularProgress sx={{ color: 'blue' }} />{' '}
+                        </Box>
+                    )}
 
-					<Card className={styles.modelPageModelBuyDigital}>
-						<CardContent>
-							<Stack spacing={1} direction="row">
+                    <Card className={styles.modelPageModelBuyDigital}>
+                        <CardContent>
+                            <Stack spacing={1} direction="row">
+                                <LibraryAddCheckOutlinedIcon
+                                    sx={{ color: 'blue' }}
+                                />
 
-								<LibraryAddCheckOutlinedIcon sx={{ color: 'blue' }} />
+                                <Typography variant="h6" component="b">
+                                    Digital copy available
+                                </Typography>
+                            </Stack>
 
-								<Typography variant="h6" component="b">
-									Digital copy available
-								</Typography>
+                            <Typography color="#6B7280">
+                                You can buy a Digital version of this model. The
+                                priceis fixed, the ability to select options is
+                                not available.
+                            </Typography>
+                        </CardContent>
 
-							</Stack>
+                        <Box className={styles.modelPageModelBuyDigitalBtn}>
+                            <Button className={styles.modelPageBuyButton}>
+                                {' '}
+                                Buy digital for {model.digitalPrice} USD{' '}
+                            </Button>
+                        </Box>
+                    </Card>
 
-							<Typography color="#6B7280">
-								You can buy a Digital version of this model. The priceis fixed, the ability to select options is not available.
-							</Typography>
+                    {/* COLOR SELECTOR */}
+                    <Typography sx={{ marginBottom: '15px' }}>
+                        {' '}
+                        Color{' '}
+                    </Typography>
+                    <FormControl
+                        sx={{ color: '#1F2937', marginBottom: '40px' }}
+                        size="small"
+                    >
+                        <Select
+                            name="color"
+                            id="color-select"
+                            onChange={colorSelectHandler}
+                            value={inputs.color ?? ''}
+                            className={styles.modelPageSelect}
+                        >
+                            <MenuItem value={model?.['PhysicalCopies.color']}>
+                                {model?.['PhysicalCopies.color']}
+                            </MenuItem>
+                        </Select>
+                    </FormControl>
 
-						</CardContent>
+                    {/* SCALE SELECTOR */}
+                    <Typography sx={{ marginBottom: '15px' }}>
+                        {' '}
+                        Scale{' '}
+                    </Typography>
+                    <FormControl sx={{ marginBottom: '40px' }} size="small">
+                        <Select
+                            name="scale"
+                            id="scale-select"
+                            onChange={scaleSelectHandler}
+                            value={inputs.scale ?? ''}
+                            className={styles.modelPageSelect}
+                        >
+                            <MenuItem
+                                value={Number(model?.['PhysicalCopies.price'])}
+                            >
+                                {model?.['PhysicalCopies.scale']} -{' '}
+                                {model?.['PhysicalCopies.price']} $
+                            </MenuItem>
+                        </Select>
+                    </FormControl>
 
-						<Box className={styles.modelPageModelBuyDigitalBtn}>
-							<Button className={styles.modelPageBuyButton}> Buy digital for {model.digitalPrice} USD </Button>
-						</Box>
+                    <Typography> Quantity </Typography>
 
-					</Card>
+                    <Box className={styles.modelPageCounter} component="div">
+                        <IconButton
+                            color="inherit"
+                            disabled={quantity.value === 1}
+                            onClick={() => {
+                                setQuantity({
+                                    value: quantity.value - Number(1),
+                                });
+                            }}
+                        >
+                            <RemoveIcon />
+                        </IconButton>
+                        <Typography> {quantity.value} </Typography>
+                        <IconButton
+                            color="inherit"
+                            disabled={!inputs.scale}
+                            onClick={() => {
+                                setQuantity({
+                                    value: quantity.value + Number(1),
+                                });
+                            }}
+                        >
+                            <AddIcon />
+                        </IconButton>
+                    </Box>
 
-					{/* COLOR SELECTOR */}
-					<Typography sx={{ marginBottom: "15px" }}> Color </Typography>
-					<FormControl sx={{ color: "#1F2937", marginBottom: "40px" }} size="small">
+                    <Stack
+                        spacing={2}
+                        direction="row"
+                        container="true"
+                        justifyContent="center"
+                    >
+                        <Button
+                            disabled={!inputs.scale || !inputs.color}
+                            type="submit"
+                            className={styles.modelPageAddToCartButton}
+                            size="large"
+                            variant="contained"
+                        >
+                            ADD TO CART
+                        </Button>
+                        {wished ? (
+                            <Button
+                                onClick={unWishHandler}
+                                className={styles.trueAddToFavorite}
+                                children={<FavoriteSharpIcon />}
+                            ></Button>
+                        ) : (
+                            <Button
+                                onClick={wishHandler}
+                                className={styles.falseAddToFavorite}
+                                children={<FavoriteBorderSharpIcon />}
+                            ></Button>
+                        )}
+                    </Stack>
+                </Box>
+            </Box>
 
-						<Select name="color" id="color-select"
-							onChange={colorSelectHandler} value={inputs.color ?? ''}
-							className={styles.modelPageSelect}>
+            <Container maxWidth="xl">
+                <Typography sx={{ fontWeight: 'bold' }}>
+                    Customers also bought these
+                </Typography>
 
-							<MenuItem value={model?.['PhysicalCopies.color']}>{model?.['PhysicalCopies.color']}</MenuItem>
-						</Select>
-
-					</FormControl>
-
-					{/* SCALE SELECTOR */}
-					<Typography sx={{ marginBottom: "15px" }}> Scale </Typography>
-					<FormControl sx={{ marginBottom: "40px" }} size="small">
-
-						<Select name="scale" id="scale-select"
-							onChange={scaleSelectHandler} value={inputs.scale ?? ''}
-							className={styles.modelPageSelect}>
-
-							<MenuItem value={Number(model?.['PhysicalCopies.price'])}>
-								{model?.['PhysicalCopies.scale']} - {model?.['PhysicalCopies.price']} $
-							</MenuItem>
-
-						</Select>
-
-					</FormControl>
-
-					<Typography> Quantity </Typography>
-
-					<Box className={styles.modelPageCounter} component="div">
-						<IconButton color="inherit" disabled={quantity.value === 1}
-							onClick={() => { setQuantity({ value: quantity.value - Number(1) }) }} ><RemoveIcon /></IconButton>
-						<Typography> {quantity.value} </Typography>
-						<IconButton color="inherit" disabled={!inputs.scale}
-							onClick={() => { setQuantity({ value: quantity.value + Number(1) }) }}><AddIcon /></IconButton>
-					</Box>
-
-					<Stack spacing={2} direction="row" container="true" justifyContent="center">
-						<Button disabled={!inputs.scale || !inputs.color} type="submit"
-							className={styles.modelPageAddToCartButton} size="large" variant="contained">
-							ADD TO CART
-						</Button>
-						<Button className={styles.modelPageAddToFavorite} children={<FavoriteBorderSharpIcon />}></Button>
-					</Stack>
-				</Box>
-
-			</Box >
-
-			<Container maxWidth="xl">
-				<Typography sx={{ fontWeight: 'bold' }}>Customers also bought these</Typography>
-
-				<Box className={styles.modelPageAlsoBuyBox}>
-
-					{alsoBuy.map((el) => (<CatalogCardItem key={el.id} card={el} />))}
-
-				</Box>
-			</Container>
-		</Container >
-	)
+                <Box className={styles.modelPageAlsoBuyBox}>
+                    {alsoBuy.map((el) => (
+                        <CatalogCardItem key={el.id} card={el} />
+                    ))}
+                </Box>
+            </Container>
+        </Container>
+    );
 }

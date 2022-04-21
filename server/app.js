@@ -8,10 +8,11 @@ const path = require('path');
 const dbCheck = require('./helpers/dbCheck');
 const authRouter = require('./routers/authRouter');
 const itemRouter = require('./routers/itemRouter');
-const itemsRouter = require('./routers/itemsRouter');
+const searchRouter = require('./routers/searchRouter');
 const cartRouter = require('./routers/cartRouter');
 const sortByCategoryRouter = require('./routers/sortByCategoryRouter');
 const catalogRouter = require('./routers/catalogRouter');
+const wishRouter = require('./routers/wishRouter');
 const errorMiddleware = require('./middlewares/errorMiddleware');
 
 const app = express();
@@ -35,9 +36,10 @@ app.use(cors({
 app.use('/auth', authRouter);
 app.use('/items', itemRouter);
 app.use('/cart', cartRouter);
-app.use('/search', itemsRouter);
+app.use('/search', searchRouter);
 app.use('/sort', sortByCategoryRouter);
 app.use('/catalog', catalogRouter);
+app.use('/wishlist', wishRouter);
 
 app.use(errorMiddleware);
 

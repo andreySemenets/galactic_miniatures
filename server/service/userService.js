@@ -69,9 +69,9 @@ module.exports.refresh = async (refreshToken, next) => {
 			throw ApiError.UnauthorizedError();
 		}
 		const userData = validateRefreshToken(refreshToken);
-		console.log('{{{[userData}}}}', userData);
+		// console.log('{{{[userData}}}}', userData);
 		const tokenFromDb = await findToken(refreshToken);
-		console.log('{{{tokenfromdDb', tokenFromDb);
+		// console.log('{{{tokenfromdDb', tokenFromDb);
 
 		if (!userData || !tokenFromDb) {
 			throw ApiError.UnauthorizedError();

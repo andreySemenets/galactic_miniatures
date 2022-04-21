@@ -20,11 +20,11 @@ const ShoppingCartPage = () => {
 
     const resultList = notOrderList?.map(item => {
         let findItem = catalogItems.find(elem => item['PhysicalCopy.itemId'] === elem['PhysicalCopies.itemId'])
-        return  {...item, photoUrl: findItem['Photos.photoUrl'], digitalPrice:  findItem.digitalPrice, description:findItem.description , itemTitle: findItem.itemTitle}
+        return  {...item, photoUrl: findItem?.['Photos.photoUrl'], digitalPrice:  findItem?.digitalPrice, description: findItem?.description , itemTitle: findItem?.itemTitle}
     })
 
     const modelsPrice = resultList.reduce((sum, current) => {
-       return sum + (current.digitalPrice * current.quantity)
+       return sum + (current?.digitalPrice * current.quantity)
        // return  sum + current.digitalPrice
     },0)
 

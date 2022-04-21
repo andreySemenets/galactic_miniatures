@@ -29,4 +29,10 @@ export const SET_CART_ITEMS = 'SET_CART_ITEMS';
 export const SET_MODEL = 'SET_MODEL';
 
 // action - catalogReducer
-export const SET_CATALOG_ITEMS = 'SET_CATALOG_ITEMS'
+export const SET_CATALOG_ITEMS = 'SET_CATALOG_ITEMS';
+
+
+// action - wishReducer
+export const ADD_WISH = 'ADD_WISH';
+export const SET_USER_WISHES = 'SET_USER_WISHES';
+export const REMOVE_WISH = 'REMOVE_WISH';
