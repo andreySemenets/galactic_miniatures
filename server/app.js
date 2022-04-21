@@ -12,11 +12,8 @@ const searchRouter = require('./routers/searchRouter');
 const cartRouter = require('./routers/cartRouter');
 const sortByCategoryRouter = require('./routers/sortByCategoryRouter');
 const catalogRouter = require('./routers/catalogRouter');
-<<<<<<< HEAD
 const wishRouter = require('./routers/wishRouter');
-=======
 const ordersMakerRouter = require('./routers/ordersMakerRouter')
->>>>>>> master
 const errorMiddleware = require('./middlewares/errorMiddleware');
 
 const app = express();

@@ -1,34 +1,38 @@
 .collectionCard {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    font-size: 22px;
-    font-weight: bold;
-    color: rgb(0, 0, 0) !important;
-    /* height: 28rem; */
-    background-size: contain;
-    background-repeat: round;
-    position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	font-size: 22px;
+	font-weight: bold;
+	color: rgb(0, 0, 0) !important;
+	/* height: 28rem; */
+	background-size: contain;
+	background-repeat: round;
+	position: relative;
 }
 
 .collectionCard:hover {
-    transform: scale(1.02);
+	transform: scale(1.02);
 }
+
 .collection1 {
-    background-image: linear-gradient(to left, rgba(137, 133, 133, 0.1) 0%, rgb(92, 90, 93) 100%),
-    url('../../../public/images/MMFvehicle.jpg');
+	background-image: linear-gradient(to left, rgba(137, 133, 133, 0.1) 0%, rgb(92, 90, 93) 100%),
+		url('../../../public/images/MMFvehicle.jpg');
 }
+
 .collection2 {
-    background-image: linear-gradient(to left, rgba(137, 133, 133, 0.1) 0%, rgb(92, 90, 93) 100%),
-    url('../../../public/images/egyptian.jpg');
+	background-image: linear-gradient(to left, rgba(137, 133, 133, 0.1) 0%, rgb(92, 90, 93) 100%),
+		url('../../../public/images/egyptian.jpg');
 }
+
 .collection3 {
-    background-image: linear-gradient(to left, rgba(137, 133, 133, 0.1) 0%, rgb(92, 90, 93) 100%),
-    url('../../../public/images/durka.jpg');
+	background-image: linear-gradient(to left, rgba(137, 133, 133, 0.1) 0%, rgb(92, 90, 93) 100%),
+		url('../../../public/images/durka.jpg');
 }
+
 .collection4 {
-    background-image: linear-gradient(to left, rgba(137, 133, 133, 0.1) 0%, rgb(92, 90, 93) 100%),
-    url('../../../public/images/lynx.jpg');
+	background-image: linear-gradient(to left, rgba(137, 133, 133, 0.1) 0%, rgb(92, 90, 93) 100%),
+		url('../../../public/images/lynx.jpg');
 }
 
 .collectionButton {
@@ -36,7 +40,7 @@
 	color: #f0e4e4 !important;
 	border: 1px solid #090202 !important;
 	font-weight: bold;
-    max-width: 50px;
+	max-width: 50px;
 }
 
 .collectionButton:hover {

@@ -16,9 +16,11 @@ import { styled } from '@mui/material/styles';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import AddIcon from '@mui/icons-material/Add';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import style from './style.module.css';
 import TagComponent from '../TagComponent/TagComponent';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const theme = createTheme({
 	components: {
@@ -53,6 +55,8 @@ const theme = createTheme({
 });
 
 function EditListing() {
+	const navigate = useNavigate();
+
 	// INPUTS & FORMDATA
 	const [inputs, setInputs] = useState({});
 	const [form, setForm] = useState({});
@@ -138,6 +142,7 @@ function EditListing() {
 		setPreview([]);
 		setZip({});
 		setZipInput({});
+		navigate('/profile/creator')
 	};
 
 	const InputFile = styled('input')({
@@ -158,7 +163,7 @@ function EditListing() {
 					encType="multipart/form-data"
 				>
 					<Typography className={style.editListingMainTitle}>
-						Edit Listing
+						Listing
 					</Typography>
 
 					<Box className={style.editListingContentContainer}>
@@ -206,7 +211,7 @@ function EditListing() {
 										variant="contained"
 										component="span"
 									>
-										Upload
+										<PhotoCamera />
 									</Button>
 								</label>
 							</Box>
