@@ -82,6 +82,9 @@
 .editListingUploadFotoBox {
 	width: 150px;
 	height: 105px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	border: 3px dashed #0054FF;
 }
 

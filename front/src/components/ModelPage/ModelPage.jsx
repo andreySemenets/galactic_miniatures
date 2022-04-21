@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { addModelToCart } from '../../redux/actions/cartAC';
@@ -14,8 +14,9 @@ import {
 	MenuItem,
 	Select,
 	Stack,
-	Typography
-} from '@mui/material'
+	Typography,
+} from '@mui/material';
+import FavoriteSharpIcon from '@mui/icons-material/FavoriteSharp';
 import FavoriteBorderSharpIcon from '@mui/icons-material/FavoriteBorderSharp';
 import LibraryAddCheckOutlinedIcon from '@mui/icons-material/LibraryAddCheckOutlined';
 import AddIcon from '@mui/icons-material/Add';
@@ -24,9 +25,14 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Box } from '@mui/system';
-import styles from './style.module.css'
+import styles from './style.module.css';
 import CatalogCardItem from '../CatalogCardItem/CatalogCardItem';
 import axios from 'axios';
+import {
+	deleteWish,
+	getUserWishes,
+	saveWish,
+} from '../../redux/actions/wishAC';
 
 export default function ModelPage() {
 	const { id } = useParams();
@@ -35,6 +41,7 @@ export default function ModelPage() {
 
 	const model = useSelector((store) => store.model);
 	const user = useSelector((store) => store.user);
+	const wishes = useSelector((store) => store.wishes);
 
 	const [quantity, setQuantity] = useState({ value: Number(1) }); // счетчик количества
 	const [inputs, setInputs] = useState({}); // инпуты
@@ -44,6 +51,25 @@ export default function ModelPage() {
 
 
 	const [activeActions, setActiveActions] = useState(0)
+
+	const [wished, setWished] = useState(false);
+
+	useEffect(() => {
+		dispatch(getUserWishes(user.id));
+	}, [dispatch, user.id]);
+
+	useEffect(() => {
+		setWished(wishes.find(el => el.itemId == id))
+	}, [id, wishes])
+
+	const wishHandler = () => {
+		dispatch(saveWish(user.id, id));
+	};
+
+	const unWishHandler = () => {
+		const targetWish = wishes.find(el => el.itemId === +id);
+		dispatch(deleteWish(targetWish.id));
+	};
 
 	// PHOTO-SLIDER
 	const mainPhotoRender = (array) => {
@@ -93,11 +119,8 @@ export default function ModelPage() {
 		dispatch(setModel(modelId));
 	}, [id]);
 
-
-	console.log('TOTAL COST >>>>>', totalCost);
 	// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-	// Расчет суммы заказа
 	useEffect(() => {
 		if (model.digitalPrice) {
 			setTotalCost({ value: model.digitalPrice });
@@ -212,7 +235,6 @@ export default function ModelPage() {
 						flexDirection: 'column',
 						justifyContent: 'space-between',
 					}} >
-
 					<Typography className={styles.modelPageModelTitle}>{model.itemTitle}</Typography>
 
 					{model.digitalPrice
@@ -286,7 +308,21 @@ export default function ModelPage() {
 							className={styles.modelPageAddToCartButton} size="large" variant="contained">
 							ADD TO CART
 						</Button>
-						<Button className={styles.modelPageAddToFavorite} children={<FavoriteBorderSharpIcon />}></Button>
+
+						{wished ? (
+							<Button
+								onClick={unWishHandler}
+								className={styles.trueAddToFavorite}
+								children={<FavoriteSharpIcon />}
+							></Button>
+						) : (
+							<Button
+								onClick={wishHandler}
+								className={styles.falseAddToFavorite}
+								children={<FavoriteBorderSharpIcon />}
+							></Button>
+						)}
+
 					</Stack>
 				</Box>
 
@@ -303,4 +339,4 @@ export default function ModelPage() {
 			</Container>
 		</Container >
 	)
-}
+};
