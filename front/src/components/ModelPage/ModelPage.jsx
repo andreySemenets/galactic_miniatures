@@ -38,9 +38,10 @@ export default function ModelPage() {
 
 	const [quantity, setQuantity] = useState({ value: Number(1) }); // счетчик количества
 	const [inputs, setInputs] = useState({}); // инпуты
-	const [totalCost, setTotalCost] = useState({ value: Number(0) });
+	const [totalCost, setTotalCost] = useState({ value: 0 });
 	const [alsoBuy, setAlsoBuy] = useState([]);
 	const photosArr = model['Photos.photoUrl'];
+
 
 	const [activeActions, setActiveActions] = useState(0)
 
@@ -92,19 +93,19 @@ export default function ModelPage() {
 		dispatch(setModel(modelId));
 	}, [id]);
 
+
+	console.log('TOTAL COST >>>>>', totalCost);
 	// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 	// Расчет суммы заказа
 	useEffect(() => {
 		if (model.digitalPrice) {
-			setTotalCost({ value: Number(model.digitalPrice) });
+			setTotalCost({ value: model.digitalPrice });
 		}
 	}, [model.digitalPrice]);
 
 	// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
 	// TOOOOOOODDDOOOOOOOOOOOOO
-	console.log('MODEL DATA >>>', model);
 	useEffect(() => {
 		const modelId = id;
 		axios.get('http://localhost:4000/items', modelId)
@@ -113,13 +114,16 @@ export default function ModelPage() {
 	}, []);
 
 	// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-	// Расчет суммы заказа в зависимости от количества
+	// Расчет суммы заказа в зависимости от количества и масштаба
 	useEffect(() => {
-		setTotalCost({
-			value: (parseFloat((model.digitalPrice + inputs.scale)) * Number(quantity.value)).toFixed(2),
-		});
-	}, [quantity.value]);
+		return inputs.scale
+			? setTotalCost({
+				value: (parseFloat((model.digitalPrice + inputs.scale)) * Number(quantity.value)).toFixed(2),
+			})
+			: setTotalCost({
+				value: (parseFloat(model.digitalPrice) * Number(quantity.value)).toFixed(2),
+			});
+	}, [inputs.scale, model.digitalPrice, quantity.value]);
 
 	// Выбор цвета модели
 	const colorSelectHandler = (event) => {
@@ -211,23 +215,19 @@ export default function ModelPage() {
 
 					<Typography className={styles.modelPageModelTitle}>{model.itemTitle}</Typography>
 
-
 					{model.digitalPrice
 						? <Typography className={styles.modelPageModelTotalCost} variant="h4">{totalCost.value} USD</Typography>
 						: <Box> <CircularProgress sx={{ color: 'blue' }} /> </Box>
 					}
 
-
 					<Card className={styles.modelPageModelBuyDigital}>
 						<CardContent>
 							<Stack spacing={1} direction="row">
-
 								<LibraryAddCheckOutlinedIcon sx={{ color: 'blue' }} />
 
 								<Typography variant="h6" component="b">
 									Digital copy available
 								</Typography>
-
 							</Stack>
 
 							<Typography color="#6B7280">
