@@ -46,9 +46,8 @@ const App = () => {
 				<Route path="/models/edit" element={<EditListing />} />
 				<Route path="/search" element={<Search />} />
 				<Route path="/user/id/shoppingcart" element={<ShoppingCartPage />} />
-				<Route path='/sort' element={<SortByCategoryPage />} />
+				<Route path='/:cat/:sub' element={<SortByCategoryPage />} />
 				<Route path='/user/id/wishlist' element={<WishListPage />} />
-
 			</Routes>
 		</>
 	);
