@@ -13,8 +13,10 @@
     width: 150px;
     height: 105px;
     border-radius: 4px;
-    margin: 10px;
+    margin: 7px;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
 }
 
 .pictureOrder {
@@ -22,7 +24,7 @@
     width: 150px;
     height: 105px;
     border-radius: 4px;
-    margin: 10px;
+    /*margin: 10px;*/
     overflow: hidden;
 }
 
@@ -56,7 +58,7 @@
     position: absolute;
     z-index: 999;
     top: 65px;
-    left: 90px;
+    left: 85px;
 
     background: #FFFFFF;
     border: 1px solid #E5E5E5;
