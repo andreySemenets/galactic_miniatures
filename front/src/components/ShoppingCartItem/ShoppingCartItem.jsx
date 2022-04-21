@@ -1,12 +1,9 @@
 import React from 'react';
-import RemoveIcon from '@mui/icons-material/Remove';
-import AddIcon from '@mui/icons-material/Add';
-import UpdateIcon from '@mui/icons-material/Update';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 import './ShoppingCartItem.css'
 import {useDispatch, useSelector} from "react-redux";
 import {postAddQuantityItem, postDeleteItemCart, postDeleteQuantityItem} from "../../redux/actions/cartAC";
+import {useNavigate} from "react-router-dom";
 
 const ShoppingCartItem = ({item}) => {
 
@@ -25,10 +22,12 @@ const ShoppingCartItem = ({item}) => {
         dispatch(postDeleteQuantityItem(userData.id,itemId))
     }
 
+    const navigate = useNavigate()
+
     return (
         <>
             <div className="ShoppingCartItem">
-                <div className="cartPicture">
+                <div className="cartPicture" onClick={() => {navigate(`/models/${item['PhysicalCopy.itemId']}`)}}>
                     <img src={'http://localhost:4000/'+ item?.photoUrl} alt="Картинка"/>
                 </div>
                 <div className="cartInformation">
