@@ -2,21 +2,41 @@ import * as React from 'react';
 import ShoppingCartItem from '../../components/ShoppingCartItem/ShoppingCartItem';
 
 import './ShoppingCartPage.css';
-import {useSelector} from "react-redux";
-import ProfileListingItem from "../../components/ProfileListingItem/ProfileListingItem";
+import {useDispatch, useSelector} from "react-redux";
+import {getCartItemsByUser, postAddOrderCart} from "../../redux/actions/cartAC";
+import {useNavigate} from "react-router-dom";
+import {getCatalogItems} from "../../redux/actions/catalogAC";
 
 const ShoppingCartPage = () => {
 
+    const userData = useSelector(store => store.user)
     const cartList = useSelector(store => store.cart)
+    const notOrderList = cartList.filter(item => !item.orderNumber)
     const catalogItems = useSelector(store => store.catalogItems)
+    const dispatch = useDispatch()
+    const navigate = useNavigate();
 
-    const resultList = cartList.map(item => {
+    const cartListFilter = cartList.filter(el => !el.orderNumber)
+    // console.log('cartListFilter================', cartListFilter)
+
+    React.useEffect(() => {
+        dispatch(getCatalogItems());
+        dispatch(getCartItemsByUser());
+    }, [dispatch]);
+
+    const addOrderCart = (e) => {
+        e.preventDefault()
+        dispatch(postAddOrderCart(userData.id, cartListFilter))
+        navigate('/profile')
+    }
+
+    const resultList = notOrderList?.map(item => {
         let findItem = catalogItems.find(elem => item['PhysicalCopy.itemId'] === elem['PhysicalCopies.itemId'])
-        return  {...item, photoUrl: findItem['Photos.photoUrl'], digitalPrice:  findItem.digitalPrice, description:findItem.description , itemTitle: findItem.itemTitle}
+        return  {...item, photoUrl: findItem?.['Photos.photoUrl'], digitalPrice:  findItem?.digitalPrice, description:findItem?.description , itemTitle: findItem?.itemTitle}
     })
 
     const modelsPrice = resultList.reduce((sum, current) => {
-       return sum + (current.digitalPrice * current.quantity)
+       return sum + (current?.digitalPrice * current.quantity)
        // return  sum + current.digitalPrice
     },0)
 
@@ -80,15 +100,17 @@ const ShoppingCartPage = () => {
                                 <p className='boltPrice'>${(modelsPrice + optionsPrice).toFixed(2)}</p>
                             </div>
 
-                            <div className="noteOrder">
-                                <div className="nodeOrderTitle">
-                                    Write a note
-                                </div>
-                                <textarea className='noteOrderArea' name="noteOrder" id="" cols="30" rows="10" placeholder='Text here'>
-                                </textarea>
-                            </div>
 
-                            <button className='proceed'>Proceed to Checkout</button>
+                            <form onSubmit={ addOrderCart}>
+                                <div className="noteOrder">
+                                    <div className="nodeOrderTitle">
+                                        Write a note
+                                    </div>
+                                    <textarea className='noteOrderArea' name="noteOrder" id="" cols="30" rows="10" placeholder='Text here' ></textarea>
+                                </div>
+                                <button  className='proceed' >Proceed to Checkout</button>
+                            </form>
+
                         </div>
                     </div>
                 </div>

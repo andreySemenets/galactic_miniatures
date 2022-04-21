@@ -74,10 +74,6 @@ const ShoppingCartItem = ({item}) => {
                             </svg>
                         </div>
                     </div>
-
-
-
-
                 </div>
             </div>
         </>

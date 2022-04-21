@@ -65,7 +65,12 @@ export default function PrimaryAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const user = useSelector((store) => store.user);
-  const cart = useSelector((store) => store.cart)
+  const cart = useSelector((store) => store.cart);
+  const wishes = useSelector((store) => store.wishes);
+
+  const cartFilter = cart.filter(item => !item.orderNumber)
+
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -178,7 +183,7 @@ export default function PrimaryAppBar() {
           aria-label="show 17 new notifications"
           color="inherit"
         >
-          <Badge badgeContent={99} color="error">
+          <Badge badgeContent={wishes.length ? wishes.length : null } color="error">
             <FavoriteBorderOutlinedIcon />
           </Badge>
         </IconButton>
@@ -228,12 +233,13 @@ export default function PrimaryAppBar() {
                     justifyContent: 'space-around',
                     mr: '8px', width: '20%'
                   }}>
+
             <IconButton
                 onClick={() => navigate('/user/id/shoppingcart')}
                 size="large"
                 aria-label="show 4 new mails"
                 color="inherit">
-              <Badge badgeContent={cart.length ? cart.length : null } color="error"
+              <Badge badgeContent={cartFilter.length ? cartFilter.length : null } color="error"
               // Менять динамически при добавлении
               >
                 <ShoppingCartOutlinedIcon />
@@ -244,7 +250,7 @@ export default function PrimaryAppBar() {
               aria-label="show 17 new notifications"
               color="inherit"
             >
-              <Badge badgeContent={17} color="error">
+              <Badge badgeContent={wishes.length ? wishes.length : null } color="error">
                 <FavoriteBorderOutlinedIcon />
               </Badge>
             </IconButton>
