@@ -21,8 +21,8 @@ const ShoppingCartPage = () => {
 
     React.useEffect(() => {
         dispatch(getCatalogItems());
-        dispatch(getCartItemsByUser());
-    }, [dispatch]);
+        dispatch(getCartItemsByUser(userData.id));
+    }, [dispatch, userData.id]);
 
     const addOrderCart = (e) => {
         e.preventDefault()
