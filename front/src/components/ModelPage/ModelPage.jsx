@@ -62,14 +62,12 @@ export default function ModelPage() {
     })
 
     const wishHandler = () => {
-
         dispatch(saveWish(user.id, id));
     };
 
     const unWishHandler = () => {
         const targetWish = wishes.find(el => el.itemId === +id);
         dispatch(deleteWish(targetWish.id));
-
     };
 
     // PHOTO-SLIDER
