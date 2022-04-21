@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import './UserProfile.css'
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {setCartItemsByUser} from "../../redux/actions/cartAC";
+import {getCartItemsByUser, setCartItemsByUser} from "../../redux/actions/cartAC";
 import {getCatalogItems} from "../../redux/actions/catalogAC";
 import MyOrder from "../../components/MyOrder/MyOrder";
 import ProfileListingItem from "../../components/ProfileListingItem/ProfileListingItem";
@@ -11,13 +11,22 @@ const UserProfile = () => {
 
     const userData = useSelector(store => store.user)
     const cartList = useSelector(store => store.cart)
-    // const dispatch = useDispatch();
+    const withOrderList = cartList.filter(item => item.orderNumber)
+    const catalogItems = useSelector(store => store.catalogItems)
+    const dispatch = useDispatch();
+
+    const resultList = withOrderList?.map(item => {
+        let findItem = catalogItems.find(elem => item['PhysicalCopy.itemId'] === elem['PhysicalCopies.itemId'])
+        return  {...item, photoUrl: findItem['Photos.photoUrl'], digitalPrice:  findItem.digitalPrice, description:findItem.description , itemTitle: findItem.itemTitle}
+    })
 
     React.useEffect(() => {
-    //     dispatch(setCartItemsByUser())
-    }, [cartList]);
+        dispatch(getCatalogItems());
+        dispatch(getCartItemsByUser());
+    }, [dispatch]);
 
-    console.log('cartList ==============', cartList)
+    console.log('resultList', resultList)
+
 
     const [activeActions, setActiveActions] = useState(1)
 
@@ -25,7 +34,8 @@ const UserProfile = () => {
             switch (actions) {
                 case 1:
                     return (<div className='itemProfileContent'>
-                        {cartList.map(cart => <MyOrder order={cart} orderList={cartList}/>)}
+                        {resultList.map(cart => <MyOrder order={cart} />)}
+                        {/*{grouped.map(cart => <MyOrder order={cart} orderList={cartList}/>)}*/}
                         {/*{creatorListing.map(item =>*/}
                         {/*    <ProfileListingItem item={item} key={item.id}/>*/}
                         {/*)}*/}

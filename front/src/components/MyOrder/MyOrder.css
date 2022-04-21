@@ -4,9 +4,15 @@
     background: #2C2C34;
     border-radius: 8px;
     display: flex;
+    margin-bottom: 10px;
     /*align-items: center;*/
 }
 
+/*.cartPicture {*/
+/*    width: 150px;*/
+/*    height: 105px;*/
+/*    margin: 10px;*/
+/*}*/
 
 .orderPicture {
     position: relative;
@@ -73,4 +79,13 @@
     line-height: 20px;
     color: #959EAD;
     margin-left: 15px;
+}
+
+.pictureOrder {
+    position: relative;
+    width: 150px;
+    height: 105px;
+    border-radius: 4px;
+    margin: 10px;
+    overflow: hidden;
 }

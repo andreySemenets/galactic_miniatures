@@ -1,14 +1,16 @@
 import React from 'react';
 import './MyOrder.css'
 
-const MyOrder = ({order , orderList}) => {
+const MyOrder = ({order}) => {
     return (
         <>
             <div className="orderItem">
                 <div className="orderPicture">
-                    <img src={'http://localhost:4000/Base.jpg'} alt=""/>
+                    {/*<div className="cartPictuire">*/}
+                        <img className='pictureOrder' src={'http://localhost:4000/' + order?.photoUrl} alt="rfhnbyrf"/>
+                    {/*</div>*/}
                     <div className="orderCount">
-                        + {orderList.length}
+                        + {order.quantity}
                     </div>
                 </div>
                 <div className="orderStatus">
@@ -20,7 +22,7 @@ const MyOrder = ({order , orderList}) => {
                             </svg>
                         </div>
                         <svg width="25" height="2" viewBox="0 0 25 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <line y1="1" x2="25" y2="1" stroke="white" stroke-width="2" stroke-dasharray="3 3"/>
+                            <line y1="1" x2="25" y2="1" stroke="white" strokeWidth="2" strokeDasharray="3 3"/>
                         </svg>
                         <div className="circleDisable">
                             <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -28,7 +30,7 @@ const MyOrder = ({order , orderList}) => {
                             </svg>
                         </div>
                         <svg width="25" height="2" viewBox="0 0 25 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <line y1="1" x2="25" y2="1" stroke="#1E1F24" stroke-width="2" stroke-dasharray="3 3"/>
+                            <line y1="1" x2="25" y2="1" stroke="#1E1F24" strokeWidth="2" strokeDasharray="3 3"/>
                         </svg>
 
                         <div className="circleDisable">
@@ -37,7 +39,7 @@ const MyOrder = ({order , orderList}) => {
                             </svg>
                         </div>
                         <svg width="25" height="2" viewBox="0 0 25 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <line y1="1" x2="25" y2="1" stroke="#1E1F24" stroke-width="2" stroke-dasharray="3 3"/>
+                            <line y1="1" x2="25" y2="1" stroke="#1E1F24" strokeWidth="2" strokeDasharray="3 3"/>
                         </svg>
 
                         <div className="circleDisable">
