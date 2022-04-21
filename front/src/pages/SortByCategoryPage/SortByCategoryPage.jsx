@@ -24,14 +24,23 @@ const SortByCategoryPage = () => {
     //   }, [sortedByCategories]);
 
     return (
-        <Box
-            className="sortedByCategories"
-        >
-            {sortedByCategories[0] &&
+
+        <>
+            <div className="wishContainer">
+                <div className="wishListTitle">
+                    Sort by category
+                </div>
+            </div>
+            <Box
+                className="sortedByCategories"
+            >
+                {sortedByCategories[0] &&
                 sortedByCategories.map((item) => (
                     <SearchItem key={item.id} item={item} />
                 ))}
-        </Box>
+            </Box>
+        </>
+
     );
 };
 

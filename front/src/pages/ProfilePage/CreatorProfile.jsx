@@ -13,7 +13,7 @@ const CreatorProfile = () => {
     const dispatch = useDispatch();
 
     React.useEffect(() => {
-        dispatch(setCartItemsByUser())
+        // dispatch(setCartItemsByUser())
         dispatch(getCatalogItems());
     }, [dispatch]);
 
