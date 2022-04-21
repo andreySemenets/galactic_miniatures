@@ -33,6 +33,12 @@ import {
 	getUserWishes,
 	saveWish,
 } from '../../redux/actions/wishAC';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 export default function ModelPage() {
 	const { id } = useParams();
@@ -49,10 +55,24 @@ export default function ModelPage() {
 	const [alsoBuy, setAlsoBuy] = useState([]);
 	const photosArr = model['Photos.photoUrl'];
 
-
 	const [activeActions, setActiveActions] = useState(0)
-
 	const [wished, setWished] = useState(false);
+
+    const [snackState, setSnackState] = useState({
+        snackOpen: false,
+        vertical: 'top',
+        horizontal: 'center',
+      });
+
+      const { vertical, horizontal, snackOpen } = snackState;
+
+      const handleSnackClick = (newState) => () => {
+        setSnackState({ snackOpen: true, ...newState });
+      };
+
+      const handleSnackClose = () => {
+        setSnackState({ ...snackState, snackOpen: false });
+      };
 
 	useEffect(() => {
 		dispatch(getUserWishes(user.id));
@@ -174,7 +194,7 @@ export default function ModelPage() {
 		setInputs({});
 		setQuantity({ value: Number(1) });
 		setTotalCost({ value: Number(model.digitalPrice) });
-		navigate('/')
+		// navigate('/')
 	};
 
 	return (
@@ -228,6 +248,7 @@ export default function ModelPage() {
 
 				</Container>
 
+                {/* {ФОРМА НАЧИНАЕТСЯ ТУТ} */}
 				<Box component="form" onSubmit={addToCartHandler}
 					sx={{
 						width: '100%',
@@ -304,10 +325,30 @@ export default function ModelPage() {
 					</Box>
 
 					<Stack spacing={2} direction="row" container="true" justifyContent="center">
-						<Button disabled={!inputs.scale || !inputs.color} type="submit"
-							className={styles.modelPageAddToCartButton} size="large" variant="contained">
+						<Button
+                            disabled={!inputs.scale || !inputs.color}
+                            type="submit"
+							className={styles.modelPageAddToCartButton}
+                            size="large"
+                            variant="contained"
+                            onClick={handleSnackClick({
+                                vertical: 'top',
+                                horizontal: 'right',
+                              })}
+                        >
 							ADD TO CART
 						</Button>
+                        <Snackbar
+                            anchorOrigin={{ vertical, horizontal }}
+                            open={snackOpen}
+                            onClose={handleSnackClose}
+                            autoHideDuration={5000}
+                            key={vertical + horizontal}
+                        >
+                            <Alert onClose={handleSnackClose} severity="success" sx={{ width: '100%' }}>
+                                Added successfully to your cart!
+                            </Alert>
+                        </Snackbar>
 
 						{wished ? (
 							<Button
@@ -324,6 +365,7 @@ export default function ModelPage() {
 						)}
 
 					</Stack>
+
 				</Box>
 
 			</Box >
