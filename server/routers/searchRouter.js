@@ -9,7 +9,7 @@ itemsRouter.get('/', async (req, res) => {
 		const allItems = Item.findAll({ raw: true });
 		res.json({ allItems });
 	} catch (error) {
-		console.log('{{{itemsRouter.get("/") err}}}', error);
+		console.log('{{{searchRouter.get("/") err}}}', error);
 	}
 });
 
@@ -19,7 +19,7 @@ itemsRouter.post('/item', async (req, res) => {
 		const foundItems = await Item.findAll({ where: { itemTitle: { [Op.iLike]: `%${search}%` } } });
 		res.json({ foundItems });
 	} catch (error) {
-		console.log('{{{{{itemsRouter.post("/item") err}}}}', error);
+		console.log('{{{{{searchRouter.post("/item") err}}}}', error);
 	}
 });
 

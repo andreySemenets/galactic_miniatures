@@ -19,16 +19,22 @@
 	color: #FFFFFF !important;
 }
 
-.modelPageAddToFavorite {
+.falseAddToFavorite {
 	background-color: #FFFFFF !important;
 	border: 1px solid #FFFFFF !important;
 	color: #0054FF !important;
 }
 
-.modelPageAddToFavorite:hover {
+/* .falseAddToFavorite:hover {
 	background-color: #FFFFFF00 !important;
-	border: 1px solid #FFFFFF !important;
+	border: 1px solid #075fd2 !important;
 	color: #de0000 !important;
+} */
+
+.trueAddToFavorite {
+    background-color: #FFFFFF !important;
+	border: 1px solid #0054FF !important;
+	color: #0054FF !important;
 }
 
 .modelPageBuyButton {

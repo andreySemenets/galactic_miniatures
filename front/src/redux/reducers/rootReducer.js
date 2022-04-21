@@ -7,7 +7,8 @@ import sortByCategoriesReducer from './sortByCategoriesReducer';
 import cartReducer from './cartReducer';
 import modelOrderReducer from './modelOrderReducer';
 import catalogReducer from './catalogReducer';
-import MakerOrdersReducer from "./makerOrdersReducer";
+import wishReducer from './wishReduser';
+import makerOrdersReducer from "./makerOrdersReducer";
 
 const rootReducer = combineReducers({
 	user: userReducer,
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
 	cart: cartReducer,
 	model: modelOrderReducer,
 	catalogItems: catalogReducer,
-	makerOrders: MakerOrdersReducer,
+    wishes: wishReducer,
+	makerOrders: makerOrdersReducer,
 });
 
 export default rootReducer;

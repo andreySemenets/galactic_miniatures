@@ -7,6 +7,7 @@ const initState = {
 	cart: [],
 	model: {},
 	catalogItems: [],
+    wishes: [],
 	makerOrders: []
 };
 

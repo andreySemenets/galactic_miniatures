@@ -1,7 +1,7 @@
 import initState from "../initState";
 import {SET_ORDERS_MAKER} from "../actions/action.types";
 
-const MakerOrdersReducer = (state = initState, action) => {
+const makerOrdersReducer = (state = initState, action) => {
     const { type, payload } = action;
 
     switch (type) {
@@ -12,4 +12,4 @@ const MakerOrdersReducer = (state = initState, action) => {
     }
 }
 
-export  default MakerOrdersReducer
+export  default makerOrdersReducer;

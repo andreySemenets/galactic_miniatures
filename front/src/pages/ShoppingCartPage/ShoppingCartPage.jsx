@@ -36,7 +36,7 @@ const ShoppingCartPage = () => {
     })
 
     const modelsPrice = resultList.reduce((sum, current) => {
-       return sum + (current.digitalPrice * current.quantity)
+       return sum + (current?.digitalPrice * current.quantity)
        // return  sum + current.digitalPrice
     },0)
 
