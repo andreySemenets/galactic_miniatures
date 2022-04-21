@@ -1,46 +1,42 @@
-import { Box } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import CatalogCardItem from '../../components/CatalogCardItem/CatalogCardItem';
+import { useParams } from 'react-router-dom';
+import { getSortedCategories } from '../../redux/actions/sortAC';
 import SearchItem from '../../components/SearchItem/SearchItem';
-import {
-    getSortedCategories,
-    setCategoryFrSesStorage,
-} from '../../redux/actions/sortAC';
+import { Box, CircularProgress } from '@mui/material';
 import './SortByCategoryPage.css';
 
 const SortByCategoryPage = () => {
     const sortedByCategories = useSelector((store) => store.sortedByCategories);
+    const { cat, sub } = useParams();
     const dispatch = useDispatch();
 
-    // React.useEffect(() => {
-    //     if ((window.sessionStorage.getItem("sortedByCategories"))) {
-    //         dispatch(setCategoryFrSesStorage(JSON.parse(window.sessionStorage.getItem("sortedByCategories"))));
-    //     }
-    //   });
-
-    // React.useEffect(() => {
-    //     window.sessionStorage.setItem("sortedByCategories", sortedByCategories);
-    //   }, [sortedByCategories]);
+    useEffect(() => {
+        dispatch(
+            getSortedCategories(cat, sub)
+        );
+    }, [dispatch, cat, sub]);
 
     return (
-
         <>
-            <div className="wishContainer">
-                <div className="wishListTitle">
-                    Sort by category
-                </div>
-            </div>
-            <Box
-                className="sortedByCategories"
-            >
-                {sortedByCategories[0] &&
-                sortedByCategories.map((item) => (
-                    <SearchItem key={item.id} item={item} />
-                ))}
-            </Box>
+            {sortedByCategories ? (
+                <>
+                    <Box className="wishContainer">
+                        <div className="wishListTitle">Sorted by category</div>
+                    </Box>
+                    <Box className="sortedByCategories">
+                        {sortedByCategories[0] &&
+                            sortedByCategories.map((item) => (
+                                <SearchItem key={item.id} item={item} />
+                            ))}
+                    </Box>
+                </>
+            ) : (
+                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                    <CircularProgress />
+                </Box>
+            )}
         </>
-
     );
 };
 
