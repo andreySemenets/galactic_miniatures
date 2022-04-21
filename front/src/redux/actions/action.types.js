@@ -30,3 +30,7 @@ export const SET_MODEL = 'SET_MODEL';
 
 // action - catalogReducer
 export const SET_CATALOG_ITEMS = 'SET_CATALOG_ITEMS'
+
+// actions makerOrdersReducer
+
+export const SET_ORDERS_MAKER = 'SET_ORDERS_MAKER'
