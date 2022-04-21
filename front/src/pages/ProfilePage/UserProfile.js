@@ -5,7 +5,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {getCartItemsByUser, setCartItemsByUser} from "../../redux/actions/cartAC";
 import {getCatalogItems} from "../../redux/actions/catalogAC";
 import MyOrder from "../../components/MyOrder/MyOrder";
-import ProfileListingItem from "../../components/ProfileListingItem/ProfileListingItem";
 
 const UserProfile = () => {
 
@@ -22,11 +21,8 @@ const UserProfile = () => {
 
     React.useEffect(() => {
         dispatch(getCatalogItems());
-        dispatch(getCartItemsByUser());
-    }, [dispatch]);
-
-    console.log('resultList', resultList)
-
+        dispatch(getCartItemsByUser(userData.id));
+    }, [dispatch,userData.id ]);
 
     const [activeActions, setActiveActions] = useState(1)
 
@@ -35,10 +31,6 @@ const UserProfile = () => {
                 case 1:
                     return (<div className='itemProfileContent'>
                         {resultList.map(cart => <MyOrder order={cart} />)}
-                        {/*{grouped.map(cart => <MyOrder order={cart} orderList={cartList}/>)}*/}
-                        {/*{creatorListing.map(item =>*/}
-                        {/*    <ProfileListingItem item={item} key={item.id}/>*/}
-                        {/*)}*/}
                     </div>);
                 case 2:
                     return (<div className='itemProfileContent'>you don't have Downloads</div>);

@@ -4,7 +4,6 @@ import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import ProfileListingItem from "../../components/ProfileListingItem/ProfileListingItem";
 import {getCatalogItems} from "../../redux/actions/catalogAC";
-import {setCartItemsByUser} from "../../redux/actions/cartAC";
 
 const CreatorProfile = () => {
 
@@ -13,7 +12,6 @@ const CreatorProfile = () => {
     const dispatch = useDispatch();
 
     React.useEffect(() => {
-        // dispatch(setCartItemsByUser())
         dispatch(getCatalogItems());
     }, [dispatch]);
 
