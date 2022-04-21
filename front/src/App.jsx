@@ -18,6 +18,7 @@ import Reg from './components/Reg/Reg';
 import Search from './components/Search/Search';
 import ShoppingCartPage from './pages/ShoppingCartPage/ShoppingCartPage';
 import SortByCategoryPage from './pages/SortByCategoryPage/SortByCategoryPage';
+import WishListPage from "./pages/WishLIstPage/WishListPage";
 
 const App = () => {
 	const dispatch = useDispatch();
@@ -46,6 +47,8 @@ const App = () => {
 				<Route path="/search" element={<Search />} />
 				<Route path="/user/id/shoppingcart" element={<ShoppingCartPage />} />
 				<Route path='/sort' element={<SortByCategoryPage />} />
+				<Route path='/user/id/wishlist' element={<WishListPage />} />
+
 			</Routes>
 		</>
 	);

@@ -20,6 +20,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import $api from '../../http';
 import { SET_USER } from '../../redux/actions/action.types';
 import { getCartItemsByUser } from '../../redux/actions/cartAC';
+import {getCatalogItems} from "../../redux/actions/catalogAC";
+import {getUserWishes} from "../../redux/actions/wishAC";
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -70,9 +72,12 @@ export default function PrimaryAppBar() {
 
   const cartFilter = cart.filter(item => !item.orderNumber)
 
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(getUserWishes(user.id))
+  }, [dispatch, user.id]);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -246,6 +251,7 @@ export default function PrimaryAppBar() {
               </Badge>
             </IconButton>
             <IconButton
+                onClick={() => navigate('/user/id/wishlist')}
               size="large"
               aria-label="show 17 new notifications"
               color="inherit"
