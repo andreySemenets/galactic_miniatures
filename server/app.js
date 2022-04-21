@@ -41,7 +41,7 @@ app.use('/search', searchRouter);
 app.use('/sort', sortByCategoryRouter);
 app.use('/catalog', catalogRouter);
 app.use('/wishlist', wishRouter);
-app.use('/ordersMaker', ordersMakerRouter)
+app.use('/ordersMaker', ordersMakerRouter);
 
 app.use(errorMiddleware);
 
