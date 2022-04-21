@@ -32,7 +32,7 @@
 } */
 
 .trueAddToFavorite {
-    background-color: #FFFFFF !important;
+	background-color: #FFFFFF !important;
 	border: 1px solid #0054FF !important;
 	color: #0054FF !important;
 }
@@ -57,9 +57,6 @@
 
 .modelPageMainImg {
 	width: 100%;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
 	margin-bottom: 20px;
 }
 

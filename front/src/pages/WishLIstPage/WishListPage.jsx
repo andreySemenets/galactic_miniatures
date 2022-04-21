@@ -8,7 +8,6 @@ import {getUserWishes} from "../../redux/actions/wishAC";
 
 const WishListPage = () => {
 
-
     const catalogItems = useSelector((store) => store.catalogItems);
     const user = useSelector((store) => store.user);
     const wishList = useSelector(store => store.wishes)
@@ -17,15 +16,11 @@ const WishListPage = () => {
       return   catalogItems.find(elem => elem.id === item.itemId)
     })
 
-
-    console.log('resultList', resultList)
-
     const dispatch = useDispatch();
     React.useEffect(() => {
         dispatch(getCatalogItems());
         dispatch(getUserWishes(user.id))
     }, [dispatch, user.id]);
-
 
     return (
         <div>
@@ -34,9 +29,7 @@ const WishListPage = () => {
                     Wish List
                 </div>
             </div>
-
             <Box className="sortedByCategories">
-
                 { resultList.map((item) => (
                     <SearchItem key={item.id} item={item} />
                 ))}

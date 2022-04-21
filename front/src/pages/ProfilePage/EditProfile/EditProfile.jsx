@@ -3,8 +3,7 @@ import '../UserProfile.css'
 import './EditProfile.css'
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {editingTypingProfile, setUser, submitEditUser} from "../../../redux/actions/userAC";
-
+import {setUser, submitEditUser} from "../../../redux/actions/userAC";
 
 const EditProfile = () => {
     const userData = useSelector(store => store.user)
@@ -14,7 +13,6 @@ const EditProfile = () => {
     const submitEditProfile = async (e) => {
         e.preventDefault()
         dispatch(submitEditUser(userProfile))
-        // setUserProfile(userData)  что за ерунда
         dispatch(setUser(userProfile))
     }
 
@@ -97,7 +95,6 @@ const EditProfile = () => {
                                 </button>
                             </form>
 
-                            {/*<form action="">*/}
                                 <div className="labelInput addAvatar">
                                     <label htmlFor="inputAvatar">Аватар</label>
                                     <input  type="file" id='inputAvatar' name='avatar' accept="image/*"/>
@@ -105,8 +102,6 @@ const EditProfile = () => {
                                         <p>Add avatar</p>
                                     </button>
                                 </div>
-                            {/*</form>*/}
-                           
 
                         </div>
                     </div>
