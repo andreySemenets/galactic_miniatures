@@ -1,11 +1,35 @@
 import React from 'react';
 import './UserProfile.css'
 import {Link} from "react-router-dom";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import MakerOrder from "../../components/MakerOrder/MakerOrder";
+import {getCatalogItems} from "../../redux/actions/catalogAC";
+import {getOrdersMaker} from "../../redux/actions/makerOrdersAC";
+import MyOrder from "../../components/MyOrder/MyOrder";
+
 
 const MakerProfile = () => {
 
     const userData = useSelector(store => store.user)
+    const makerOrders = useSelector(store => store.makerOrders)
+    const withOrderList = makerOrders.filter(item => item.orderNumber)
+    const catalogItems = useSelector(store => store.catalogItems)
+    const dispatch = useDispatch();
+
+
+
+    const resultList = withOrderList?.map(item => {
+        let findItem = catalogItems.find(elem => item['PhysicalCopy.itemId'] === elem['PhysicalCopies.itemId'])
+        return  {...item, photoUrl: findItem['Photos.photoUrl'], digitalPrice:  findItem.digitalPrice, description:findItem.description , itemTitle: findItem.itemTitle}
+    })
+
+    console.log('resultList ================', resultList)
+
+    React.useEffect(() => {
+        dispatch(getCatalogItems());
+        dispatch(getOrdersMaker());
+    }, [dispatch]);
+
 
     return (
         <>
@@ -34,7 +58,9 @@ const MakerProfile = () => {
                             <div className='actionsItem' >Orders</div>
                         </div>
                         <div className="actionsItems">
-                            Render Listing
+                            <div className='itemProfileContent'>
+                                {resultList.map(cart => <MakerOrder order={cart} />)}
+                            </div>
                         </div>
                     </div>
                 </div>

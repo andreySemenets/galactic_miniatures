@@ -8,6 +8,7 @@ const initState = {
 	model: {},
 	catalogItems: [],
     wishes: [],
+	makerOrders: []
 };
 
 export default initState;
