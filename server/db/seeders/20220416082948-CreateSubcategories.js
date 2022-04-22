@@ -1,19 +1,19 @@
 module.exports = {
 	async up(queryInterface, Sequelize) {
 		await queryInterface.bulkInsert('SubCategories', [{
-			subCategoryTitle: 'Vehicles',
+			subCategoryTitle: 'vehicles',
 			createdAt: new Date(),
 			updatedAt: new Date(),
 		}, {
-			subCategoryTitle: 'Characters',
+			subCategoryTitle: 'characters',
 			createdAt: new Date(),
 			updatedAt: new Date(),
 		}, {
-			subCategoryTitle: 'Locations',
+			subCategoryTitle: 'locations',
 			createdAt: new Date(),
 			updatedAt: new Date(),
 		}, {
-			subCategoryTitle: 'Weapons',
+			subCategoryTitle: 'weapons',
 			createdAt: new Date(),
 			updatedAt: new Date(),
 		}], {});
