@@ -11,7 +11,7 @@ const sagaMiddleware = createSagaMiddleware()
 const store = createStore(
   rootReducer,
   initState,
-  composeWithDevTools(applyMiddleware(thunk, sagaMiddleware)),
+  composeWithDevTools(applyMiddleware(sagaMiddleware, thunk)),
 );
 
 sagaMiddleware.run(rootSaga);

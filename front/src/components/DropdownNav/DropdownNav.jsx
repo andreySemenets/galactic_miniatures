@@ -4,7 +4,6 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from 'react-router-dom';
 
-
 export default function DropdownNav({ category }) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [firstCategory, setFirstCategory] = React.useState('');
