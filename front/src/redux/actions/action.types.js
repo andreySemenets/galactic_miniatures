@@ -38,3 +38,8 @@ export const SET_ORDERS_MAKER = 'SET_ORDERS_MAKER'
 export const ADD_WISH = 'ADD_WISH';
 export const SET_USER_WISHES = 'SET_USER_WISHES';
 export const REMOVE_WISH = 'REMOVE_WISH';
+
+// action - categReducer
+export const FIRST_CATEG = 'FIRST_CATEG';
+export const SUB_CATEG = 'SUB_CATEG';
+

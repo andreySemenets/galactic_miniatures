@@ -3,14 +3,11 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { getSortedCategories } from '../../redux/actions/sortAC';
 
 export default function DropdownNav({ category }) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [firstCategory, setFirstCategory] = React.useState('');
     const navigate = useNavigate();
-    const dispatch = useDispatch();
 
     const open = Boolean(anchorEl);
 
@@ -18,13 +15,13 @@ export default function DropdownNav({ category }) {
         setAnchorEl(event.currentTarget);
         setFirstCategory(event.target.innerText.toLowerCase());
     };
+
     const handleClose = (event) => {
         setAnchorEl(null);
 
         if (event.target.innerText) {
             const subCategory = event.target.innerText.toString();
-            dispatch(getSortedCategories(firstCategory, subCategory));
-            navigate('/sort');
+            navigate(`/${firstCategory}/${subCategory}`);
         }
     };
 

@@ -15,7 +15,6 @@ import EditProfile from "./pages/ProfilePage/EditProfile/EditProfile";
 import MainPage from './components/MainPage/MainPage';
 import EditListing from './components/EditListing/EditListing';
 import Reg from './components/Reg/Reg';
-import Search from './components/Search/Search';
 import ShoppingCartPage from './pages/ShoppingCartPage/ShoppingCartPage';
 import SortByCategoryPage from './pages/SortByCategoryPage/SortByCategoryPage';
 import WishListPage from "./pages/WishLIstPage/WishListPage";
@@ -44,11 +43,9 @@ const App = () => {
 				<Route path="/profile/edit" element={<EditProfile />} />
 				<Route path="/models/:id" element={<ModelPage />} />
 				<Route path="/models/edit" element={<EditListing />} />
-				<Route path="/search" element={<Search />} />
 				<Route path="/user/id/shoppingcart" element={<ShoppingCartPage />} />
-				<Route path='/sort' element={<SortByCategoryPage />} />
+				<Route path='/:cat/:sub' element={<SortByCategoryPage />} />
 				<Route path='/user/id/wishlist' element={<WishListPage />} />
-
 			</Routes>
 		</>
 	);
