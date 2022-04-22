@@ -27,12 +27,12 @@
 
 .collection3 {
 	background-image: linear-gradient(to left, rgba(137, 133, 133, 0.1) 0%, rgb(92, 90, 93) 100%),
-		url('../../../public/images/durka.jpg');
+		url('../../../public/images/forgeWorldC.jpeg');
 }
 
 .collection4 {
 	background-image: linear-gradient(to left, rgba(137, 133, 133, 0.1) 0%, rgb(92, 90, 93) 100%),
-		url('../../../public/images/lynx.jpg');
+		url('../../../public/images/dreadsC.jpeg');
 }
 
 .collectionButton {

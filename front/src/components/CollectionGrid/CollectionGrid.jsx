@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 
 import styles from './CollectionGrid.module.css';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const Item = styled(Paper)(({ theme }) => ({
 	padding: theme.spacing(2),
@@ -17,6 +18,15 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function CollectionGrid() {
 	const catalogItems = useSelector((store) => store.catalogItems);
+    const navigate = useNavigate()
+
+    const result = catalogItems.filter((el, i, a) => a.findIndex((el2) => (el2['Collection.collectionName'] === el['Collection.collectionName'])) === i);
+    console.log(result);
+
+    const clickHandler = (e) => {
+        console.log(e.target.parentNode.id)
+        navigate(`/collection/${e.target.parentNode.id}`)
+    }
 
 	return (
 		<Box sx={{ flexGrow: 1 }}>
@@ -24,11 +34,11 @@ export default function CollectionGrid() {
 				<Grid item xs={5}>
 					<Item
 						className={`${styles.collectionCard} ${styles.collection1}`}
-						id={catalogItems[0]?.id}
+						id={result[2]?.['Collection.id']}
 					>
-						{catalogItems[0]?.['Collection.collectionName']}
+						{result[2]?.['Collection.collectionName']}
 						<Button
-							onClick={(e) => console.log(e.target.parentNode.id)}
+							onClick={clickHandler}
 							size="small"
 							className={styles.collectionButton}
 						>
@@ -39,9 +49,11 @@ export default function CollectionGrid() {
 				<Grid item xs={7}>
 					<Item
 						className={`${styles.collectionCard} ${styles.collection2}`}
+                        id={result[1]?.['Collection.id']}
 					>
-						Egyptian <br /> sweeties <br />
+						{result[1]?.['Collection.collectionName']}
 						<Button
+                            onClick={clickHandler}
 							size="small"
 							className={styles.collectionButton}
 						>
@@ -52,9 +64,11 @@ export default function CollectionGrid() {
 				<Grid item xs={7}>
 					<Item
 						className={`${styles.collectionCard} ${styles.collection3}`}
+                        id={result[0]?.['Collection.id']}
 					>
-						Durka <br /> collection <br />
+						{result[0]?.['Collection.collectionName']}
 						<Button
+                            onClick={clickHandler}
 							size="small"
 							className={styles.collectionButton}
 						>
@@ -66,7 +80,7 @@ export default function CollectionGrid() {
 					<Item
 						className={`${styles.collectionCard} ${styles.collection4}`}
 					>
-						Lynxes <br /> collection <br />
+						Dreads <br /> collection <br />
 						<Button
 							size="small"
 							className={styles.collectionButton}

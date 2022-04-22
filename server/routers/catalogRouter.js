@@ -5,9 +5,6 @@ catalogRouter.get('/', async (req, res) => {
 	try {
 		const allItems = await Models.Item.findAll({
 			raw: true,
-			// where: {
-			// 	categoryId: 1,
-			// },
 			include: [
 				{
 					model: Models.Category,
@@ -16,7 +13,7 @@ catalogRouter.get('/', async (req, res) => {
 				},
 				{
 					model: Models.Collection,
-					attributes: ['collectionName'],
+					attributes: ['id', 'collectionName'],
 					required: true,
 				},
 				{
