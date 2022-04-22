@@ -30,7 +30,7 @@ const UserProfile = () => {
             switch (actions) {
                 case 1:
                     return (<div className='itemProfileContent'>
-                        {resultList.map(cart => <MyOrder order={cart} />)}
+                        {resultList.map(cart => <MyOrder order={cart}  key={cart.id}/>)}
                     </div>);
                 case 2:
                     return (<div className='itemProfileContent'>you don't have Downloads</div>);

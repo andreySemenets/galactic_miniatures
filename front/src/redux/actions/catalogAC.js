@@ -9,3 +9,4 @@ export const getCatalogItems = () =>  async (dispatch) => {
        dispatch(setCatalogItems(res.data))
    })
 }
+

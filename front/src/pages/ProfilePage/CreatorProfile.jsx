@@ -13,6 +13,7 @@ const CreatorProfile = () => {
 
     React.useEffect(() => {
         dispatch(getCatalogItems());
+
     }, [dispatch]);
 
     const creatorListing = Listing.filter(item => item.userId === userData.id)
