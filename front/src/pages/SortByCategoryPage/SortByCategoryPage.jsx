@@ -5,6 +5,7 @@ import { getSortedCategories } from '../../redux/actions/sortAC';
 import SearchItem from '../../components/SearchItem/SearchItem';
 import { Box, CircularProgress } from '@mui/material';
 import './SortByCategoryPage.css';
+import { setFirstCateg, setSubCateg } from '../../redux/actions/categAC';
 
 const SortByCategoryPage = () => {
     const sortedByCategories = useSelector((store) => store.sortedByCategories);
@@ -12,9 +13,9 @@ const SortByCategoryPage = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(
-            getSortedCategories(cat, sub)
-        );
+        dispatch(getSortedCategories(cat, sub));
+        dispatch(setFirstCateg(cat));
+        dispatch(setSubCateg(sub));
     }, [dispatch, cat, sub]);
 
     return (

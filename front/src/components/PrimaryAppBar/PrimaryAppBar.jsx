@@ -15,13 +15,13 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 
 import logoLeft from '../../assets/images/logoL.png'
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import $api from '../../http';
 import { SET_USER } from '../../redux/actions/action.types';
 import { getCartItemsByUser } from '../../redux/actions/cartAC';
-import {getCatalogItems} from "../../redux/actions/catalogAC";
 import {getUserWishes} from "../../redux/actions/wishAC";
+import { searchItems } from '../../redux/actions/itemsAC';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -66,9 +66,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function PrimaryAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [searchInput, setSearchInput] = React.useState('')
   const user = useSelector((store) => store.user);
   const cart = useSelector((store) => store.cart);
   const wishes = useSelector((store) => store.wishes);
+  const categs = useSelector((store) => store.categs);
 
   const cartFilter = cart.filter(item => !item.orderNumber)
 
@@ -76,8 +78,20 @@ export default function PrimaryAppBar() {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
+      if (searchInput.length > 2) {
+        dispatch(searchItems({ search: searchInput, ...categs }))
+      }
+  }, [searchInput, categs, dispatch])
+
+  React.useEffect(() => {
     dispatch(getUserWishes(user.id))
   }, [dispatch, user.id]);
+
+  React.useEffect(() => {
+    if (user.id) {
+      dispatch(getCartItemsByUser(user.id))
+    }
+  }, [dispatch, user.id])
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -102,7 +116,6 @@ export default function PrimaryAppBar() {
 
       case 'Log Out':
         return $api.post('/auth/logout').then((res) => {
-          console.log(res.data);
           localStorage.removeItem('token');
           dispatch({ type: SET_USER, payload: {} });
           navigate('/auth/login');
@@ -115,13 +128,6 @@ export default function PrimaryAppBar() {
         return null;
     }
   };
-
-  React.useEffect(() => {
-      if (user.id) {
-        dispatch(getCartItemsByUser(user.id))
-      }
-  }, [dispatch, user.id])
-
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
@@ -230,6 +236,8 @@ export default function PrimaryAppBar() {
             <StyledInputBase
               placeholder="Search for an item..."
               inputProps={{ 'aria-label': 'search' }}
+              onChange={((e) => setSearchInput(e.target.value))}
+              value={searchInput}
             />
           </Search>
           <Box sx={{ flexGrow: 1 }} />
