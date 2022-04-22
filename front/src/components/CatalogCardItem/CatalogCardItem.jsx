@@ -28,7 +28,7 @@ function CatalogCardItem({ card }) {
 				<CardActions className={style.catalogCardItemButtonGroup}>
 					<Button
 						size="small"
-						className={style.catalogCardItemButton}
+						className={style.catalogCardItemPriceLabel}
 					>
 						{card.digitalPrice} USD
 					</Button>
