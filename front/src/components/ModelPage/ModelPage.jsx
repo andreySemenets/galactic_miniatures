@@ -75,7 +75,9 @@ export default function ModelPage() {
 	};
 
 	useEffect(() => {
-		dispatch(getUserWishes(user.id));
+        if(user.id){
+            dispatch(getUserWishes(user.id));
+        }
 	}, [dispatch, user.id]);
 
 	useEffect(() => {

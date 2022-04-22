@@ -18,6 +18,8 @@ import Reg from './components/Reg/Reg';
 import ShoppingCartPage from './pages/ShoppingCartPage/ShoppingCartPage';
 import SortByCategoryPage from './pages/SortByCategoryPage/SortByCategoryPage';
 import WishListPage from "./pages/WishLIstPage/WishListPage";
+import CollectionItems from './components/CollectionItems/CollectionItems';
+
 
 const App = () => {
 	const dispatch = useDispatch();
@@ -46,6 +48,7 @@ const App = () => {
 				<Route path="/user/id/shoppingcart" element={<ShoppingCartPage />} />
 				<Route path='/:cat/:sub' element={<SortByCategoryPage />} />
 				<Route path='/user/id/wishlist' element={<WishListPage />} />
+                <Route path='/collection/:colId' element={<CollectionItems />} />
 			</Routes>
 		</>
 	);
