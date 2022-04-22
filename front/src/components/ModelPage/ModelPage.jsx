@@ -37,7 +37,7 @@ import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+	return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
 export default function ModelPage() {
@@ -58,24 +58,26 @@ export default function ModelPage() {
 	const [activeActions, setActiveActions] = useState(0)
 	const [wished, setWished] = useState(false);
 
-    const [snackState, setSnackState] = useState({
-        snackOpen: false,
-        vertical: 'top',
-        horizontal: 'center',
-      });
+	const [snackState, setSnackState] = useState({
+		snackOpen: false,
+		vertical: 'top',
+		horizontal: 'center',
+	});
 
-      const { vertical, horizontal, snackOpen } = snackState;
+	const { vertical, horizontal, snackOpen } = snackState;
 
-      const handleSnackClick = (newState) => () => {
-        setSnackState({ snackOpen: true, ...newState });
-      };
+	const handleSnackClick = (newState) => () => {
+		setSnackState({ snackOpen: true, ...newState });
+	};
 
-      const handleSnackClose = () => {
-        setSnackState({ ...snackState, snackOpen: false });
-      };
+	const handleSnackClose = () => {
+		setSnackState({ ...snackState, snackOpen: false });
+	};
 
 	useEffect(() => {
-		dispatch(getUserWishes(user.id));
+        if(user.id){
+            dispatch(getUserWishes(user.id));
+        }
 	}, [dispatch, user.id]);
 
 	useEffect(() => {
@@ -100,8 +102,8 @@ export default function ModelPage() {
 					? <CardMedia
 						component="img"
 						alt={`${model.itemTitle}-pic`}
-						width="614"
-						height="392"
+						width="600"
+						height="100%"
 						image={'http://localhost:4000/' + array?.[`${activeActions}`]} />
 					: <Box sx={{ display: 'flex', justifyContent: 'center' }}>
 						<CircularProgress sx={{ color: 'blue' }} />
@@ -114,8 +116,8 @@ export default function ModelPage() {
 					? <CardMedia
 						component="img"
 						alt={`${model.itemTitle}-pic`}
-						width="614"
-						height="392"
+						width="600"
+						height="100%"
 						image={'http://localhost:4000/' + array?.[`${activeActions}`]} />
 					: <Box sx={{ display: 'flex', justifyContent: 'center' }}>
 						<CircularProgress sx={{ color: 'blue' }} />
@@ -126,8 +128,8 @@ export default function ModelPage() {
 				? <CardMedia
 					component="img"
 					alt={`${model.itemTitle}-pic`}
-					width="614"
-					height="392"
+					width="600"
+					height="100%"
 					image={'http://localhost:4000/' + array?.[`${activeActions}`]} />
 				: <Box sx={{ display: 'flex', justifyContent: 'center' }}>
 					<CircularProgress sx={{ color: 'blue' }} />
@@ -224,7 +226,7 @@ export default function ModelPage() {
 							{photosArr?.length
 								? photosArr.map((el) => (
 									<Box key={el} >
-										<img style={{ width: '150px', height: '105px' }}
+										<img style={{ width: '100%', height: '105px' }}
 											src={'http://localhost:4000/' + el}
 											alt="here"
 											loading="lazy"
@@ -248,7 +250,7 @@ export default function ModelPage() {
 
 				</Container>
 
-                {/* {ФОРМА НАЧИНАЕТСЯ ТУТ} */}
+				{/* {ФОРМА НАЧИНАЕТСЯ ТУТ} */}
 				<Box component="form" onSubmit={addToCartHandler}
 					sx={{
 						width: '100%',
@@ -326,29 +328,29 @@ export default function ModelPage() {
 
 					<Stack spacing={2} direction="row" container="true" justifyContent="center">
 						<Button
-                            disabled={!inputs.scale || !inputs.color}
-                            type="submit"
+							disabled={!inputs.scale || !inputs.color}
+							type="submit"
 							className={styles.modelPageAddToCartButton}
-                            size="large"
-                            variant="contained"
-                            onClick={handleSnackClick({
-                                vertical: 'top',
-                                horizontal: 'right',
-                              })}
-                        >
+							size="large"
+							variant="contained"
+							onClick={handleSnackClick({
+								vertical: 'top',
+								horizontal: 'right',
+							})}
+						>
 							ADD TO CART
 						</Button>
-                        <Snackbar
-                            anchorOrigin={{ vertical, horizontal }}
-                            open={snackOpen}
-                            onClose={handleSnackClose}
-                            autoHideDuration={5000}
-                            key={vertical + horizontal}
-                        >
-                            <Alert onClose={handleSnackClose} severity="success" sx={{ width: '100%' }}>
-                                Added successfully to your cart!
-                            </Alert>
-                        </Snackbar>
+						<Snackbar
+							anchorOrigin={{ vertical, horizontal }}
+							open={snackOpen}
+							onClose={handleSnackClose}
+							autoHideDuration={5000}
+							key={vertical + horizontal}
+						>
+							<Alert onClose={handleSnackClose} severity="success" sx={{ width: '100%' }}>
+								Added successfully to your cart!
+							</Alert>
+						</Snackbar>
 
 						{wished ? (
 							<Button
