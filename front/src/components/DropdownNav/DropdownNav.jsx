@@ -50,10 +50,10 @@ export default function DropdownNav({ category }) {
                     'aria-labelledby': 'basic-button',
                 }}
             >
-                <MenuItem onClick={handleClose}>Vehicles</MenuItem>
-                <MenuItem onClick={handleClose}>Characters</MenuItem>
-                <MenuItem onClick={handleClose}>Locations</MenuItem>
-                <MenuItem onClick={handleClose}>Weapons</MenuItem>
+                <MenuItem onClick={handleClose}>vehicles</MenuItem>
+                <MenuItem onClick={handleClose}>characters</MenuItem>
+                <MenuItem onClick={handleClose}>locations</MenuItem>
+                <MenuItem onClick={handleClose}>weapons</MenuItem>
             </Menu>
         </div>
     );
