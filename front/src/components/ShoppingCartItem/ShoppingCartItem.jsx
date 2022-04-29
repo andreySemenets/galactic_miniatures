@@ -6,17 +6,17 @@ import { postAddQuantityItem, postDeleteItemCart, postDeleteQuantityItem } from 
 import { useNavigate } from "react-router-dom";
 
 
-const ShoppingCartItem = ({item, deleteItem}) => {
+const ShoppingCartItem = ({ item, deleteItem }) => {
 
-    const userData = useSelector(store => store.user)
-    const cartList = useSelector(store => store.cart)
-    const dispatch = useDispatch()
+	const userData = useSelector(store => store.user)
+	const cartList = useSelector(store => store.cart)
+	const dispatch = useDispatch()
 
-    // console.log('cartList',cartList )
+	// console.log('cartList',cartList )
 
-    const deleteItemCart = ( itemId) => {
-        dispatch(postDeleteItemCart(userData.id,cartList,itemId))
-    }
+	const deleteItemCart = (itemId) => {
+		dispatch(postDeleteItemCart(userData.id, cartList, itemId))
+	}
 
 
 	const addQuantityItem = (itemId) => {
