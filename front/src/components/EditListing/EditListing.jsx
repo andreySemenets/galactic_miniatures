@@ -142,7 +142,7 @@ function EditListing() {
 		setPreview([]);
 		setZip({});
 		setZipInput({});
-		navigate('/profile/creator')
+		navigate('/')
 	};
 
 	const InputFile = styled('input')({

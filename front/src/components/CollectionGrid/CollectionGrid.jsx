@@ -53,7 +53,7 @@ export default function CollectionGrid() {
 					<Item
 						className={`${styles.collectionCard} ${styles.collection3}`}
 					>
-						Durka <br /> collection <br />
+						Forge <br /> World <br />
 						<Button
 							size="small"
 							className={styles.collectionButton}
@@ -66,7 +66,7 @@ export default function CollectionGrid() {
 					<Item
 						className={`${styles.collectionCard} ${styles.collection4}`}
 					>
-						Lynxes <br /> collection <br />
+						Maps <br />
 						<Button
 							size="small"
 							className={styles.collectionButton}
