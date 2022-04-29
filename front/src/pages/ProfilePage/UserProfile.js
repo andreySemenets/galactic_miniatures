@@ -29,20 +29,20 @@ const UserProfile = () => {
 
 	const [activeActions, setActiveActions] = useState(1)
 
-	const actionsItem = (actions) => {
-		switch (actions) {
-			case 1:
-				return (<div className='itemProfileContent'>
-					{resultList.map(cart => <MyOrder order={cart} />)}
-				</div>);
-			case 2:
-				return (<div className='itemProfileContent'>you don't have Downloads</div>);
-			case 3:
-				return (<div className='itemProfileContent'>Settings</div>);
-			default:
-				return (<div className='itemProfileContent'>you don't have orders</div>);
-		}
-	}
+        const actionsItem = (actions) => {
+            switch (actions) {
+                case 1:
+                    return (<div className='itemProfileContent'>
+                        {resultList.map(cart => <MyOrder order={cart}  key={cart.id}/>)}
+                    </div>);
+                case 2:
+                    return (<div className='itemProfileContent'>you don't have Downloads</div>);
+                case 3:
+                    return (<div className='itemProfileContent'>Settings</div>);
+                default :
+                    return (<div className='itemProfileContent'>you don't have orders</div>);
+            }
+        }
 
 	const logOutHandler = () => {
 		$api.post('/auth/logout').then((res) => {
