@@ -22,8 +22,9 @@ export const SORT_BY_CATEGORIES = 'SORT_BY_CATEGORIES';
 export const SET_CATEG_FR_SSTRG = 'SET_CATEG_FR_SSTRG';
 
 // action - cartReducer
-export const ADD_TO_CART = 'ADD_TO_CART';
 export const SET_CART_ITEMS = 'SET_CART_ITEMS';
+export const ADD_TO_CART = 'ADD_TO_CART';
+export const DEL_TO_CART = 'DEL_TO_CART'
 
 // action - model
 export const SET_MODEL = 'SET_MODEL';

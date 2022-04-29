@@ -49,22 +49,9 @@ module.exports.getUsersCartItems = async (req, res, next) => {
 module.exports.deleteItemCart = async (req, res, next) => {
 	try {
 		const {userId,itemId } = req.params
-		const itemDelete = await ShoppingCart.findOne({where: {id: itemId,}});
+		const itemDelete = await ShoppingCart.findOne({where: {id: itemId, userId: userId}});
 		itemDelete.destroy()
-		const result = await ShoppingCart.findAll({
-			raw: true,
-			where: {
-				userId: +userId,
-			},
-			include: [
-				{
-					model: PhysicalCopy,
-					attributes: ['itemId', 'color', 'scale', 'price'],
-				},
-			],
-		});
-		res.json(result);
-
+		res.sendStatus(200)
 	}  catch (error) {
 		console.log(error, 'deleteItemCart ERROR')
 		next()

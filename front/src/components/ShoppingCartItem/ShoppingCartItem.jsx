@@ -5,14 +5,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { postAddQuantityItem, postDeleteItemCart, postDeleteQuantityItem } from "../../redux/actions/cartAC";
 import { useNavigate } from "react-router-dom";
 
-const ShoppingCartItem = ({ item }) => {
 
-	const userData = useSelector(store => store.user)
-	const dispatch = useDispatch()
+const ShoppingCartItem = ({item, deleteItem}) => {
 
-	const deleteItemCart = (itemId) => {
-		dispatch(postDeleteItemCart(userData.id, itemId))
-	}
+    const userData = useSelector(store => store.user)
+    const cartList = useSelector(store => store.cart)
+    const dispatch = useDispatch()
+
+    // console.log('cartList',cartList )
+
+    const deleteItemCart = ( itemId) => {
+        dispatch(postDeleteItemCart(userData.id,cartList,itemId))
+    }
+
 
 	const addQuantityItem = (itemId) => {
 		dispatch(postAddQuantityItem(userData.id, itemId))

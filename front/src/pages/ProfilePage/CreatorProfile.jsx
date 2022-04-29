@@ -14,9 +14,10 @@ const CreatorProfile = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	React.useEffect(() => {
-		dispatch(getCatalogItems());
-	}, [dispatch]);
+    React.useEffect(() => {
+        dispatch(getCatalogItems());
+
+    }, [dispatch]);
 
 	const creatorListing = Listing.filter(item => item.userId === userData.id)
 

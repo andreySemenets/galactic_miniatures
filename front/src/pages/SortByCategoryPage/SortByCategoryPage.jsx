@@ -23,7 +23,11 @@ const SortByCategoryPage = () => {
             {sortedByCategories ? (
                 <>
                     <Box className="wishContainer">
-                        <div className="wishListTitle">Sorted by category</div>
+                        <Box className="wishListTitle"
+                            sx={{ textAlign: 'center' }}
+                        >
+                            {cat} {sub}
+                        </Box>
                     </Box>
                     <Box className="sortedByCategories">
                         {sortedByCategories[0] &&

@@ -19,7 +19,9 @@ const WishListPage = () => {
     const dispatch = useDispatch();
     React.useEffect(() => {
         dispatch(getCatalogItems());
-        dispatch(getUserWishes(user.id))
+        if (user.id) {
+            dispatch(getUserWishes(user.id))
+        }
     }, [dispatch, user.id]);
 
     return (
