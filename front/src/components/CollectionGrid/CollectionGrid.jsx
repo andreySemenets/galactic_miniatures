@@ -18,15 +18,15 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function CollectionGrid() {
 	const catalogItems = useSelector((store) => store.catalogItems);
-    const navigate = useNavigate()
+	const navigate = useNavigate()
 
-    const result = catalogItems.filter((el, i, a) => a.findIndex((el2) => (el2['Collection.collectionName'] === el['Collection.collectionName'])) === i);
-    console.log(result);
+	const result = catalogItems.filter((el, i, a) => a.findIndex((el2) => (el2['Collection.collectionName'] === el['Collection.collectionName'])) === i);
+	console.log(result);
 
-    const clickHandler = (e) => {
-        console.log(e.target.parentNode.id)
-        navigate(`/collection/${e.target.parentNode.id}`)
-    }
+	const clickHandler = (e) => {
+		console.log(e.target.parentNode.id)
+		navigate(`/collection/${e.target.parentNode.id}`)
+	}
 
 	return (
 		<Box sx={{ flexGrow: 1 }}>
@@ -49,11 +49,11 @@ export default function CollectionGrid() {
 				<Grid item xs={7}>
 					<Item
 						className={`${styles.collectionCard} ${styles.collection2}`}
-                        id={result[1]?.['Collection.id']}
+						id={result[1]?.['Collection.id']}
 					>
 						{result[1]?.['Collection.collectionName']}
 						<Button
-                            onClick={clickHandler}
+							onClick={clickHandler}
 							size="small"
 							className={styles.collectionButton}
 						>
@@ -64,11 +64,11 @@ export default function CollectionGrid() {
 				<Grid item xs={7}>
 					<Item
 						className={`${styles.collectionCard} ${styles.collection3}`}
-                        id={result[0]?.['Collection.id']}
+						id={result[0]?.['Collection.id']}
 					>
 						{result[0]?.['Collection.collectionName']}
 						<Button
-                            onClick={clickHandler}
+							onClick={clickHandler}
 							size="small"
 							className={styles.collectionButton}
 						>
