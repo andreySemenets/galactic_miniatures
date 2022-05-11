@@ -13,11 +13,6 @@ const {
 } = require('../db/models');
 
 module.exports.addItem = async (req, res, next) => {
-	console.log(
-		'<<<<<<<addItem REQ.BODY REQ.FILES>>>>>>>',
-		req.body,
-		req.files,
-	);
 
 	try {
 		const { zip, photos } = req.files;
@@ -103,7 +98,7 @@ module.exports.addItem = async (req, res, next) => {
 			}
 		}
 
-		// Можно оставить!
+		// Можно оставить (костыль)!
 		setTimeout(() => {
 			tagIdArr.forEach(async (el) => {
 				await ItemsAndTag.create({ itemId: newItem.id, tagId: el });
@@ -135,46 +130,6 @@ module.exports.addItem = async (req, res, next) => {
 			scale,
 			price,
 		});
-
-		// =========TODO: COMPLETE THIS JOIN LATER======== //
-		// const result = await Item.findOne({
-		// 	raw: true,
-		// 	where: {
-		// 		id: newItem.dataValues.id,
-		// 	},
-		// 	include: [
-		// 		{
-		// 			model: Category,
-		// 			where: { categoryTitle: category },
-		// 			required: true,
-		// 		},
-		// 		{
-		// 			model: SubCategory,
-		// 			where: { subCategoryTitle: subCategory },
-		// 			required: true,
-		// 		},
-		// 		{
-		// 			model: Photo,
-		// 			attributes: ['photoUrl'],
-		// 			required: true,
-		// 		},
-		// 		{
-		// 			model: File,
-		// 			attributes: ['fileUrl'],
-		// 			required: true,
-		// 		},
-		// 		{
-		// 			model: PhysicalCopy,
-		// 			attributes: ['color', 'scale', 'price'],
-		// 			required: true,
-		// 		},
-		// 		{
-		// 			model: Tag,
-		// 			through: { attributes: ['itemId', 'tagId'] },
-		// 			// required: true,
-		// 		},
-		// 	],
-		// });
 
 		return res.json(newItem);
 	} catch (error) {
