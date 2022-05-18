@@ -42,3 +42,15 @@ The project was done under the tight deadline, as the customer had to show an MV
 <p align="center" >
     <img src="./readmeAssets/listing.png" width=89% height=89% />
 </p>
+
+##### Shopping cart page
+
+<p align="center" >
+    <img src="./readmeAssets/cart.png" width=89% height=89% />
+</p>
+
+##### Maker profile page
+
+<p align="center" >
+    <img src="./readmeAssets/profile.png" width=89% height=89% />
+</p>
